@@ -56,7 +56,6 @@ public extension Bolt {
             thread: thread,
             length: length,
             shankLength: shankLength,
-            leadinChamferSize: thread.depth,
             headShape: head,
             socket: socket
         )

@@ -6,21 +6,33 @@ public struct Bolt: Shape3D {
     let length: Double
     let shankLength: Double
     let shankDiameter: Double
-    let leadinChamferSize: Double
-    let headShape: (any BoltHeadShape)?
+    let headShape: any BoltHeadShape
     let socket: (any BoltHeadSocket)?
+    let point: (any BoltPoint)?
 
-    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, leadinChamferSize: Double, headShape: (any BoltHeadShape)?, socket: (any BoltHeadSocket)? = nil) {
+    init(thread: ScrewThread, length: Double, shankLength: Double, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)?, point: (any BoltPoint)?) {
         self.thread = thread
         self.length = length
         self.shankLength = shankLength
         self.shankDiameter = shankDiameter ?? thread.majorDiameter
-        self.leadinChamferSize = leadinChamferSize
         self.headShape = headShape
         self.socket = socket
+        self.point = point
     }
 
-    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, headShape: (any BoltHeadShape)?, socket: (any BoltHeadSocket)? = nil) {
+    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, leadinChamferSize: Double, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil) {
+        self.init(
+            thread: thread,
+            length: length,
+            shankLength: shankLength,
+            shankDiameter: shankDiameter,
+            headShape: headShape,
+            socket: socket,
+            point: ChamferedBoltPoint(thread: thread, chamfer: .chamfer(size: leadinChamferSize))
+        )
+    }
+
+    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil) {
         self.init(
             thread: thread,
             length: length,
@@ -33,11 +45,10 @@ public struct Bolt: Shape3D {
     }
 
     public var body: any Geometry3D {
-        let head = headShape as? any Geometry3D ?? Box(.zero)
-        let baseLevel = (headShape?.height ?? 0) - (headShape?.boltLength ?? 0)
+        let baseLevel = headShape.height - headShape.boltLength
 
         EnvironmentReader { environment in
-            head
+            headShape
                 .adding {
                     // Shank
                     Cylinder(diameter: shankDiameter - environment.tolerance, height: shankLength)
@@ -45,31 +56,29 @@ public struct Bolt: Shape3D {
 
                     // Threads
                     Screw(thread: thread, length: length - shankLength, convexity: 4)
-                        .intersection {
-                            if leadinChamferSize > .ulpOfOne {
-                                Circle(diameter: thread.majorDiameter)
-                                    .extruded(
-                                        height: length - shankLength,
-                                        topEdge: .chamfer(size: leadinChamferSize),
-                                        bottomEdge: .chamfer(size: leadinChamferSize),
-                                        method: .convexHull
-                                    )
-                            }
-                        }
                         .translated(z: baseLevel + shankLength)
+
+                    // Point
+                    if let point {
+                        point
+                            .translated(z: baseLevel + length)
+                    }
                 }
                 .subtracting {
+                    headShape.negativeBody
                     if let socket {
                         socket.translated(z: -0.01)
+                    }
+                    if let point {
+                        point.negativeBody
+                            .translated(z: baseLevel + length)
                     }
                 }
         }
     }
 
-
     private func clearanceHoleDepth(recessedHead: Bool = false) -> Double {
-        guard let headShape else { return length }
-        return recessedHead ? (length + headShape.clearanceLength) : (length - headShape.boltLength)
+        recessedHead ? (length + headShape.clearanceLength) : (length - headShape.boltLength)
     }
 
     public func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile = .sharp) -> ClearanceHole {
@@ -81,11 +90,10 @@ public struct Bolt: Shape3D {
     }
 
     public func clearanceHole(depth: Double? = nil, recessedHead: Bool) -> ClearanceHole {
-        let recess: (any BoltHeadRecess)? = if recessedHead, let headShape { headShape.recess } else { nil }
         return ClearanceHole(
             diameter: thread.majorDiameter,
             depth: depth ?? clearanceHoleDepth(recessedHead: true),
-            boltHeadRecess: recess
+            boltHeadRecess: headShape.recess
         )
     }
 }

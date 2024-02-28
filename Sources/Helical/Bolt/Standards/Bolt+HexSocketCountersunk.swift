@@ -38,7 +38,6 @@ public extension Bolt {
             thread: thread,
             length: length,
             shankLength: shankLength,
-            leadinChamferSize: thread.depth,
             headShape: .standardCountersunk(topDiameter: headDiameter, boltDiameter: thread.majorDiameter),
             socket: .standardHex(width: socketWidth, depth: socketDepth)
         )

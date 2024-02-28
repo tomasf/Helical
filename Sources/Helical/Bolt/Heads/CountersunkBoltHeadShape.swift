@@ -41,7 +41,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
         }
     }
 
-    public var recess: any BoltHeadRecess {
+    public var recess: (any BoltHeadRecess)? {
         Countersink.Shape(countersink)
     }
 }

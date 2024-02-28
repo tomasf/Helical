@@ -21,7 +21,7 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
         }
     }
 
-    public var recess: any BoltHeadRecess {
+    public var recess: (any BoltHeadRecess)? {
         Counterbore.Shape(.init(diameter: diameter, depth: height))
     }
 }

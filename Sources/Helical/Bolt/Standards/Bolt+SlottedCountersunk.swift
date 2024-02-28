@@ -48,7 +48,6 @@ public extension Bolt {
             length: length,
             shankLength: effectiveShankLength,
             shankDiameter: thread.pitchDiameter,
-            leadinChamferSize: thread.depth,
             headShape: head,
             socket: socket
         )

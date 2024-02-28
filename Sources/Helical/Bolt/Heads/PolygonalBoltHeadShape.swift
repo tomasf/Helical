@@ -35,7 +35,7 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
         }
     }
 
-    public var recess: any BoltHeadRecess {
+    public var recess: (any BoltHeadRecess)? {
         PolygonalHeadRecess(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height)
     }
 }

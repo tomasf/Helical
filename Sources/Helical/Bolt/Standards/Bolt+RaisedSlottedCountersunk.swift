@@ -50,7 +50,6 @@ public extension Bolt {
             length: length,
             shankLength: effectiveShankLength,
             shankDiameter: thread.majorDiameter - thread.depth,
-            leadinChamferSize: thread.depth,
             headShape: head,
             socket: SlottedBoltHeadSocket(
                 length: headDiameter,
