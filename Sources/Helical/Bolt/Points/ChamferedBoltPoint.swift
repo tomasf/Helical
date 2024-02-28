@@ -1,11 +1,16 @@
 import Foundation
 import SwiftSCAD
 
-struct ChamferedBoltPoint: BoltPoint {
+public struct ChamferedBoltPoint: BoltPoint {
     let thread: ScrewThread
     let chamfer: EdgeProfile
 
-    var negativeBody: any Geometry3D {
+    public init(thread: ScrewThread, chamfer: EdgeProfile) {
+        self.thread = thread
+        self.chamfer = chamfer
+    }
+
+    public var negativeBody: any Geometry3D {
         EnvironmentReader { environment in
             chamfer.shape()
                 .flipped(along: .x)
