@@ -5,7 +5,7 @@ import SwiftSCAD
 // Metric hex head bolt
 // https://www.fasteners.eu/standards/DIN/931/
 
-extension Bolt {
+public extension Bolt {
     /// Standard DIN 931 configuration
     static func hexHead(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
         let headHeight: Double // k

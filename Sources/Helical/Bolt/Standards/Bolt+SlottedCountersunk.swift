@@ -5,7 +5,7 @@ import SwiftSCAD
 // Metric slotted countersunk head screws
 // https://www.fasteners.eu/standards/DIN/963/
 
-extension Bolt {
+public extension Bolt {
     /// Standard DIN 963 configuration
     static func slottedCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
         let headDiameter = switch size {

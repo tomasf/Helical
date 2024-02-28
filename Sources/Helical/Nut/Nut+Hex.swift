@@ -5,7 +5,7 @@ import SwiftSCAD
 // Metric hex nuts
 // https://www.fasteners.eu/standards/DIN/934/
 
-extension StandardNut {
+public extension StandardNut {
     static func hex(_ size: ScrewThread.ISOMetricSize) -> PolygonalNut {
         let headWidth: Double // s, width across flats
         let headHeight: Double // m

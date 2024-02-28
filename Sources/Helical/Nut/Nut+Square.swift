@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-extension StandardNut {
+public extension StandardNut {
     /// Standard metric square nut, DIN 557
     static func squareNut(_ size: ScrewThread.ISOMetricSize) -> PolygonalNut {
         let width: Double // s, width across flats

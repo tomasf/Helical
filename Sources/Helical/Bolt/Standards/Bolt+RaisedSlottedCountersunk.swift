@@ -5,7 +5,7 @@ import SwiftSCAD
 // Metric *raised* slotted countersunk head screws
 // https://www.fasteners.eu/standards/DIN/964/
 
-extension Bolt {
+public extension Bolt {
     /// Standard DIN 964 configuration
     static func raisedSlottedCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
         let lensHeight = switch size {

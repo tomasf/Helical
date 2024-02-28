@@ -1,27 +1,27 @@
 import Foundation
 import SwiftSCAD
 
-struct ClearanceHole: Shape3D {
+public struct ClearanceHole: Shape3D {
     let diameter: Double
     let depth: Double
     let edgeProfile: EdgeProfile
     let boltHeadRecess: (any BoltHeadRecess)?
 
-    init(diameter: Double, depth: Double, boltHeadRecess: (any BoltHeadRecess)?) {
+    public init(diameter: Double, depth: Double, boltHeadRecess: (any BoltHeadRecess)?) {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = .sharp
         self.boltHeadRecess = boltHeadRecess
     }
 
-    init(diameter: Double, depth: Double, edgeProfile: EdgeProfile) {
+    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile) {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = edgeProfile
         self.boltHeadRecess = nil
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             let effectiveDiameter = diameter + environment.tolerance
             Cylinder(diameter: effectiveDiameter, height: depth + 0.02)

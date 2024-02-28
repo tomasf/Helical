@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-extension ScrewThread {
+public extension ScrewThread {
     // Standard V-thread profile used for ISO/UTS, etc.
     static func vShapedStandard(majorDiameter: Double, pitch: Double) -> ScrewThread {
         Self(

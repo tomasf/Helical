@@ -5,7 +5,7 @@ import SwiftSCAD
 // Metric hex socket countersunk head screw
 // https://www.fasteners.eu/standards/ISO/10642/
 
-extension Bolt {
+public extension Bolt {
     /// Standard ISO 10642 configuration
     static func hexSocketCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk

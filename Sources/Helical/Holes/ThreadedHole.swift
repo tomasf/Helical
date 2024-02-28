@@ -1,14 +1,14 @@
 import Foundation
 import SwiftSCAD
 
-struct ThreadedHole: Shape3D {
+public struct ThreadedHole: Shape3D {
     let thread: ScrewThread
     let depth: Double
     let unthreadedDepth: Double
     let leadinChamferSize: Double
     let entryEnds: Set<ZSide>
 
-    init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, leadinChamferSize: Double, entryEnds: Set<ZSide> = [.minZ]) {
+    public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, leadinChamferSize: Double, entryEnds: Set<ZSide> = [.minZ]) {
         self.thread = thread
         self.depth = depth
         self.unthreadedDepth = unthreadedDepth
@@ -16,7 +16,7 @@ struct ThreadedHole: Shape3D {
         self.entryEnds = entryEnds
     }
 
-    init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, entryEnds: Set<ZSide> = [.minZ]) {
+    public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, entryEnds: Set<ZSide> = [.minZ]) {
         let standardChamferSize = thread.depth * 2
         self.init(
             thread: thread,
@@ -27,7 +27,7 @@ struct ThreadedHole: Shape3D {
         )
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             Screw(thread: thread, length: depth + 0.02)
 

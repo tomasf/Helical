@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-struct ScrewThread {
+public struct ScrewThread {
     let handedness: Handedness
     let starts: Int
     let pitch: Double
@@ -14,7 +14,7 @@ struct ScrewThread {
     var leftHanded: Bool { handedness == .left }
     var pitchDiameter: Double { form.pitchDiameter(for: self) }
 
-    init(handedness: Handedness = .right, starts: Int = 1, pitch: Double, majorDiameter: Double, minorDiameter: Double, form: any ThreadForm) {
+    public init(handedness: Handedness = .right, starts: Int = 1, pitch: Double, majorDiameter: Double, minorDiameter: Double, form: any ThreadForm) {
         self.handedness = handedness
         self.starts = starts
         self.pitch = pitch
@@ -23,13 +23,13 @@ struct ScrewThread {
         self.form = form
     }
 
-    enum Handedness {
+    public enum Handedness {
         case right
         case left
     }
 }
 
-protocol ThreadForm {
+public protocol ThreadForm {
     func shape(for thread: ScrewThread, in environment: Environment) -> Polygon
     func pitchDiameter(for thread: ScrewThread) -> Double
 }

@@ -1,30 +1,30 @@
 import Foundation
 import SwiftSCAD
 
-struct CountersunkBoltHeadShape: BoltHeadShape {
+public struct CountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
     let boltDiameter: Double
     let bottomFilletRadius: Double
 
-    init(countersink: Countersink, boltDiameter: Double, bottomFilletRadius: Double = 0) {
+    public init(countersink: Countersink, boltDiameter: Double, bottomFilletRadius: Double = 0) {
         self.countersink = countersink
         self.boltDiameter = boltDiameter
         self.bottomFilletRadius = bottomFilletRadius
     }
 
-    var height: Double {
+    public var height: Double {
         (countersink.topDiameter - boltDiameter) / 2 * tan(countersink.angle / 2)
     }
 
-    var boltLength: Double {
+    public var boltLength: Double {
         height
     }
 
-    var clearanceLength: Double {
+    public var clearanceLength: Double {
         0
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             let effectiveTopDiameter = countersink.topDiameter - environment.tolerance
             let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
@@ -41,12 +41,12 @@ struct CountersunkBoltHeadShape: BoltHeadShape {
         }
     }
 
-    var recess: any BoltHeadRecess {
+    public var recess: any BoltHeadRecess {
         Countersink.Shape(countersink)
     }
 }
 
-extension BoltHeadShape where Self == CountersunkBoltHeadShape {
+public extension BoltHeadShape where Self == CountersunkBoltHeadShape {
     static func countersunk(angle: Angle = 90°, topDiameter: Double, boltDiameter: Double, bottomFilletRadius: Double = 0) -> CountersunkBoltHeadShape {
         countersunk(countersink: .init(angle: angle, topDiameter: topDiameter), boltDiameter: boltDiameter, bottomFilletRadius: bottomFilletRadius)
     }

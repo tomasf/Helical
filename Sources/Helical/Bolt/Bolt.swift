@@ -1,8 +1,8 @@
 import Foundation
 import SwiftSCAD
 
-struct Bolt: Shape3D {
-    let thread: ScrewThread
+public struct Bolt: Shape3D {
+    public let thread: ScrewThread
     let length: Double
     let shankLength: Double
     let shankDiameter: Double
@@ -10,27 +10,29 @@ struct Bolt: Shape3D {
     let headShape: any BoltHeadShape
     let socket: (any BoltHeadSocket)?
 
-    init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, leadinChamferSize: Double, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil) {
+    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, leadinChamferSize: Double, headShape: (any BoltHeadShape)?, socket: (any BoltHeadSocket)? = nil) {
         self.thread = thread
         self.length = length
         self.shankLength = shankLength
         self.shankDiameter = shankDiameter ?? thread.majorDiameter
         self.leadinChamferSize = leadinChamferSize
-        self.headShape = headShape
+        self.headShape = headShape ?? NoBoltHeadShape()
         self.socket = socket
     }
 
-    init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil) {
-        self.thread = thread
-        self.length = length
-        self.shankLength = shankLength
-        self.shankDiameter = shankDiameter ?? thread.majorDiameter
-        self.leadinChamferSize = thread.depth
-        self.headShape = headShape
-        self.socket = socket
+    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, headShape: (any BoltHeadShape)?, socket: (any BoltHeadSocket)? = nil) {
+        self.init(
+            thread: thread,
+            length: length,
+            shankLength: shankLength,
+            shankDiameter: shankDiameter ?? thread.majorDiameter,
+            leadinChamferSize: thread.depth,
+            headShape: headShape,
+            socket: socket
+        )
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             headShape
                 .adding {
@@ -43,7 +45,12 @@ struct Bolt: Shape3D {
                         .intersection {
                             if leadinChamferSize > .ulpOfOne {
                                 Circle(diameter: thread.majorDiameter)
-                                    .extruded(height: length - shankLength, topEdge: .chamfer(size: leadinChamferSize), method: .convexHull)
+                                    .extruded(
+                                        height: length - shankLength,
+                                        topEdge: .chamfer(size: leadinChamferSize),
+                                        bottomEdge: .chamfer(size: leadinChamferSize),
+                                        method: .convexHull
+                                    )
                             }
                         }
                         .translated(z: headShape.height - headShape.boltLength + shankLength)
@@ -60,7 +67,7 @@ struct Bolt: Shape3D {
         recessedHead ? (length + headShape.clearanceLength) : (length - headShape.boltLength)
     }
 
-    func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile = .sharp) -> ClearanceHole {
+    public func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile = .sharp) -> ClearanceHole {
         ClearanceHole(
             diameter: thread.majorDiameter,
             depth: depth ?? clearanceHoleDepth(),
@@ -68,7 +75,7 @@ struct Bolt: Shape3D {
         )
     }
 
-    func clearanceHole(depth: Double? = nil, recessedHead: Bool) -> ClearanceHole {
+    public func clearanceHole(depth: Double? = nil, recessedHead: Bool) -> ClearanceHole {
         ClearanceHole(
             diameter: thread.majorDiameter,
             depth: depth ?? clearanceHoleDepth(recessedHead: true),
@@ -78,3 +85,12 @@ struct Bolt: Shape3D {
 }
 
 
+private struct NoBoltHeadShape: BoltHeadShape {    
+    let height = 0.0
+    let recess: any BoltHeadRecess = Recess()
+    let body: any Geometry3D = Box(.zero)
+
+    struct Recess: BoltHeadRecess {
+        var body: any Geometry3D { Box(.zero) }
+    }
+}

@@ -1,18 +1,18 @@
 import Foundation
 import SwiftSCAD
 
-struct Screw: Shape3D {
+public struct Screw: Shape3D {
     let thread: ScrewThread
     let length: Double
     let convexity: Int
 
-    init(thread: ScrewThread, length: Double, convexity: Int = 5) {
+    public init(thread: ScrewThread, length: Double, convexity: Int = 5) {
         self.thread = thread
         self.length = length
         self.convexity = convexity
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             let minorRadius = (thread.minorDiameter + environment.relativeTolerance) / 2
 

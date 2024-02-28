@@ -1,19 +1,25 @@
 import Foundation
 import SwiftSCAD
 
-struct SlottedBoltHeadSocket: BoltHeadSocket {
+public struct SlottedBoltHeadSocket: BoltHeadSocket {
     let length: Double
     let width: Double
-    let depth: Double
+    public let depth: Double
 
-    var body: any Geometry3D {
+    public init(length: Double, width: Double, depth: Double) {
+        self.length = length
+        self.width = width
+        self.depth = depth
+    }
+
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             Box([length + 1, width + environment.tolerance, depth], center: .xy)
         }
     }
 }
 
-extension BoltHeadSocket where Self == SlottedBoltHeadSocket {
+public extension BoltHeadSocket where Self == SlottedBoltHeadSocket {
     static func slotted(length: Double, width: Double, depth: Double) -> Self {
         SlottedBoltHeadSocket(length: length, width: width, depth: depth)
     }

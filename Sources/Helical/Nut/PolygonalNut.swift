@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-struct PolygonalNut: Nut {
+public struct PolygonalNut: Nut {
     let thread: ScrewThread
     let sideCount: Int
     let thickness: Double
@@ -10,7 +10,7 @@ struct PolygonalNut: Nut {
     let bottomCorners: EdgeProfile
     let innerChamferAngle: Angle
 
-    init(
+    public init(
         thread: ScrewThread,
         sideCount: Int,
         thickness: Double,
@@ -28,7 +28,7 @@ struct PolygonalNut: Nut {
         self.innerChamferAngle = innerChamferAngle
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             let polygon = RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + environment.relativeTolerance) / 2)
             polygon
@@ -54,7 +54,7 @@ struct PolygonalNut: Nut {
         }
     }
 
-    func makeNutTrap(depthClearance: Double) -> any Geometry3D {
+    public func makeNutTrap(depthClearance: Double) -> any Geometry3D {
         EnvironmentReader { environment in
             RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + environment.tolerance) / 2)
                 .rotated(180° / Double(sideCount))

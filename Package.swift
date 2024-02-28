@@ -13,7 +13,11 @@ let package = Package(
         .package(url: "https://github.com/tomasf/SwiftSCAD.git", branch: "main"),
     ],
     targets: [
-        .target(name: "Helical", dependencies: ["SwiftSCAD"]),
+        .target(
+            name: "Helical",
+            dependencies: ["SwiftSCAD"],
+            swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+        ),
         .testTarget(name: "HelicalTests", dependencies: ["Helical"]),
     ]
 )

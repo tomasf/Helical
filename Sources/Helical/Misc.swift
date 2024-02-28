@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-enum ZSide {
+public enum ZSide {
     case minZ
     case maxZ
 }

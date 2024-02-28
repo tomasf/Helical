@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-struct RaisedCountersunkBoltHeadShape: BoltHeadShape {
+public struct RaisedCountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
     let boltDiameter: Double
     let radius: Double
@@ -9,7 +9,7 @@ struct RaisedCountersunkBoltHeadShape: BoltHeadShape {
 
     let includedInLength = true
 
-    init(countersink: Countersink, boltDiameter: Double, radius: Double = 0, lensHeight: Double) {
+    public init(countersink: Countersink, boltDiameter: Double, radius: Double = 0, lensHeight: Double) {
         self.countersink = countersink
         self.boltDiameter = boltDiameter
         self.radius = radius
@@ -20,19 +20,19 @@ struct RaisedCountersunkBoltHeadShape: BoltHeadShape {
         .init(countersink: countersink, boltDiameter: boltDiameter, bottomFilletRadius: radius)
     }
 
-    var height: Double {
+    public var height: Double {
         countersunkHead.height + lensHeight
     }
 
-    var boltLength: Double {
+    public var boltLength: Double {
         countersunkHead.boltLength
     }
 
-    var clearanceLength: Double {
+    public var clearanceLength: Double {
         0
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             let effectiveDiameter = countersink.topDiameter - environment.tolerance
             countersunkHead
@@ -47,7 +47,7 @@ struct RaisedCountersunkBoltHeadShape: BoltHeadShape {
         }
     }
 
-    var recess: any BoltHeadRecess {
+    public var recess: any BoltHeadRecess {
         Countersink.Shape(countersink)
     }
 }

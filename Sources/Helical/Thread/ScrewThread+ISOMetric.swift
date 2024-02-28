@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSCAD
 
-extension ScrewThread {
+public extension ScrewThread {
     static var m1   = isoMetric(.m1)
     static var m1p2 = isoMetric(.m1p2)
     static var m1p4 = isoMetric(.m1p4)
@@ -38,7 +38,7 @@ extension ScrewThread {
     static var m64  = isoMetric(.m64)
 }
 
-extension ScrewThread {
+public extension ScrewThread {
     static func isoMetric(_ size: ISOMetricSize, pitch: Double? = nil) -> ScrewThread {
         let coarsePitch: Double
         switch size {

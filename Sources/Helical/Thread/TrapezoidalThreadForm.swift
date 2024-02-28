@@ -2,16 +2,16 @@ import Foundation
 import SwiftSCAD
 
 /// Trapezoidal threadforms, of which V-shaped threads and square threads are subsets
-struct TrapezoidalThreadForm: ThreadForm {
+public struct TrapezoidalThreadForm: ThreadForm {
     let angle: Angle
     let crestWidth: Double
 
-    init(angle: Angle = 60°, crestWidth: Double) {
+    public init(angle: Angle = 60°, crestWidth: Double) {
         self.angle = angle
         self.crestWidth = crestWidth
     }
 
-    func shape(for thread: ScrewThread, in environment: Environment) -> Polygon {
+    public func shape(for thread: ScrewThread, in environment: Environment) -> Polygon {
         let slopeLength = thread.depth / tan(90° - angle / 2)
 
         return Polygon([
@@ -22,12 +22,12 @@ struct TrapezoidalThreadForm: ThreadForm {
         ])
     }
 
-    func pitchDiameter(for thread: ScrewThread) -> Double {
+    public func pitchDiameter(for thread: ScrewThread) -> Double {
         thread.majorDiameter + (crestWidth - thread.pitch / 2) / tan(angle / 2)
     }
 }
 
-extension ThreadForm where Self == TrapezoidalThreadForm {
+public extension ThreadForm where Self == TrapezoidalThreadForm {
     static func trapezoidal(angle: Angle = 60°, crestWidth: Double) -> Self {
         TrapezoidalThreadForm(angle: angle, crestWidth: crestWidth)
     }

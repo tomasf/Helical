@@ -5,7 +5,7 @@ import SwiftSCAD
 // Metric hex socket head cap bolts
 // https://www.fasteners.eu/standards/DIN/912/
 
-extension Bolt {
+public extension Bolt {
     /// Standard DIN 912 configuration
     static func hexSocketHeadCap(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk

@@ -1,14 +1,14 @@
 import Foundation
 import SwiftSCAD
 
-struct PolygonalBoltHeadShape: BoltHeadShape {
+public struct PolygonalBoltHeadShape: BoltHeadShape {
     let sideCount: Int
     let widthAcrossFlats: Double
-    let height: Double
+    public let height: Double
     let flatDiameter: Double
     let chamferAngle: Angle
 
-    init(sideCount: Int, widthAcrossFlats: Double, height: Double, flatDiameter: Double, chamferAngle: Angle = 0°) {
+    public init(sideCount: Int, widthAcrossFlats: Double, height: Double, flatDiameter: Double, chamferAngle: Angle = 0°) {
         self.sideCount = sideCount
         self.widthAcrossFlats = widthAcrossFlats
         self.height = height
@@ -16,11 +16,11 @@ struct PolygonalBoltHeadShape: BoltHeadShape {
         self.chamferAngle = chamferAngle
     }
 
-    init(sideCount: Int, widthAcrossFlats: Double, height: Double, chamferAngle: Angle) {
+    public init(sideCount: Int, widthAcrossFlats: Double, height: Double, chamferAngle: Angle) {
         self.init(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height, flatDiameter: widthAcrossFlats, chamferAngle: chamferAngle)
     }
 
-    var body: any Geometry3D {
+    public var body: any Geometry3D {
         EnvironmentReader { environment in
             let toleranceScale = (widthAcrossFlats - environment.tolerance) / widthAcrossFlats
             let apothem = (widthAcrossFlats - environment.tolerance) / 2
@@ -35,7 +35,7 @@ struct PolygonalBoltHeadShape: BoltHeadShape {
         }
     }
 
-    var recess: any BoltHeadRecess {
+    public var recess: any BoltHeadRecess {
         PolygonalHeadRecess(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height)
     }
 }
