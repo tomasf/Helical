@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Helical",
+    platforms: [.macOS(.v14)],
     products: [
         .library(name: "Helical", targets: ["Helical"]),
     ],
