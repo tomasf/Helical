@@ -30,6 +30,6 @@ public struct ScrewThread {
 }
 
 public protocol ThreadForm {
-    func shape(for thread: ScrewThread, in environment: Environment) -> Polygon
+    func shape(for thread: ScrewThread) -> Polygon
     func pitchDiameter(for thread: ScrewThread) -> Double
 }

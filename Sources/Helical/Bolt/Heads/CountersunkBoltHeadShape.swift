@@ -5,19 +5,21 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
     let boltDiameter: Double
     let bottomFilletRadius: Double
+    let lensHeight: Double
 
-    public init(countersink: Countersink, boltDiameter: Double, bottomFilletRadius: Double = 0) {
+    public init(countersink: Countersink, boltDiameter: Double, bottomFilletRadius: Double = 0, lensHeight: Double = 0) {
         self.countersink = countersink
         self.boltDiameter = boltDiameter
         self.bottomFilletRadius = bottomFilletRadius
+        self.lensHeight = lensHeight
     }
 
     public var height: Double {
-        (countersink.topDiameter - boltDiameter) / 2 * tan(countersink.angle / 2)
+        (countersink.topDiameter - boltDiameter) / 2 * tan(countersink.angle / 2) + lensHeight
     }
 
     public var boltLength: Double {
-        height
+        height - lensHeight
     }
 
     public var clearanceLength: Double {
@@ -29,15 +31,30 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
             let effectiveTopDiameter = countersink.topDiameter - environment.tolerance
             let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
             Cylinder(bottomDiameter: effectiveTopDiameter, topDiameter: 0.001, height: coneHeight)
+                .adding {
+                    if bottomFilletRadius > 0 {
+                        EdgeProfile.fillet(radius: bottomFilletRadius)
+                            .shape(angle: 180° - countersink.angle / 2)
+                            .usingFacets(minAngle: 10°, minSize: bottomFilletRadius / 10)
+                            .rotated(-90°)
+                            .flipped(along: .y)
+                            .translated(x: (boltDiameter - environment.tolerance) / 2)
+                            .extruded()
+                            .translated(z: height)
+                    }
+                }
+                .translated(z: lensHeight)
+                .adding {
+                    if lensHeight > 0 {
+                        let diameter = lensHeight + pow(effectiveTopDiameter, 2) / (4 * lensHeight)
+                        Sphere(diameter: diameter)
+                            .translated(z: diameter / 2)
+                            .intersection {
+                                Box([effectiveTopDiameter, effectiveTopDiameter, lensHeight], center: .xy)
+                            }
+                    }
+                }
 
-            EdgeProfile.fillet(radius: bottomFilletRadius)
-                .shape(angle: 180° - countersink.angle / 2)
-                .usingFacets(minAngle: 10°, minSize: bottomFilletRadius / 10)
-                .rotated(-90°)
-                .flipped(along: .y)
-                .translated(x: (boltDiameter - environment.tolerance) / 2)
-                .extruded()
-                .translated(z: height)
         }
     }
 

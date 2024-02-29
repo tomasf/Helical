@@ -5,9 +5,13 @@ import SwiftSCAD
 // Metric slotted countersunk head screws
 // https://www.fasteners.eu/standards/DIN/963/
 
+// DIN 964 / ISO 2010
+// Metric *raised* slotted countersunk head screws
+// https://www.fasteners.eu/standards/DIN/964/
+
 public extension Bolt {
     /// Standard DIN 963 configuration
-    static func slottedCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
+    static func slottedCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, shankLength: Double = 0) -> Bolt {
         let headDiameter = switch size {
         case .m1:   1.9
         case .m1p2: 2.3
@@ -31,17 +35,28 @@ public extension Bolt {
         }
 
         assert(headDiameter > 0, "\(size) isn't a valid size for DIN 963 bolts")
-        return slottedCountersunk(.isoMetric(size), headDiameter: headDiameter, length: length, shankLength: shankLength)
+        return slottedCountersunk(
+            .isoMetric(size),
+            headDiameter: headDiameter,
+            lensHeight: raised ? size.rawValue / 4.0 : 0,
+            length: length,
+            shankLength: shankLength
+        )
     }
 
     /// Custom configuration
-    static func slottedCountersunk(_ thread: ScrewThread, headDiameter: Double, length: Double, shankLength: Double = 0) -> Bolt {
+    static func slottedCountersunk(_ thread: ScrewThread, headDiameter: Double, lensHeight: Double = 0, length: Double, shankLength: Double = 0) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
             boltDiameter: thread.majorDiameter - thread.depth,
-            bottomFilletRadius: thread.majorDiameter / 10
+            bottomFilletRadius: thread.majorDiameter / 10,
+            lensHeight: lensHeight
         )
-        let socket = SlottedBoltHeadSocket(length: headDiameter, width: headDiameter * 0.14, depth: headDiameter * 0.13)
+        let socket = SlottedBoltHeadSocket(
+            length: headDiameter,
+            width: headDiameter * 0.14,
+            depth: headDiameter * 0.13 + lensHeight
+        )
         let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,

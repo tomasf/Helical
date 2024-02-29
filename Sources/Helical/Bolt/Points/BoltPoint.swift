@@ -2,6 +2,7 @@ import Foundation
 import SwiftSCAD
 
 public protocol BoltPoint: Shape3D {
+    var boltLength: Double { get }
     var negativeBody: any Geometry3D { get }
 }
 

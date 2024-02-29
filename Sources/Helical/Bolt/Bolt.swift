@@ -46,6 +46,7 @@ public struct Bolt: Shape3D {
 
     public var body: any Geometry3D {
         let baseLevel = headShape.height - headShape.boltLength
+        let threadLength = length - shankLength - (point?.boltLength ?? 0)
 
         EnvironmentReader { environment in
             headShape
@@ -55,13 +56,13 @@ public struct Bolt: Shape3D {
                         .translated(z: baseLevel)
 
                     // Threads
-                    Screw(thread: thread, length: length - shankLength, convexity: 4)
+                    Screw(thread: thread, length: threadLength, convexity: 4)
                         .translated(z: baseLevel + shankLength)
 
                     // Point
                     if let point {
                         point
-                            .translated(z: baseLevel + length)
+                            .translated(z: baseLevel + shankLength + threadLength)
                     }
                 }
                 .subtracting {
@@ -71,7 +72,7 @@ public struct Bolt: Shape3D {
                     }
                     if let point {
                         point.negativeBody
-                            .translated(z: baseLevel + length)
+                            .translated(z: baseLevel + shankLength + threadLength)
                     }
                 }
         }

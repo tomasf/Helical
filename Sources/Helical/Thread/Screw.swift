@@ -16,7 +16,7 @@ public struct Screw: Shape3D {
         EnvironmentReader { environment in
             let minorRadius = (thread.minorDiameter + environment.relativeTolerance) / 2
 
-            thread.form.shape(for: thread, in: environment)
+            thread.form.shape(for: thread)
                 .transformed(.translation(x: minorRadius))
                 .extrudedAlongHelix(pitch: thread.lead, height: length + thread.pitch, convexity: convexity)
                 .translated(z: -thread.pitch / 2)
