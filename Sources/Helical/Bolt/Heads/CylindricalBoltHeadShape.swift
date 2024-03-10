@@ -6,18 +6,34 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
     public let height: Double
     let topEdge: EdgeProfile
     let bottomEdge: EdgeProfile
+    let roundedTopRadius: Double?
 
     public init(diameter: Double, height: Double, topEdge: EdgeProfile = .sharp, bottomEdge: EdgeProfile = .sharp) {
         self.diameter = diameter
         self.height = height
         self.topEdge = topEdge
         self.bottomEdge = bottomEdge
+        self.roundedTopRadius = nil
+    }
+
+    public init(diameter: Double, height: Double, roundedTopRadius: Double) {
+        self.diameter = diameter
+        self.height = height
+        self.topEdge = .sharp
+        self.bottomEdge = .sharp
+        self.roundedTopRadius = roundedTopRadius
     }
 
     public var body: any Geometry3D {
         EnvironmentReader { environment in
             Circle(diameter: diameter - environment.tolerance)
                 .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge, method: .convexHull)
+                .intersection {
+                    if let roundedTopRadius {
+                        Sphere(radius: roundedTopRadius)
+                            .translated(z: roundedTopRadius)
+                    }
+                }
         }
     }
 
