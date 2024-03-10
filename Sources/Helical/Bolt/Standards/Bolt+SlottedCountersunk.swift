@@ -10,7 +10,7 @@ import SwiftSCAD
 // https://www.fasteners.eu/standards/DIN/964/
 
 public extension Bolt {
-    /// Standard DIN 963 configuration
+    /// Standard configuration
     static func slottedCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, shankLength: Double = 0) -> Bolt {
         let headDiameter = switch size {
         case .m1:   1.9
