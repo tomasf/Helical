@@ -22,7 +22,7 @@ import Helical
 Helical offers an assortment of conventional threads, bolts, and nuts. Creating a typical M8x30 hex head bolt is simple:
 
 ```swift
-Bolt.hexHead(.m8, length: 30, shankLength: 16)
+Bolt.hexHead(.m8, length: 30, shankLength: 8)
 ```
 
 This generates a standard [DIN 931](https://www.fasteners.eu/standards/DIN/931/) bolt, exactly as anticipated.
