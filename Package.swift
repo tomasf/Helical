@@ -17,7 +17,6 @@ let package = Package(
             name: "Helical",
             dependencies: ["SwiftSCAD"],
             swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
-        ),
-        .testTarget(name: "HelicalTests", dependencies: ["Helical"]),
+        )
     ]
 )
