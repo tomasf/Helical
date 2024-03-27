@@ -6,9 +6,9 @@ public struct ThreadedHole: Shape3D {
     let depth: Double
     let unthreadedDepth: Double
     let leadinChamferSize: Double
-    let entryEnds: Set<ZSide>
+    let entryEnds: Set<AxisDirection>
 
-    public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, leadinChamferSize: Double, entryEnds: Set<ZSide> = [.minZ]) {
+    public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, leadinChamferSize: Double, entryEnds: Set<AxisDirection> = [.negative]) {
         self.thread = thread
         self.depth = depth
         self.unthreadedDepth = unthreadedDepth
@@ -16,7 +16,7 @@ public struct ThreadedHole: Shape3D {
         self.entryEnds = entryEnds
     }
 
-    public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, entryEnds: Set<ZSide> = [.minZ]) {
+    public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, entryEnds: Set<AxisDirection> = [.negative]) {
         let standardChamferSize = thread.depth * 2
         self.init(
             thread: thread,
@@ -45,11 +45,11 @@ public struct ThreadedHole: Shape3D {
                     }
                 }
 
-            if entryEnds.contains(.minZ) {
+            if entryEnds.contains(.negative) {
                 entry
                     .translated(z: -0.01)
             }
-            if entryEnds.contains(.maxZ) {
+            if entryEnds.contains(.positive) {
                 entry
                     .flipped(along: .z)
                     .translated(z: depth + 0.02)
