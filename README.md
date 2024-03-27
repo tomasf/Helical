@@ -6,11 +6,22 @@ Helical is a library for SwiftSCAD that simplifies the creation of threaded comp
 
 Integrate Helical into your project with the Swift Package Manager by adding it as a dependency in your `Package.swift` file:
 
-```swift
-dependencies: [
-    .package(url: "https://github.com/tomasf/Helical.git", branch: "main")
-]
-```
+<pre>
+let package = Package(
+    name: "My3DGadget",
+    platforms: [.macOS(.v14)], // Needed on macOS
+    dependencies: [
+        .package(url: "https://github.com/tomasf/SwiftSCAD.git", branch: "main"),
+        <b><i>.package(url: "https://github.com/tomasf/Helical.git", branch: "main")</i></b>
+    ],
+    targets: [
+        .executableTarget(name: "My3DGadget", dependencies: [
+            "SwiftSCAD",
+            <b><i>"Helical"</i></b>
+        ])
+    ]
+)
+</pre>
 
 Then, import Helical where it's needed:
 ```swift
@@ -19,7 +30,7 @@ import Helical
 
 ## Usage
 ### Standard Components
-Helical offers an assortment of conventional threads, bolts, and nuts. Creating a typical M8x30 hex head bolt is simple:
+Helical simplifies the process of creating threaded shapes, making it easier to incorporate threaded holes into your models. It also provides a selection of standard bolts, nuts, and corresponding holes. Creating a typical M8x30 hex head bolt is simple:
 
 ```swift
 Bolt.hexHead(.m8, length: 30, shankLength: 8)
