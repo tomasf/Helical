@@ -17,17 +17,18 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     public var body: any Geometry3D {
         EnvironmentReader { environment in
             let polygon = RegularPolygon(sideCount: sides, apothem: (acrossWidth + environment.tolerance) / 2)
+            let bottomDepth = bottomAngle.map { polygon.circumradius / tan($0 / 2) } ?? 0
+
             polygon
-                .extruded(height: depth)
-                .adding {
-                    if let bottomAngle {
-                        let bottomDepth = polygon.circumradius / tan(bottomAngle / 2)
-                        RegularPolygon(sideCount: sides, circumradius: 0.001)
-                            .extruded(height: 0.001)
-                            .translated(z: depth + bottomDepth)
-                    }
+                .extruded(height: depth + bottomDepth)
+                .intersection {
+                    Cylinder(radius: polygon.circumradius, height: 0.01)
+                        .adding {
+                            Cylinder(bottomRadius: polygon.circumradius, topRadius: 0, height: bottomDepth)
+                                .translated(z: depth)
+                        }
+                        .convexHull()
                 }
-                .convexHull()
         }
     }
 }
