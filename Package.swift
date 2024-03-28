@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.macOS(.v14)],
     products: [
         .library(name: "Helical", targets: ["Helical"]),
+        .executable(name: "Helical-Demo", targets: ["Demo"]),
     ],
     dependencies: [
         .package(url: "https://github.com/tomasf/SwiftSCAD.git", branch: "main"),
@@ -16,6 +17,11 @@ let package = Package(
         .target(
             name: "Helical",
             dependencies: ["SwiftSCAD"],
+            swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+        ),
+        .executableTarget(
+            name: "Demo",
+            dependencies: ["SwiftSCAD", "Helical"],
             swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
         )
     ]

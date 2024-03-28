@@ -40,7 +40,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
                             .flipped(along: .y)
                             .translated(x: (boltDiameter - environment.tolerance) / 2)
                             .extruded()
-                            .translated(z: height)
+                            .translated(z: height - lensHeight)
                     }
                 }
                 .translated(z: lensHeight)

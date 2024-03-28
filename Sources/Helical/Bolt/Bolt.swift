@@ -10,7 +10,7 @@ public struct Bolt: Shape3D {
     let socket: (any BoltHeadSocket)?
     let point: (any BoltPoint)?
 
-    init(thread: ScrewThread, length: Double, shankLength: Double, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)?, point: (any BoltPoint)?) {
+    public init(thread: ScrewThread, length: Double, shankLength: Double, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil, point: (any BoltPoint)? = nil) {
         self.thread = thread
         self.length = length
         self.shankLength = shankLength
@@ -29,18 +29,6 @@ public struct Bolt: Shape3D {
             headShape: headShape,
             socket: socket,
             point: ChamferedBoltPoint(thread: thread, chamfer: .chamfer(size: leadinChamferSize))
-        )
-    }
-
-    public init(thread: ScrewThread, length: Double, shankLength: Double = 0, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil) {
-        self.init(
-            thread: thread,
-            length: length,
-            shankLength: shankLength,
-            shankDiameter: shankDiameter ?? thread.majorDiameter,
-            leadinChamferSize: thread.depth,
-            headShape: headShape,
-            socket: socket
         )
     }
 
