@@ -2,6 +2,9 @@
 
 Helical is a library for SwiftSCAD that simplifies the creation of threaded components and related parts. It supports widely-used metric threads, bolts, and nuts, as well as the ability to customize these components to fit specific requirements.
 
+[Bolts demo](Sources/Demo/bolts.stl)<br/>
+[Nuts and washers demo](Sources/Demo/nutsAndWashers.stl)
+
 ## Installation
 
 Integrate Helical into your project with the Swift Package Manager by adding it as a dependency in your `Package.swift` file:
