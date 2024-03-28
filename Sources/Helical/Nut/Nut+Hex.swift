@@ -7,10 +7,10 @@ import SwiftSCAD
 
 public extension StandardNut {
     static func hex(_ size: ScrewThread.ISOMetricSize) -> PolygonalNut {
-        let headWidth: Double // s, width across flats
-        let headHeight: Double // m
+        let width: Double // s, width across flats
+        let height: Double // m
 
-        (headWidth, headHeight) = switch size {
+        (width, height) = switch size {
         case .m2:   (4,   1.6)
         case .m2p5: (5,   2)
         case .m3:   (5.5, 2.4)
@@ -43,13 +43,13 @@ public extension StandardNut {
         default: (-1, -1)
         }
 
-        assert(headWidth > 0, "\(size) isn't a valid size for DIN 934 nuts")
-        return hex(thread: .isoMetric(size), headWidth: headWidth, headHeight: headHeight, flatDiameter: headWidth * 0.95)
+        assert(width > 0, "\(size) isn't a valid size for DIN 934 nuts")
+        return hex(thread: .isoMetric(size), width: width, height: height, flatDiameter: width * 0.95)
     }
 
-    static func hex(thread: ScrewThread, headWidth: Double, headHeight: Double, flatDiameter dw: Double? = nil) -> PolygonalNut {
-        let chamferWidth = RegularPolygon(sideCount: 6, apothem: headWidth / 2).circumradius - (dw ?? headWidth) / 2
+    static func hex(thread: ScrewThread, width: Double, height: Double, flatDiameter dw: Double? = nil) -> PolygonalNut {
+        let chamferWidth = RegularPolygon(sideCount: 6, apothem: width / 2).circumradius - (dw ?? width) / 2
         let chamfer = EdgeProfile.chamfer(width: chamferWidth, angle: 30°)
-        return .init(thread: thread, sideCount: 6, thickness: headHeight, widthAcrossFlats: headWidth, topCorners: chamfer, bottomCorners: chamfer, innerChamferAngle: 120°)
+        return .init(thread: thread, sideCount: 6, thickness: height, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: chamfer, innerChamferAngle: 120°)
     }
 }

@@ -39,17 +39,19 @@ public struct PolygonalNut: Nut {
                         .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners, method: .convexHull)
                 }
                 .subtracting {
-                    Screw(thread: thread, length: thickness + 1)
-                        .translated(z: -0.5)
+                    Screw(thread: thread, length: thickness + 0.002)
+                        .translated(z: -0.001)
 
-                    Cylinder(
-                        bottomDiameter: thread.majorDiameter + environment.tolerance,
-                        topDiameter: thread.minorDiameter + environment.tolerance,
-                        height: thread.depth * tan(90° - innerChamferAngle / 2)
-                    )
-                    .translated(z: -thickness / 2 - 0.01)
-                    .symmetry(over: .z)
-                    .translated(z: thickness / 2)
+                    if innerChamferAngle.radians > .ulpOfOne {
+                        Cylinder(
+                            bottomDiameter: thread.majorDiameter + environment.tolerance,
+                            topDiameter: thread.minorDiameter + environment.tolerance,
+                            height: thread.depth * tan(90° - innerChamferAngle / 2)
+                        )
+                        .translated(z: -thickness / 2 - 0.01)
+                        .symmetry(over: .z)
+                        .translated(z: thickness / 2)
+                    }
                 }
         }
     }
