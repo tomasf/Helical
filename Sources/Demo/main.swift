@@ -32,7 +32,7 @@ let bolts = [
 let nutsAndWashers: [(String, any Geometry3D)] = [
     ("Hex nut, M8", StandardNut.hex(.m8)),
     ("Square nut, M6", StandardNut.squareNut(.m6)),
-    ("Thin square nut, M10", StandardNut.thinSquareNut(.m10)),
+    ("Thin square nut, M10", StandardNut.squareNut(.m10, series: .thin)),
     ("Custom non-standard nut", PolygonalNut(thread: customThread, sideCount: 8, thickness: 10, widthAcrossFlats: 12, innerChamferAngle: 60°)),
     ("Normal washer, M5", Washer.plain(.m5, series: .normal)),
     ("Large washer, M5", Washer.plain(.m5, series: .large))
