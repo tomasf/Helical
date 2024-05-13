@@ -1,14 +1,14 @@
 import Foundation
 import SwiftSCAD
 
-public extension StandardNut {
+public extension Nut {
     enum SquaredNutSeries {
         case regular
         case thin
     }
 
     static func standardDimensionsForSquaredNut(_ size: ScrewThread.ISOMetricSize, series: SquaredNutSeries = .regular) -> (width: Double, thickness: Double) {
-
+        
         let width: Double // s, width across flats
         let regularThickness: Double
         let thinThickness: Double
@@ -36,18 +36,18 @@ public extension StandardNut {
 
     /// Standard metric square nut, DIN 557
     /// Standard thin metric square nut, DIN 562
-    static func squareNut(_ size: ScrewThread.ISOMetricSize, series: SquaredNutSeries = .regular) -> PolygonalNut {
-
+    static func square(_ size: ScrewThread.ISOMetricSize, series: SquaredNutSeries = .regular) -> Nut {
         let (width, thickness) = standardDimensionsForSquaredNut(size, series: series)
         let chamferAngle = (series == .regular) ? 30° : 0°
-        return squareNut(.isoMetric(size), s: width, m: thickness, chamferAngle: chamferAngle)
+        return square(.isoMetric(size), s: width, m: thickness, chamferAngle: chamferAngle)
     }
 
     /// Custom configuration
-    static func squareNut(_ thread: ScrewThread, s width: Double, m thickness: Double, chamferAngle: Angle) -> PolygonalNut {
+    static func square(_ thread: ScrewThread, s width: Double, m thickness: Double, chamferAngle: Angle = 0°) -> Nut {
         let outerRadius = RegularPolygon(sideCount: 4, apothem: width / 2).circumradius
         let chamferWidth = outerRadius - width / 2
         let chamfer = EdgeProfile.chamfer(width: chamferWidth, angle: chamferAngle)
-        return .init(thread: thread, sideCount: 4, thickness: thickness, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: .sharp, innerChamferAngle: 120°)
+        let shape = PolygonalNutBody(sideCount: 4, thickness: thickness, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: .sharp)
+        return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
     }
 }

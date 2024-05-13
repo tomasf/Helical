@@ -30,10 +30,10 @@ let bolts = [
     .map { ($0, $1.rotated(x: 180°)) }
 
 let nutsAndWashers: [(String, any Geometry3D)] = [
-    ("Hex nut, M8", StandardNut.hex(.m8)),
-    ("Square nut, M6", StandardNut.squareNut(.m6)),
-    ("Thin square nut, M10", StandardNut.squareNut(.m10, series: .thin)),
-    ("Custom non-standard nut", PolygonalNut(thread: customThread, sideCount: 8, thickness: 10, widthAcrossFlats: 12, innerChamferAngle: 60°)),
+    ("Hex nut, M8", Nut.hex(.m8)),
+    ("Square nut, M6", Nut.square(.m6)),
+    ("Thin square nut, M10", Nut.square(.m10, series: .thin)),
+    ("Custom non-standard nut", Nut(thread: customThread, shape: PolygonalNutBody(sideCount: 8, thickness: 10, widthAcrossFlats: 12), innerChamferAngle: 60°)),
     ("Normal washer, M5", Washer.plain(.m5, series: .normal)),
     ("Large washer, M5", Washer.plain(.m5, series: .large))
 ]

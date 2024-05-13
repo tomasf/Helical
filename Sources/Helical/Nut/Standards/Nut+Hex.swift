@@ -5,8 +5,8 @@ import SwiftSCAD
 // Metric hex nuts
 // https://www.fasteners.eu/standards/DIN/934/
 
-public extension StandardNut {
-    static func hex(_ size: ScrewThread.ISOMetricSize) -> PolygonalNut {
+public extension Nut {
+    static func hex(_ size: ScrewThread.ISOMetricSize) -> Nut {
         let width: Double // s, width across flats
         let height: Double // m
 
@@ -47,9 +47,10 @@ public extension StandardNut {
         return hex(thread: .isoMetric(size), width: width, height: height, flatDiameter: width * 0.95)
     }
 
-    static func hex(thread: ScrewThread, width: Double, height: Double, flatDiameter dw: Double? = nil) -> PolygonalNut {
+    static func hex(thread: ScrewThread, width: Double, height: Double, flatDiameter dw: Double? = nil) -> Nut {
         let chamferWidth = RegularPolygon(sideCount: 6, apothem: width / 2).circumradius - (dw ?? width) / 2
         let chamfer = EdgeProfile.chamfer(width: chamferWidth, angle: 30°)
-        return .init(thread: thread, sideCount: 6, thickness: height, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: chamfer, innerChamferAngle: 120°)
+        let shape = PolygonalNutBody(sideCount: 6, thickness: height, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: chamfer)
+        return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
     }
 }
