@@ -3,12 +3,12 @@ import SwiftSCAD
 
 public struct Bolt: Shape3D {
     public let thread: ScrewThread
-    let length: Double
-    let shankLength: Double
-    let shankDiameter: Double
-    let headShape: any BoltHeadShape
-    let socket: (any BoltHeadSocket)?
-    let point: (any BoltPoint)?
+    public let length: Double
+    public let shankLength: Double
+    public let shankDiameter: Double
+    public let headShape: any BoltHeadShape
+    public let socket: (any BoltHeadSocket)?
+    public let point: (any BoltPoint)?
 
     public init(thread: ScrewThread, length: Double, shankLength: Double, shankDiameter: Double? = nil, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil, point: (any BoltPoint)? = nil) {
         self.thread = thread

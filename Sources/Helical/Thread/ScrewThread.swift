@@ -2,11 +2,11 @@ import Foundation
 import SwiftSCAD
 
 public struct ScrewThread {
-    let handedness: Handedness
-    let starts: Int
-    let pitch: Double
-    let majorDiameter: Double
-    let minorDiameter: Double
+    public let handedness: Handedness
+    public let starts: Int
+    public let pitch: Double
+    public let majorDiameter: Double
+    public let minorDiameter: Double
     let form: any ThreadForm
 
     var depth: Double { (majorDiameter - minorDiameter) / 2 }
