@@ -47,7 +47,6 @@ struct Repertoire: Shape3D {
             for (label, part) in contents {
                 Stack(.x, spacing: 2, alignment: .centerY) {
                     part
-                        .frozen(as: label)
                         .aligned(at: .bottom)
                         .modifyingBounds { box in
                             Box([partWidth, box.size.y, 100]).aligned(at: .centerXY)

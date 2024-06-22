@@ -111,12 +111,13 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                         .adding {
                             Circle(diameter: fullWidth)
                                 .intersection {
-                                    Rectangle([fullWidth / 2, slotWidth], center: .y)
+                                    Rectangle([fullWidth / 2, slotWidth])
+                                        .aligned(at: .centerY)
                                 }
                                 .extruded(height: depth + 1)
                         }
                         .intersection {
-                            Cylinder(diameter: fullWidth, height: depth+0.001)
+                            Cylinder(diameter: fullWidth, height: depth + 0.001)
                         }
                         .convexHull()
                 }
