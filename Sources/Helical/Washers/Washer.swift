@@ -5,9 +5,9 @@ public struct Washer: Shape3D {
     let outerDiameter: Double
     let innerDiameter: Double
     let thickness: Double
-    let outerTopEdge: EdgeProfile
+    let outerTopEdge: EdgeProfile?
 
-    public init(outerDiameter: Double, innerDiameter: Double, thickness: Double, outerTopEdge: EdgeProfile = .sharp) {
+    public init(outerDiameter: Double, innerDiameter: Double, thickness: Double, outerTopEdge: EdgeProfile? = nil) {
         self.outerDiameter = outerDiameter
         self.innerDiameter = innerDiameter
         self.thickness = thickness
@@ -22,11 +22,13 @@ public struct Washer: Shape3D {
                 }
                 .extruded(height: thickness)
                 .subtracting {
-                    outerTopEdge.shape()
-                        .flipped(along: .xy)
-                        .translated(x: (outerDiameter - environment.tolerance) / 2 + 0.01, y: 0.01)
-                        .extruded()
-                        .translated(z: thickness)
+                    if let outerTopEdge {
+                        outerTopEdge.shape()
+                            .flipped(along: .xy)
+                            .translated(x: (outerDiameter - environment.tolerance) / 2 + 0.01, y: 0.01)
+                            .extruded()
+                            .translated(z: thickness)
+                    }
                 }
         }
     }

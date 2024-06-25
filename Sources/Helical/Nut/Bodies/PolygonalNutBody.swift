@@ -5,15 +5,15 @@ public struct PolygonalNutBody: NutBody {
     let sideCount: Int
     let thickness: Double
     let widthAcrossFlats: Double
-    let topCorners: EdgeProfile
-    let bottomCorners: EdgeProfile
+    let topCorners: EdgeProfile?
+    let bottomCorners: EdgeProfile?
 
     public init(
         sideCount: Int,
         thickness: Double,
         widthAcrossFlats: Double,
-        topCorners: EdgeProfile = .sharp,
-        bottomCorners: EdgeProfile = .sharp
+        topCorners: EdgeProfile? = nil,
+        bottomCorners: EdgeProfile? = nil
     ) {
         self.sideCount = sideCount
         self.thickness = thickness

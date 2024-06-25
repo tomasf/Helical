@@ -47,7 +47,7 @@ public extension Nut {
         let outerRadius = RegularPolygon(sideCount: 4, apothem: width / 2).circumradius
         let chamferWidth = outerRadius - width / 2
         let chamfer = EdgeProfile.chamfer(width: chamferWidth, angle: chamferAngle)
-        let shape = PolygonalNutBody(sideCount: 4, thickness: thickness, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: .sharp)
+        let shape = PolygonalNutBody(sideCount: 4, thickness: thickness, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: nil)
         return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
     }
 }

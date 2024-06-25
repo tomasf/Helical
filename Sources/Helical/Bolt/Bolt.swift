@@ -70,7 +70,7 @@ public struct Bolt: Shape3D {
         recessedHead ? (length + headShape.clearanceLength) : (length - headShape.boltLength)
     }
 
-    public func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile = .sharp) -> ClearanceHole {
+    public func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile? = nil) -> ClearanceHole {
         ClearanceHole(
             diameter: thread.majorDiameter,
             depth: depth ?? clearanceHoleDepth(),

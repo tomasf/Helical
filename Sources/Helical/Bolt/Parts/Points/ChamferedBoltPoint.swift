@@ -34,9 +34,9 @@ public struct ChamferedBoltPoint: BoltPoint {
 fileprivate extension EdgeProfile {
     var width: Double {
         switch self {
-        case .sharp: return 0
         case .fillet(let radius): return radius
         case .chamfer(let width, _): return width
+        case .chamferedFillet: return 0
         }
     }
 }

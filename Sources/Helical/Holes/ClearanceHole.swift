@@ -4,17 +4,17 @@ import SwiftSCAD
 public struct ClearanceHole: Shape3D {
     let diameter: Double
     let depth: Double
-    let edgeProfile: EdgeProfile
+    let edgeProfile: EdgeProfile?
     let boltHeadRecess: (any BoltHeadRecess)?
 
     public init(diameter: Double, depth: Double, boltHeadRecess: (any BoltHeadRecess)?) {
         self.diameter = diameter
         self.depth = depth
-        self.edgeProfile = .sharp
+        self.edgeProfile = nil
         self.boltHeadRecess = boltHeadRecess
     }
 
-    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile) {
+    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile?) {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = edgeProfile
@@ -28,9 +28,11 @@ public struct ClearanceHole: Shape3D {
             if let boltHeadRecess {
                 boltHeadRecess
             } else {
-                edgeProfile.shape()
-                    .translated(x: effectiveDiameter / 2 - 0.01)
-                    .extruded()
+                if let edgeProfile {
+                    edgeProfile.shape()
+                        .translated(x: effectiveDiameter / 2 - 0.01)
+                        .extruded()
+                }
             }
         }
         .translated(z: -0.01)

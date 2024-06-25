@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log.git",
       "state" : {
-        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
-        "version" : "1.5.4"
+        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
+        "version" : "1.6.1"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/tomasf/SwiftSCAD.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8ade3b55b25219b4eb0285b188c80b3eb5153bd4"
+        "revision" : "f3cbf56ebe80b14271f40407a2ef141500737f99"
       }
     }
   ],
