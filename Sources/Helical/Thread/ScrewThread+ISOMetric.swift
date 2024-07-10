@@ -3,73 +3,73 @@ import SwiftSCAD
 
 public extension ScrewThread {
     /// Standard M1x0.25 ISO metric coarse thread
-    static var m1   = isoMetric(.m1)
+    static let m1   = isoMetric(.m1)
     /// Standard M1.2x0.25 ISO metric coarse thread
-    static var m1p2 = isoMetric(.m1p2)
+    static let m1p2 = isoMetric(.m1p2)
     /// Standard M1.4x0.3 ISO metric coarse thread
-    static var m1p4 = isoMetric(.m1p4)
+    static let m1p4 = isoMetric(.m1p4)
     /// Standard M1.6x0.35 ISO metric coarse thread
-    static var m1p6 = isoMetric(.m1p6)
+    static let m1p6 = isoMetric(.m1p6)
     /// Standard M1.8x0.35 ISO metric coarse thread
-    static var m1p8 = isoMetric(.m1p8)
+    static let m1p8 = isoMetric(.m1p8)
     /// Standard M2x0.4 ISO metric coarse thread
-    static var m2   = isoMetric(.m2)
+    static let m2   = isoMetric(.m2)
     /// Standard M2.5x0.45 ISO metric coarse thread
-    static var m2p5 = isoMetric(.m2p5)
+    static let m2p5 = isoMetric(.m2p5)
     /// Standard M3x0.5 ISO metric coarse thread
-    static var m3   = isoMetric(.m3)
+    static let m3   = isoMetric(.m3)
     /// Standard M3.5x0.6 ISO metric coarse thread
-    static var m3p5 = isoMetric(.m3p5)
+    static let m3p5 = isoMetric(.m3p5)
     /// Standard M4x0.7 ISO metric coarse thread
-    static var m4   = isoMetric(.m4)
+    static let m4   = isoMetric(.m4)
     /// Standard M5x0.8 ISO metric coarse thread
-    static var m5   = isoMetric(.m5)
+    static let m5   = isoMetric(.m5)
     /// Standard M6x1.0 ISO metric coarse thread
-    static var m6   = isoMetric(.m6)
+    static let m6   = isoMetric(.m6)
     /// Standard M7x1.0 ISO metric coarse thread
-    static var m7   = isoMetric(.m7)
+    static let m7   = isoMetric(.m7)
     /// Standard M8x1.25 ISO metric coarse thread
-    static var m8   = isoMetric(.m8)
+    static let m8   = isoMetric(.m8)
     /// Standard M10x1.5 ISO metric coarse thread
-    static var m10  = isoMetric(.m10)
+    static let m10  = isoMetric(.m10)
     /// Standard M12x1.75 ISO metric coarse thread
-    static var m12  = isoMetric(.m12)
+    static let m12  = isoMetric(.m12)
     /// Standard M14x2.0 ISO metric coarse thread
-    static var m14  = isoMetric(.m14)
+    static let m14  = isoMetric(.m14)
     /// Standard M16x2.0 ISO metric coarse thread
-    static var m16  = isoMetric(.m16)
+    static let m16  = isoMetric(.m16)
     /// Standard M18x2.5 ISO metric coarse thread
-    static var m18  = isoMetric(.m18)
+    static let m18  = isoMetric(.m18)
     /// Standard M20x2.5 ISO metric coarse thread
-    static var m20  = isoMetric(.m20)
+    static let m20  = isoMetric(.m20)
     /// Standard M22x2.5 ISO metric coarse thread
-    static var m22  = isoMetric(.m22)
+    static let m22  = isoMetric(.m22)
     /// Standard M24x3.0 ISO metric coarse thread
-    static var m24  = isoMetric(.m24)
+    static let m24  = isoMetric(.m24)
     /// Standard M27x3.0 ISO metric coarse thread
-    static var m27  = isoMetric(.m27)
+    static let m27  = isoMetric(.m27)
     /// Standard M30x3.5 ISO metric coarse thread
-    static var m30  = isoMetric(.m30)
+    static let m30  = isoMetric(.m30)
     /// Standard M33x3.5 ISO metric coarse thread
-    static var m33  = isoMetric(.m33)
+    static let m33  = isoMetric(.m33)
     /// Standard M36x4.0 ISO metric coarse thread
-    static var m36  = isoMetric(.m36)
+    static let m36  = isoMetric(.m36)
     /// Standard M39x4.0 ISO metric coarse thread
-    static var m39  = isoMetric(.m39)
+    static let m39  = isoMetric(.m39)
     /// Standard M42x4.5 ISO metric coarse thread
-    static var m42  = isoMetric(.m42)
+    static let m42  = isoMetric(.m42)
     /// Standard M45x4.5 ISO metric coarse thread
-    static var m45  = isoMetric(.m45)
+    static let m45  = isoMetric(.m45)
     /// Standard M48x5.0 ISO metric coarse thread
-    static var m48  = isoMetric(.m48)
+    static let m48  = isoMetric(.m48)
     /// Standard M52x5.0 ISO metric coarse thread
-    static var m52  = isoMetric(.m52)
+    static let m52  = isoMetric(.m52)
     /// Standard M56x5.5 ISO metric coarse thread
-    static var m56  = isoMetric(.m56)
+    static let m56  = isoMetric(.m56)
     /// Standard M60x5.5 ISO metric coarse thread
-    static var m60  = isoMetric(.m60)
+    static let m60  = isoMetric(.m60)
     /// Standard M64x6.0 ISO metric coarse thread
-    static var m64  = isoMetric(.m64)
+    static let m64  = isoMetric(.m64)
 }
 
 public extension ScrewThread {

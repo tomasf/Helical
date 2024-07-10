@@ -2,7 +2,7 @@ import Foundation
 import SwiftSCAD
 
 /// Trapezoidal threadforms, of which V-shaped threads and square threads are subsets
-public struct TrapezoidalThreadForm: ThreadForm {
+public struct TrapezoidalThreadForm: ThreadForm, Sendable {
     let angle: Angle
     let crestWidth: Double
 
