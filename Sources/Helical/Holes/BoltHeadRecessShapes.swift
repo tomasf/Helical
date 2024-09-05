@@ -15,9 +15,10 @@ public extension Countersink {
             EnvironmentReader { environment in
                 let topDiameter = countersink.topDiameter + environment.tolerance
                 let coneHeight = topDiameter / 2 * tan(countersink.angle / 2)
-                Cylinder(diameter: topDiameter, height: headClearance)
+                OverhangCylinder(diameter: topDiameter, height: headClearance)
                     .translated(z: -headClearance + 0.01)
-                Cylinder(bottomDiameter: topDiameter, topDiameter: 0.001, height: coneHeight)
+
+                OverhangCylinder(bottomDiameter: topDiameter, topDiameter: 0.001, height: coneHeight)
             }
         }
     }
@@ -36,7 +37,7 @@ public extension Counterbore {
         public var body: any Geometry3D {
             EnvironmentReader { environment in
                 let diameter = counterbore.diameter + environment.tolerance
-                Cylinder(diameter: diameter, height: counterbore.depth + headClearance)
+                OverhangCylinder(diameter: diameter, height: counterbore.depth + headClearance)
                     .translated(z: -headClearance)
             }
         }
