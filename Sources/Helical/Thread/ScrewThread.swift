@@ -9,8 +9,8 @@ public struct ScrewThread: Sendable {
     public let minorDiameter: Double
     let form: any ThreadForm
 
-    var depth: Double { (majorDiameter - minorDiameter) / 2 }
-    var lead: Double { Double(starts) * pitch }
+    public var depth: Double { (majorDiameter - minorDiameter) / 2 }
+    public var lead: Double { Double(starts) * pitch }
     var leftHanded: Bool { handedness == .left }
     var pitchDiameter: Double { form.pitchDiameter(for: self) }
 

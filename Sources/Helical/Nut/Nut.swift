@@ -3,7 +3,7 @@ import SwiftSCAD
 
 public struct Nut: Shape3D {
     public let thread: ScrewThread
-    let shape: any NutBody
+    public let shape: any NutBody
     let innerChamferAngleBottom: Angle?
     let innerChamferAngleTop: Angle?
 
