@@ -50,7 +50,8 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
                         Sphere(diameter: diameter)
                             .translated(z: diameter / 2)
                             .intersection {
-                                Box([effectiveTopDiameter, effectiveTopDiameter, lensHeight], center: .xy)
+                                Box([effectiveTopDiameter, effectiveTopDiameter, lensHeight])
+                                    .aligned(at: .centerXY)
                             }
                     }
                 }

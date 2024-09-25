@@ -97,7 +97,8 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
             let cornerAngleFromX = -(cornerAcrossAngle - 90°) / 2
             let cornerDistanceFromBottom = crossDistanceBetweenCorners / bottomWidth * bottomDepth
 
-            let mask = Box([fullWidth / 2 + filletRadius, slotWidth, depth + 0.001], center: .y)
+            let mask = Box([fullWidth / 2 + filletRadius, slotWidth, depth + 0.001])
+                .aligned(at: .centerY)
                 .adding {
                     let blockDepth = slotWidth
                     Box([0.01, blockDepth, depth + 2])
@@ -131,7 +132,8 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                         .rotated(z: 45°)
                         .symmetry(over: .y)
 
-                    Box([cornerWidth, 0.02, 0.02], center: .all)
+                    Box([cornerWidth, 0.02, 0.02])
+                        .aligned(at: .center)
                         .rotated(z: 45°)
                         .translated(z: 3)
                         .background()

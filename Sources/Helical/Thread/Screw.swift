@@ -23,7 +23,8 @@ public struct Screw: Shape3D {
                 .repeated(around: .z, in: 0°..<360°, count: thread.starts)
                 .flipped(along: thread.leftHanded ? .x : .none)
                 .intersection {
-                    Box([thread.majorDiameter + 2, thread.majorDiameter + 2, length], center: .xy)
+                    Box([thread.majorDiameter + 2, thread.majorDiameter + 2, length])
+                        .aligned(at: .centerXY)
                 }
                 .adding {
                     Cylinder(radius: minorRadius + 0.01, height: length)

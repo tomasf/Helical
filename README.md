@@ -74,7 +74,8 @@ let customBolt = Bolt(
 Creating a matching countersunk clearance hole for a bolt is straightforward:
 
 ```swift
-Box([20, 20, 10], center: .xy)
+Box([20, 20, 10])
+    .aligned(at: .centerXY)
     .subtracting {
         customBolt.clearanceHole(recessedHead: true)
     }
@@ -83,7 +84,8 @@ Box([20, 20, 10], center: .xy)
 As is making a threaded hole for a particular thread:
 
 ```swift
-Box([20, 20, 10], center: .xy)
+Box([20, 20, 10])
+    .aligned(at: .centerXY)
     .subtracting {
         ThreadedHole(thread: thread, depth: 10, unthreadedDepth: 2)
     }
