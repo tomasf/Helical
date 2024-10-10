@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/SwiftSCAD.git",
       "state" : {
-        "revision" : "52d56c72f6d77ece0e9e283189071507f489f8fe",
-        "version" : "0.7.0"
+        "revision" : "d874d042c45046f1f87b4e27bc27ddd292fa874a",
+        "version" : "0.7.1"
       }
     }
   ],
