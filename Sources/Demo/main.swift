@@ -48,9 +48,7 @@ struct Repertoire: Shape3D {
                 Stack(.x, spacing: 2, alignment: .centerY) {
                     part
                         .aligned(at: .bottom)
-                        .modifyingBounds { box in
-                            Box([partWidth, box.size.y, 100]).aligned(at: .centerXY)
-                        }
+                        .settingBoundsSize(x: partWidth, z: 100, alignment: .centerXY)
                         .usingFacets(minAngle: 5°, minSize: 0.3)
 
                     Text(label)
