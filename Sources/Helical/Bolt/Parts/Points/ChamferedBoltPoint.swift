@@ -3,40 +3,29 @@ import SwiftSCAD
 
 public struct ChamferedBoltPoint: BoltPoint {
     let thread: ScrewThread
-    let chamfer: EdgeProfile
+    let chamferSize: Double
     let dogPointLength: Double
 
-    public init(thread: ScrewThread, chamfer: EdgeProfile, dogPointLength: Double = 0) {
+    public init(thread: ScrewThread, chamferSize: Double, dogPointLength: Double = 0) {
         self.thread = thread
-        self.chamfer = chamfer
+        self.chamferSize = chamferSize
         self.dogPointLength = dogPointLength
     }
 
     public var boltLength: Double { dogPointLength }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            Cylinder(diameter: thread.majorDiameter - chamfer.width * 2, height: dogPointLength)
-        }
+        Cylinder(diameter: thread.majorDiameter - chamferSize * 2, height: dogPointLength)
     }
 
     public var negativeBody: any Geometry3D {
-        EnvironmentReader { environment in
-            chamfer.shape()
+        readTolerance { tolerance in
+            EdgeProfile.chamfer(size: chamferSize)
+                .shape()
                 .flipped(along: .x)
-                .translated(x: (thread.majorDiameter - environment.tolerance) / 2 + 0.01, y: -0.01)
+                .translated(x: (thread.majorDiameter - tolerance) / 2 + 0.01, y: -0.01)
                 .extruded()
                 .flipped(along: .z)
-        }
-    }
-}
-
-fileprivate extension EdgeProfile {
-    var width: Double {
-        switch self {
-        case .fillet(let radius): return radius
-        case .chamfer(let width, _): return width
-        case .chamferedFillet: return 0
         }
     }
 }

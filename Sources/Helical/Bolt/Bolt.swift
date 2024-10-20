@@ -28,7 +28,7 @@ public struct Bolt: Shape3D {
             shankDiameter: shankDiameter,
             headShape: headShape,
             socket: socket,
-            point: ChamferedBoltPoint(thread: thread, chamfer: .chamfer(size: leadinChamferSize))
+            point: ChamferedBoltPoint(thread: thread, chamferSize: leadinChamferSize)
         )
     }
 
