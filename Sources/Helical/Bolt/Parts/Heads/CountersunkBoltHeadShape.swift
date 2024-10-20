@@ -27,8 +27,8 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            let effectiveTopDiameter = countersink.topDiameter - environment.tolerance
+        readTolerance { tolerance in
+            let effectiveTopDiameter = countersink.topDiameter - tolerance
             let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
             Cylinder(bottomDiameter: effectiveTopDiameter, topDiameter: 0.001, height: coneHeight)
                 .adding {
@@ -38,7 +38,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
                             .usingFacets(minAngle: 10°, minSize: bottomFilletRadius / 10)
                             .rotated(-90°)
                             .flipped(along: .y)
-                            .translated(x: (boltDiameter - environment.tolerance) / 2)
+                            .translated(x: (boltDiameter - tolerance) / 2)
                             .extruded()
                             .translated(z: height - lensHeight)
                     }

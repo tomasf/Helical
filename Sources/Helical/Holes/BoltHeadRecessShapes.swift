@@ -12,8 +12,8 @@ public extension Countersink {
         }
 
         public var body: any Geometry3D {
-            EnvironmentReader { environment in
-                let topDiameter = countersink.topDiameter + environment.tolerance
+            readTolerance { tolerance in
+                let topDiameter = countersink.topDiameter + tolerance
                 let coneHeight = topDiameter / 2 * tan(countersink.angle / 2)
                 OverhangCylinder(diameter: topDiameter, height: headClearance)
                     .translated(z: -headClearance + 0.01)
@@ -35,8 +35,8 @@ public extension Counterbore {
         }
         
         public var body: any Geometry3D {
-            EnvironmentReader { environment in
-                let diameter = counterbore.diameter + environment.tolerance
+            readTolerance { tolerance in
+                let diameter = counterbore.diameter + tolerance
                 OverhangCylinder(diameter: diameter, height: counterbore.depth + headClearance)
                     .translated(z: -headClearance)
             }
@@ -58,8 +58,8 @@ struct PolygonalHeadRecess: BoltHeadRecess {
     }
 
     var body: any Geometry3D {
-        EnvironmentReader { environment in
-            let apothem = (widthAcrossFlats + environment.tolerance) / 2
+        readTolerance { tolerance in
+            let apothem = (widthAcrossFlats + tolerance) / 2
             RegularPolygon(sideCount: sideCount, apothem: apothem)
                 .extruded(height: height + headClearance)
                 .translated(z: -headClearance)

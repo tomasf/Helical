@@ -11,9 +11,9 @@ public struct ChamferedBoltHeadShape: BoltHeadShape {
     }
 
     public var negativeBody: any Geometry3D {
-        EnvironmentReader { environment in
+        readTolerance { tolerance in
             edgeProfile.shape()
-                .translated(x: (thread.majorDiameter - environment.tolerance) / 2)
+                .translated(x: (thread.majorDiameter - tolerance) / 2)
                 .extruded()
         }
     }

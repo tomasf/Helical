@@ -28,15 +28,15 @@ public struct ThreadedHole: Shape3D {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
+        readTolerance { tolerance in
             Screw(thread: thread, length: depth + 0.02)
 
-            let unthreadedDiameter = thread.majorDiameter + environment.tolerance
+            let unthreadedDiameter = thread.majorDiameter + tolerance
             let entry = Circle(diameter: unthreadedDiameter)
                 .extruded(height: unthreadedDepth + thread.depth, topEdge: .chamfer(size: thread.depth), method: .convexHull)
                 .adding {
                     if leadinChamferSize > 0 {
-                        let chamferInnerDiameter = (unthreadedDepth > 0) ? unthreadedDiameter : (thread.minorDiameter + environment.tolerance)
+                        let chamferInnerDiameter = (unthreadedDepth > 0) ? unthreadedDiameter : (thread.minorDiameter + tolerance)
 
                         EdgeProfile.chamfer(size: leadinChamferSize)
                             .shape()

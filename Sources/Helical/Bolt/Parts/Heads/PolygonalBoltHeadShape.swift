@@ -21,9 +21,9 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            let toleranceScale = (widthAcrossFlats - environment.tolerance) / widthAcrossFlats
-            let apothem = (widthAcrossFlats - environment.tolerance) / 2
+        readTolerance { tolerance in
+            let toleranceScale = (widthAcrossFlats - tolerance) / widthAcrossFlats
+            let apothem = (widthAcrossFlats - tolerance) / 2
             let polygon = RegularPolygon(sideCount: sideCount, apothem: apothem)
             let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
             polygon

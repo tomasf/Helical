@@ -74,7 +74,7 @@ internal struct OverhangCylinder: Shape3D {
     }
 
     var body: any Geometry3D {
-        EnvironmentReader { e in
+        readEnvironment { e in
             if let overhang = e.teardropOverhang {
                 overhang.shape(diameter: bottomDiameter)
                     .extrudedHull(height: height, to: overhang.shape(diameter: topDiameter))

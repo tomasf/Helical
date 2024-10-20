@@ -13,8 +13,8 @@ public struct SlottedBoltHeadSocket: BoltHeadSocket {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            Box([length + 1, width + environment.tolerance, depth])
+        readTolerance { tolerance in
+            Box([length + 1, width + tolerance, depth])
                 .aligned(at: .centerXY)
         }
     }

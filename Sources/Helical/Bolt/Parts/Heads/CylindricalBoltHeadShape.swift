@@ -25,8 +25,8 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            Circle(diameter: diameter - environment.tolerance)
+        readTolerance { tolerance in
+            Circle(diameter: diameter - tolerance)
                 .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge, method: .convexHull)
                 .intersection {
                     if let roundedTopRadius {

@@ -15,17 +15,17 @@ public struct Washer: Shape3D {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            Circle(diameter: outerDiameter - environment.tolerance)
+        readTolerance { tolerance in
+            Circle(diameter: outerDiameter - tolerance)
                 .subtracting {
-                    Circle(diameter: innerDiameter + environment.tolerance)
+                    Circle(diameter: innerDiameter + tolerance)
                 }
                 .extruded(height: thickness)
                 .subtracting {
                     if let outerTopEdge {
                         outerTopEdge.shape()
                             .flipped(along: .xy)
-                            .translated(x: (outerDiameter - environment.tolerance) / 2 + 0.01, y: 0.01)
+                            .translated(x: (outerDiameter - tolerance) / 2 + 0.01, y: 0.01)
                             .extruded()
                             .translated(z: thickness)
                     }

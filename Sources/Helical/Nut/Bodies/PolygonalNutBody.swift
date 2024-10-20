@@ -23,7 +23,7 @@ public struct PolygonalNutBody: NutBody {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
+        readEnvironment { environment in
             let polygon = RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + environment.relativeTolerance) / 2)
             polygon
                 .rotated(180° / Double(sideCount))
@@ -36,8 +36,8 @@ public struct PolygonalNutBody: NutBody {
     }
 
     public func nutTrap(depthClearance: Double) -> any Geometry3D {
-        EnvironmentReader { environment in
-            RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + environment.tolerance) / 2)
+        readTolerance { tolerance in
+            RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + tolerance) / 2)
                 .rotated(180° / Double(sideCount))
                 .extruded(height: thickness + depthClearance)
         }

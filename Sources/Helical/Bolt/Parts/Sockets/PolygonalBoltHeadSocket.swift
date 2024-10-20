@@ -15,8 +15,8 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            let polygon = RegularPolygon(sideCount: sides, apothem: (acrossWidth + environment.tolerance) / 2)
+        readTolerance { tolerance in
+            let polygon = RegularPolygon(sideCount: sides, apothem: (acrossWidth + tolerance) / 2)
             let bottomDepth = bottomAngle.map { polygon.circumradius / tan($0 / 2) } ?? 0
 
             polygon

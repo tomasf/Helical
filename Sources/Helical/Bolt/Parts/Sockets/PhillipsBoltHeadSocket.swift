@@ -80,11 +80,11 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { e in
-            let crossDistanceBetweenCorners = self.crossDistanceBetweenCorners + e.tolerance
-            let bottomWidth = self.bottomWidth + e.tolerance
-            let slotWidth = self.slotWidth + e.tolerance
-            let fullWidth = self.fullWidth + e.tolerance
+        readTolerance { tolerance in
+            let crossDistanceBetweenCorners = self.crossDistanceBetweenCorners + tolerance
+            let bottomWidth = self.bottomWidth + tolerance
+            let slotWidth = self.slotWidth + tolerance
+            let fullWidth = self.fullWidth + tolerance
 
             let topAngle = 26.5°
             let bottomAngle = 28°

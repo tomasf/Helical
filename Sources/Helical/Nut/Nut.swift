@@ -22,7 +22,7 @@ public struct Nut: Shape3D {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
+        readTolerance { tolerance in
             shape
                 .subtracting {
                     Screw(thread: thread, length: shape.threadedDepth + 0.002)
@@ -30,8 +30,8 @@ public struct Nut: Shape3D {
 
                     if let innerChamferAngleBottom {
                         Cylinder(
-                            bottomDiameter: thread.majorDiameter + environment.tolerance,
-                            topDiameter: thread.minorDiameter + environment.tolerance,
+                            bottomDiameter: thread.majorDiameter + tolerance,
+                            topDiameter: thread.minorDiameter + tolerance,
                             height: thread.depth * tan(90° - innerChamferAngleBottom / 2)
                         )
                         .translated(z: -0.01)
@@ -39,8 +39,8 @@ public struct Nut: Shape3D {
 
                     if let innerChamferAngleTop {
                         Cylinder(
-                            bottomDiameter: thread.majorDiameter + environment.tolerance,
-                            topDiameter: thread.minorDiameter + environment.tolerance,
+                            bottomDiameter: thread.majorDiameter + tolerance,
+                            topDiameter: thread.minorDiameter + tolerance,
                             height: thread.depth * tan(90° - innerChamferAngleTop / 2)
                         )
                         .flipped(along: .z)

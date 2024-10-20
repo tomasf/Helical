@@ -13,7 +13,7 @@ public struct Screw: Shape3D {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
+        readEnvironment { environment in
             let minorRadius = (thread.minorDiameter + environment.relativeTolerance) / 2
 
             thread.form.shape(for: thread)

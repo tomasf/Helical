@@ -22,8 +22,8 @@ public struct ClearanceHole: Shape3D {
     }
 
     public var body: any Geometry3D {
-        EnvironmentReader { environment in
-            let effectiveDiameter = diameter + environment.tolerance
+        readTolerance { tolerance in
+            let effectiveDiameter = diameter + tolerance
             OverhangCylinder(diameter: effectiveDiameter, height: depth + 0.02)
             if let boltHeadRecess {
                 boltHeadRecess

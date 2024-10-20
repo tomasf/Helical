@@ -36,11 +36,11 @@ public struct Bolt: Shape3D {
         let baseLevel = headShape.height - headShape.boltLength
         let threadLength = length - shankLength - (point?.boltLength ?? 0)
 
-        EnvironmentReader { environment in
+        readTolerance { tolerance in
             headShape
                 .adding {
                     // Shank
-                    Cylinder(diameter: shankDiameter - environment.tolerance, height: shankLength)
+                    Cylinder(diameter: shankDiameter - tolerance, height: shankLength)
                         .translated(z: baseLevel)
 
                     // Threads
