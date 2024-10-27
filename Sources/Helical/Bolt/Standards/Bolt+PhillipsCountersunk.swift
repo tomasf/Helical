@@ -13,21 +13,21 @@ public extension Bolt {
     /// Standard configuration
     static func phillipsCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, shankLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
-        let phillipsSize: PhillipsBoltHeadSocket.Size
+        let phillipsSize: PhillipsSize
         let socketWidth: Double // m
 
         (headDiameter, phillipsSize, socketWidth) = switch size {
-        case .m1p6: (3,    .PH0, 1.7)
-        case .m2:   (3.8,  .PH1, 2.35)
-        case .m2p5: (4.7,  .PH1, 2.7)
-        case .m3:   (5.6,  .PH1, 2.9)
-        case .m3p5: (6.5,  .PH2, 3.9)
-        case .m4:   (7.5,  .PH2, 4.4)
-        case .m5:   (9.2,  .PH2, 4.6)
-        case .m6:   (11,   .PH3, 6.6)
-        case .m8:   (14.5, .PH4, 8.7)
-        case .m10:  (18,   .PH4, 9.6)
-        default: (-1, .PH0, -1)
+        case .m1p6: (3,    .ph0, 1.7)
+        case .m2:   (3.8,  .ph1, 2.35)
+        case .m2p5: (4.7,  .ph1, 2.7)
+        case .m3:   (5.6,  .ph1, 2.9)
+        case .m3p5: (6.5,  .ph2, 3.9)
+        case .m4:   (7.5,  .ph2, 4.4)
+        case .m5:   (9.2,  .ph2, 4.6)
+        case .m6:   (11,   .ph3, 6.6)
+        case .m8:   (14.5, .ph4, 8.7)
+        case .m10:  (18,   .ph4, 9.6)
+        default: (-1, .ph0, -1)
         }
 
         assert(headDiameter > 0, "\(size) isn't a valid size for DIN 963/964 bolts")
@@ -48,7 +48,7 @@ public extension Bolt {
         headDiameter: Double,
         lensHeight: Double = 0,
         socketWidth: Double,
-        phillipsSize: PhillipsBoltHeadSocket.Size,
+        phillipsSize: PhillipsSize,
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
