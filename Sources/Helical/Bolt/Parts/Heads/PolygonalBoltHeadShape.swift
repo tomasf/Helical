@@ -28,9 +28,8 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
             let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
             polygon
                 .extruded(height: height)
-                .intersection {
+                .applyingBottomEdgeProfile(.chamfer(width: chamferWidth, angle: chamferAngle), at: 0, method: .convexHull) {
                     Circle(radius: polygon.circumradius)
-                        .extruded(height: height, bottomEdge: .chamfer(width: chamferWidth, angle: chamferAngle), method: .convexHull)
                 }
         }
     }

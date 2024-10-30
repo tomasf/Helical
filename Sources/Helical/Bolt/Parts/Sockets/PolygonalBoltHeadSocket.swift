@@ -21,7 +21,7 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
 
             polygon
                 .extruded(height: depth + bottomDepth)
-                .intersection {
+                .intersecting {
                     Cylinder(radius: polygon.circumradius, height: 0.01)
                         .adding {
                             Cylinder(bottomRadius: polygon.circumradius, topRadius: 0, height: bottomDepth)

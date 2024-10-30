@@ -4,12 +4,10 @@ import SwiftSCAD
 public struct Screw: Shape3D {
     let thread: ScrewThread
     let length: Double
-    let convexity: Int
 
-    public init(thread: ScrewThread, length: Double, convexity: Int = 5) {
+    public init(thread: ScrewThread, length: Double) {
         self.thread = thread
         self.length = length
-        self.convexity = convexity
     }
 
     public var body: any Geometry3D {
@@ -18,14 +16,11 @@ public struct Screw: Shape3D {
 
             thread.form.shape(for: thread)
                 .transformed(.translation(x: minorRadius))
-                .extrudedAlongHelix(pitch: thread.lead, height: length + thread.pitch, convexity: convexity)
+                .extrudedAlongHelix(pitch: thread.lead, height: length + thread.pitch)
                 .translated(z: -thread.pitch / 2)
                 .repeated(around: .z, in: 0°..<360°, count: thread.starts)
                 .flipped(along: thread.leftHanded ? .x : .none)
-                .intersection {
-                    Box([thread.majorDiameter + 2, thread.majorDiameter + 2, length])
-                        .aligned(at: .centerXY)
-                }
+                .within(z: 0..<length)
                 .adding {
                     Cylinder(radius: minorRadius + 0.01, height: length)
                 }

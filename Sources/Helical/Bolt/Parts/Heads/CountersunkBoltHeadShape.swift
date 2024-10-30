@@ -48,11 +48,8 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
                     if lensHeight > 0 {
                         let diameter = lensHeight + pow(effectiveTopDiameter, 2) / (4 * lensHeight)
                         Sphere(diameter: diameter)
-                            .translated(z: diameter / 2)
-                            .intersection {
-                                Box([effectiveTopDiameter, effectiveTopDiameter, lensHeight])
-                                    .aligned(at: .centerXY)
-                            }
+                            .aligned(at: .minZ)
+                            .within(z: 0..<lensHeight)
                     }
                 }
 

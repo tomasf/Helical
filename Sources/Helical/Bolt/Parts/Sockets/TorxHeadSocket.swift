@@ -25,12 +25,12 @@ public struct TorxBoltHeadSocket: BoltHeadSocket {
     public var body: any Geometry3D {
         readEnvironment { e in
             let outerDiameter = size.outerDiameter + e.tolerance
-            let cone = Cylinder(bottomDiameter: outerDiameter, topDiameter: 0, apexAngle: 120°)
+            let cone = Cylinder(bottomDiameter: outerDiameter, topDiameter: 0, apexAngle: 90°)
 
             TorxShape(size: size)
                 .offset(amount: e.tolerance / 2, style: .round)
                 .extruded(height: depth + cone.height)
-                .intersection {
+                .intersecting {
                     Stack(.z, alignment: .center) {
                         Cylinder(diameter: outerDiameter, height: depth)
                         cone

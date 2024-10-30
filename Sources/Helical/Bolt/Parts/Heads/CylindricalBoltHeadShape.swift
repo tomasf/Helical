@@ -28,10 +28,10 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
         readTolerance { tolerance in
             Circle(diameter: diameter - tolerance)
                 .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge, method: .convexHull)
-                .intersection {
+                .intersecting {
                     if let roundedTopRadius {
                         Sphere(radius: roundedTopRadius)
-                            .translated(z: roundedTopRadius)
+                            .aligned(at: .minZ)
                     }
                 }
         }

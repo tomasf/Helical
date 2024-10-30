@@ -44,13 +44,13 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
 
                         .adding {
                             Circle(diameter: fullWidth)
-                                .intersection {
+                                .intersecting {
                                     Rectangle([fullWidth / 2, slotWidth])
                                         .aligned(at: .centerY)
                                 }
                                 .extruded(height: depth + 1)
                         }
-                        .intersection {
+                        .intersecting {
                             Cylinder(diameter: fullWidth, height: depth + 0.001)
                         }
                         .convexHull()
@@ -75,7 +75,7 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                 .repeated(around: .z, count: 4)
                 .translated(z: -depth)
 
-            Union {
+            union {
                 Cylinder(bottomDiameter: bottomWidth, topDiameter: fullWidth, height: topDepth + 0.001)
                     .translated(z: -topDepth)
 
@@ -90,7 +90,7 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                     .extruded()
                     .translated(z: 0.001)
             }
-            .intersection(mask)
+            .intersecting(mask)
         }
         .flipped(along: .z)
     }

@@ -28,7 +28,7 @@ public struct PolygonalNutBody: NutBody {
             polygon
                 .rotated(180° / Double(sideCount))
                 .extruded(height: thickness)
-                .intersection {
+                .intersecting {
                     Circle(diameter: polygon.circumradius * 2)
                         .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners, method: .convexHull)
                 }

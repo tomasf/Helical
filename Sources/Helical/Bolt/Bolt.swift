@@ -44,7 +44,8 @@ public struct Bolt: Shape3D {
                         .translated(z: baseLevel)
 
                     // Threads
-                    Screw(thread: thread, length: threadLength, convexity: 4)
+                    Screw(thread: thread, length: threadLength)
+                        .withPreviewConvexity(4)
                         .translated(z: baseLevel + shankLength)
 
                     // Point
