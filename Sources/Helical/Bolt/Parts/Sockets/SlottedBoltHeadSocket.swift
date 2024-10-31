@@ -6,6 +6,8 @@ public struct SlottedBoltHeadSocket: BoltHeadSocket {
     let width: Double
     public let depth: Double
 
+    @EnvironmentValue(\.tolerance) var tolerance
+
     public init(length: Double, width: Double, depth: Double) {
         self.length = length
         self.width = width
@@ -13,10 +15,8 @@ public struct SlottedBoltHeadSocket: BoltHeadSocket {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            Box([length + 1, width + tolerance, depth])
-                .aligned(at: .centerXY)
-        }
+        Box([length + 1, width + tolerance, depth])
+            .aligned(at: .centerXY)
     }
 }
 

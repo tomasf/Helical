@@ -13,6 +13,7 @@ public struct ChamferedBoltHeadShape: BoltHeadShape {
     public var negativeBody: any Geometry3D {
         readTolerance { tolerance in
             edgeProfile.shape()
+                .rotated(90°)
                 .translated(x: (thread.majorDiameter - tolerance) / 2)
                 .extruded()
         }
