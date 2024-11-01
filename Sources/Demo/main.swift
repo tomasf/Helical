@@ -64,7 +64,7 @@ struct Repertoire: Shape3D {
 }
 
 Repertoire(contents: bolts, partWidth: 15)
-    .save(to: "bolts.scad")
+    .save(to: "bolts")
 
 Repertoire(contents: nutsAndWashers, partWidth: 15)
-    .save(to: "nutsAndWashers.scad")
+    .save(to: "nutsAndWashers")
