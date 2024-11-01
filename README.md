@@ -14,8 +14,8 @@ let package = Package(
     name: "My3DGadget",
     platforms: [.macOS(.v14)], // Needed on macOS
     dependencies: [
-        .package(url: "https://github.com/tomasf/SwiftSCAD.git", branch: "main"),
-        <b><i>.package(url: "https://github.com/tomasf/Helical.git", branch: "main")</i></b>
+        .package(url: "https://github.com/tomasf/SwiftSCAD.git", from: "0.8.1"),
+        <b><i>.package(url: "https://github.com/tomasf/Helical.git", from: "0.1.0")</i></b>
     ],
     targets: [
         .executableTarget(name: "My3DGadget", dependencies: [
