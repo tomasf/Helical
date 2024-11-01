@@ -11,17 +11,13 @@ Integrate Helical into your project with the Swift Package Manager by adding it 
 
 <pre>
 let package = Package(
-    name: "My3DGadget",
-    platforms: [.macOS(.v14)], // Needed on macOS
+    name: "thingamajig",
     dependencies: [
-        .package(url: "https://github.com/tomasf/SwiftSCAD.git", from: "0.8.1"),
+        .package(url: "https://github.com/tomasf/SwiftSCAD.git", .upToNextMinor(from: "0.8.1")),
         <b><i>.package(url: "https://github.com/tomasf/Helical.git", from: "0.1.0")</i></b>
     ],
     targets: [
-        .executableTarget(name: "My3DGadget", dependencies: [
-            "SwiftSCAD",
-            <b><i>"Helical"</i></b>
-        ])
+        .executableTarget(name: "thingamajig", dependencies: ["SwiftSCAD", <b><i>"Helical"</i></b>])
     ]
 )
 </pre>
