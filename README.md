@@ -14,7 +14,7 @@ let package = Package(
     name: "thingamajig",
     dependencies: [
         .package(url: "https://github.com/tomasf/SwiftSCAD.git", .upToNextMinor(from: "0.8.1")),
-        <b><i>.package(url: "https://github.com/tomasf/Helical.git", from: "0.1.0")</i></b>
+        <b><i>.package(url: "https://github.com/tomasf/Helical.git", from: "0.1.1")</i></b>
     ],
     targets: [
         .executableTarget(name: "thingamajig", dependencies: ["SwiftSCAD", <b><i>"Helical"</i></b>])
