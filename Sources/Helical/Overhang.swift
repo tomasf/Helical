@@ -1,6 +1,6 @@
 import SwiftSCAD
 
-public enum TeardropOverhang {
+public enum TeardropOverhang: Sendable {
     case bridged (Angle)
     case extended (Angle)
 
