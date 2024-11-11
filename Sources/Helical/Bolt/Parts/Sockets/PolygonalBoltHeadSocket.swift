@@ -7,7 +7,7 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     public let depth: Double
     let bottomAngle: Angle?
 
-    @EnvironmentValue(\.tolerance) var tolerance
+    @Environment(\.tolerance) var tolerance
 
     public init(sides: Int, acrossWidth: Double, depth: Double, bottomAngle: Angle? = nil) {
         self.sides = sides

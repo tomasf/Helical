@@ -75,7 +75,7 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                 .repeated(around: .z, count: 4)
                 .translated(z: -depth)
 
-            union {
+            Union {
                 Cylinder(bottomDiameter: bottomWidth, topDiameter: fullWidth, height: topDepth + 0.001)
                     .translated(z: -topDepth)
 

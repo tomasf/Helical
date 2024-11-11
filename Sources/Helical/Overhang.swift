@@ -30,14 +30,14 @@ internal extension TeardropOverhang {
     }
 }
 
-public extension Environment {
-    private static let key = ValueKey(rawValue: "Helical.TeardropOverhang")
+public extension EnvironmentValues {
+    private static let key = Key(rawValue: "Helical.TeardropOverhang")
 
     var teardropOverhang: TeardropOverhang? {
         self[Self.key] as? TeardropOverhang
     }
 
-    func withTeardropOverhang(_ overhang: TeardropOverhang?) -> Environment {
+    func withTeardropOverhang(_ overhang: TeardropOverhang?) -> Self {
         setting(key: Self.key, value: overhang)
     }
 }

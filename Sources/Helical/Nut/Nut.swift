@@ -57,7 +57,7 @@ public struct Nut: Shape3D {
 
 public protocol NutBody: Shape3D {
     var threadedDepth: Double { get }
-    @UnionBuilder3D func nutTrap(depthClearance: Double) -> any Geometry3D
+    @GeometryBuilder3D func nutTrap(depthClearance: Double) -> any Geometry3D
 }
 
 public extension NutBody {

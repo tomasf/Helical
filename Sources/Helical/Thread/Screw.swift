@@ -28,7 +28,7 @@ public struct Screw: Shape3D {
     }
 }
 
-internal extension Environment {
+internal extension EnvironmentValues {
     var relativeTolerance: Double {
         if operation == .subtraction {
             return tolerance
