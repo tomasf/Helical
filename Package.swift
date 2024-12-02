@@ -9,7 +9,7 @@ let package = Package(
         .executable(name: "Helical-Demo", targets: ["Demo"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tomasf/SwiftSCAD.git", .upToNextMinor(from: "0.8.1")),
+        .package(url: "https://github.com/tomasf/SwiftSCAD.git", .upToNextMinor(from: "0.9.0")),
     ],
     targets: [
         .target(name: "Helical", dependencies: ["SwiftSCAD"]),
