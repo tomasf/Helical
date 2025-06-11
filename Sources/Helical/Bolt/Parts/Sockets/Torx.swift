@@ -1,8 +1,8 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 /// Torx hexalobular socket numbers
-public enum TorxSize {
+public enum TorxSize: Sendable {
     case t6, t8, t10, t15, t20, t25, t30, t40, t45, t50, t55, t60, t70, t80, t90, t100
 }
 

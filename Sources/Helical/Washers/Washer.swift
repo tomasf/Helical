@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct Washer: Shape3D {
     let outerDiameter: Double
@@ -23,10 +23,9 @@ public struct Washer: Shape3D {
                 .extruded(height: thickness)
                 .subtracting {
                     if let outerTopEdge {
-                        outerTopEdge.shape()
-                            .flipped(along: .xy)
+                        outerTopEdge.profile
                             .translated(x: (outerDiameter - tolerance) / 2 + 0.01, y: 0.01)
-                            .extruded()
+                            .revolved()
                             .translated(z: thickness)
                     }
                 }

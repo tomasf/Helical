@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct CylindricalBoltHeadShape: BoltHeadShape {
     let diameter: Double
@@ -27,7 +27,7 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
     public var body: any Geometry3D {
         readTolerance { tolerance in
             Circle(diameter: diameter - tolerance)
-                .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge, method: .convexHull)
+                .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge)
                 .intersecting {
                     if let roundedTopRadius {
                         Sphere(radius: roundedTopRadius)
@@ -37,7 +37,7 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
         }
     }
 
-    public var recess: (any BoltHeadRecess)? {
+    public var recess: (any Geometry3D)? {
         Counterbore.Shape(.init(diameter: diameter, depth: height))
     }
 }

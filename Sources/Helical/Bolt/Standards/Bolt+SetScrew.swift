@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public extension Bolt {
     // Hex socket set screws
@@ -93,7 +93,7 @@ public extension Bolt {
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
-        let head = ChamferedBoltHeadShape(thread: thread, edgeProfile: .chamfer(size: thread.depth))
+        let head = ChamferedBoltHeadShape(thread: thread, edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
@@ -115,7 +115,7 @@ public extension Bolt {
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
-        let head = ChamferedBoltHeadShape(thread: thread, edgeProfile: .chamfer(size: thread.depth))
+        let head = ChamferedBoltHeadShape(thread: thread, edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,

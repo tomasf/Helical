@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public extension ScrewThread {
     // Standard V-thread profile used for ISO/UTS, etc.

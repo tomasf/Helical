@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public protocol BoltPoint: Shape3D {
     var boltLength: Double { get }

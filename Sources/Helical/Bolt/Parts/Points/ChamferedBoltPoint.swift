@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct ChamferedBoltPoint: BoltPoint {
     let thread: ScrewThread
@@ -20,11 +20,10 @@ public struct ChamferedBoltPoint: BoltPoint {
 
     public var negativeBody: any Geometry3D {
         readTolerance { tolerance in
-            EdgeProfile.chamfer(size: chamferSize)
-                .shape()
-                .flipped(along: .x)
+            EdgeProfile.chamfer(depth: chamferSize)
+                .profile
                 .translated(x: (thread.majorDiameter - tolerance) / 2 + 0.01, y: -0.01)
-                .extruded()
+                .revolved()
                 .flipped(along: .z)
         }
     }

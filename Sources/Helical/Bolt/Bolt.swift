@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct Bolt: Shape3D {
     public let thread: ScrewThread
@@ -45,7 +45,6 @@ public struct Bolt: Shape3D {
 
                     // Threads
                     Screw(thread: thread, length: threadLength)
-                        .withPreviewConvexity(4)
                         .translated(z: baseLevel + shankLength)
 
                     // Point

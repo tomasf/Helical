@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public extension ScrewThread {
     /// Standard M1x0.25 ISO metric coarse thread

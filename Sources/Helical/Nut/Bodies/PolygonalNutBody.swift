@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct PolygonalNutBody: NutBody {
     let sideCount: Int
@@ -30,7 +30,7 @@ public struct PolygonalNutBody: NutBody {
                 .extruded(height: thickness)
                 .intersecting {
                     Circle(diameter: polygon.circumradius * 2)
-                        .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners, method: .convexHull)
+                        .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners)
                 }
         }
     }

@@ -1,11 +1,11 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public protocol BoltHeadShape: Shape3D {
     var height: Double { get }
     var boltLength: Double { get }
     var clearanceLength: Double { get }
-    var recess: (any BoltHeadRecess)? { get }
+    var recess: (any Geometry3D)? { get }
     var negativeBody: any Geometry3D { get}
 }
 

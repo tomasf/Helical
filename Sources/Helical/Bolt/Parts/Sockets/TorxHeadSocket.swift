@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 
 internal struct TorxShape: Shape2D {
@@ -14,7 +14,7 @@ internal struct TorxShape: Shape2D {
                     .translated(x: 0.4 * outerDiameter)
                     .repeated(count: 6)
             }
-            .rounded(amount: 0.175 * outerDiameter, side: .inside)
+            .rounded(insideRadius: 0.175 * outerDiameter)
     }
 }
 

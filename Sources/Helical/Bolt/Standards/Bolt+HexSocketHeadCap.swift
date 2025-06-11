@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 // DIN 912 / ISO 4762
 // Metric hex socket head cap bolts
@@ -44,7 +44,7 @@ public extension Bolt {
         let head = CylindricalBoltHeadShape(
             diameter: headDiameter,
             height: thread.majorDiameter,
-            topEdge: .chamfer(size: thread.majorDiameter / 10.0)
+            topEdge: .chamfer(depth: thread.majorDiameter / 10.0)
         )
         let socket = PolygonalBoltHeadSocket(
             sides: 6,

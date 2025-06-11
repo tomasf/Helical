@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 import Helical
 
 let boltLength = 20.0
@@ -45,26 +45,25 @@ struct Repertoire: Shape3D {
     var body: any Geometry3D {
         Stack(.y, spacing: 5) {
             for (label, part) in contents {
-                Stack(.x, spacing: 2, alignment: .centerY) {
-                    part
-                        .aligned(at: .bottom)
-                        .settingBoundsSize(x: partWidth, z: 100, alignment: .centerXY)
-                        .usingFacets(minAngle: 5°, minSize: 0.3)
-
-                    Text(label)
-                        .settingBounds { Rectangle(x: 100, y: 10).aligned(at: .centerY) }
-                        .extruded(height: 0.1)
-                }
+                part
+                    .withSegmentation(minAngle: 5°, minSize: 0.3)
+                    .adding {
+                        Text(label)
+                            .aligned(at: .centerY)
+                            .translated(x: 10)
+                            .extruded(height: 0.1)
+                    }
             }
         }
-        .usingTextAlignment(vertical: .center)
-        .usingFont(size: 8)
-        .forceRendered()
+        //.usingTextAlignment(vertical: .center)
+        //.usingFont(size: 8)
     }
 }
 
-Repertoire(contents: bolts, partWidth: 15)
-    .save(to: "bolts")
+await Model("bolts") {
+    Repertoire(contents: bolts, partWidth: 15)
+}
 
-Repertoire(contents: nutsAndWashers, partWidth: 15)
-    .save(to: "nutsAndWashers")
+await Model("nutsAndWashers") {
+    Repertoire(contents: nutsAndWashers, partWidth: 15)
+}

@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct PhillipsBoltHeadSocket: BoltHeadSocket {
     let size: PhillipsSize
@@ -70,7 +70,7 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                         .rotated(z: 45°)
                         .translated(z: 3)
                         .background()
-                        .disabled()
+                        .hidden()
                 }
                 .repeated(around: .z, count: 4)
                 .translated(z: -depth)
@@ -84,11 +84,12 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
 
                 EdgeProfile
                     .fillet(radius: metrics.filletRadius)
-                    .shape(angle: 90° + metrics.topAngle)
+                    .profile //.shape(angle: 90° + metrics.topAngle)
                     .flipped(along: .y)
                     .translated(x: fullWidth / 2 - 0.002)
-                    .extruded()
+                    .revolved()
                     .translated(z: 0.001)
+                #warning("fix")
             }
             .intersecting(mask)
         }

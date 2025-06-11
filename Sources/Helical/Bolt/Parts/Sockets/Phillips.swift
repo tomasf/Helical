@@ -1,7 +1,7 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
-public enum PhillipsSize {
+public enum PhillipsSize: Sendable {
     case ph0
     case ph1
     case ph2
@@ -9,7 +9,7 @@ public enum PhillipsSize {
     case ph4
 }
 
-internal struct PhillipsMetrics {
+internal struct PhillipsMetrics: Sendable {
     let fullWidth: Double
     let crossDistanceBetweenCorners: Double // b
     let cornerWidth: Double // e

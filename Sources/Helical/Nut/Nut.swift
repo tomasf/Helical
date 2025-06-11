@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct Nut: Shape3D {
     public let thread: ScrewThread

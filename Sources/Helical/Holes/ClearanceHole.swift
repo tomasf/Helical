@@ -1,13 +1,15 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct ClearanceHole: Shape3D {
     let diameter: Double
     let depth: Double
     let edgeProfile: EdgeProfile?
-    let boltHeadRecess: (any BoltHeadRecess)?
+    let boltHeadRecess: (any Geometry3D)?
 
-    public init(diameter: Double, depth: Double, boltHeadRecess: (any BoltHeadRecess)?) {
+    @Environment(\.tolerance) var tolerance
+
+    public init(diameter: Double, depth: Double, boltHeadRecess: (any Geometry3D)?) {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = nil
@@ -22,19 +24,20 @@ public struct ClearanceHole: Shape3D {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
+        Union {
             let effectiveDiameter = diameter + tolerance
-            OverhangCylinder(diameter: effectiveDiameter, height: depth + 0.02)
+            Cylinder(diameter: effectiveDiameter, height: depth)
+                .overhangSafe()
+
             if let boltHeadRecess {
                 boltHeadRecess
             } else {
                 if let edgeProfile {
-                    edgeProfile.shape()
-                        .translated(x: effectiveDiameter / 2 - 0.01)
-                        .extruded()
+                    edgeProfile.profile
+                        .translated(x: effectiveDiameter / 2)
+                        .revolved()
                 }
             }
         }
-        .translated(z: -0.01)
     }
 }

@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct CountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
@@ -34,13 +34,14 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
                 .adding {
                     if bottomFilletRadius > 0 {
                         EdgeProfile.fillet(radius: bottomFilletRadius)
-                            .shape(angle: 180° - countersink.angle / 2)
-                            .usingFacets(minAngle: 10°, minSize: bottomFilletRadius / 10)
+                            .profile //.shape(angle: 180° - countersink.angle / 2)
+                            .withSegmentation(minAngle: 10°, minSize: bottomFilletRadius / 10)
                             .rotated(-90°)
                             .flipped(along: .y)
                             .translated(x: (boltDiameter - tolerance) / 2)
-                            .extruded()
+                            .revolved()
                             .translated(z: height - lensHeight)
+                        #warning("fix")
                     }
                 }
                 .translated(z: lensHeight)
@@ -56,7 +57,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
         }
     }
 
-    public var recess: (any BoltHeadRecess)? {
+    public var recess: (any Geometry3D)? {
         Countersink.Shape(countersink)
     }
 }

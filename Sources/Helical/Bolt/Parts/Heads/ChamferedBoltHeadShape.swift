@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct ChamferedBoltHeadShape: BoltHeadShape {
     let thread: ScrewThread
@@ -12,14 +12,13 @@ public struct ChamferedBoltHeadShape: BoltHeadShape {
 
     public var negativeBody: any Geometry3D {
         readTolerance { tolerance in
-            edgeProfile.shape()
-                .rotated(90°)
+            edgeProfile.profile
                 .translated(x: (thread.majorDiameter - tolerance) / 2)
-                .extruded()
+                .revolved()
         }
     }
 
     public let height = 0.0
     public let body: any Geometry3D = Box(.zero)
-    public let recess: (any BoltHeadRecess)? = nil
+    public let recess: (any Geometry3D)? = nil
 }

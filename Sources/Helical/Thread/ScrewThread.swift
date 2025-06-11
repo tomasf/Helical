@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct ScrewThread: Sendable {
     public let handedness: Handedness

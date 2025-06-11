@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct PolygonalBoltHeadShape: BoltHeadShape {
     let sideCount: Int
@@ -28,13 +28,16 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
             let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
             polygon
                 .extruded(height: height)
-                .applyingBottomEdgeProfile(.chamfer(width: chamferWidth, angle: chamferAngle), at: 0, method: .convexHull) {
-                    Circle(radius: polygon.circumradius)
+                .subtracting {
+                    Rectangle(polygon.circumradius)
+                        .rotated(-90° + chamferAngle)
+                        .translated(x: polygon.circumradius - chamferWidth)
+                        .revolved()
                 }
         }
     }
 
-    public var recess: (any BoltHeadRecess)? {
+    public var recess: (any Geometry3D)? {
         PolygonalHeadRecess(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height)
     }
 }

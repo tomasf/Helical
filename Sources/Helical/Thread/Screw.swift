@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct Screw: Shape3D {
     let thread: ScrewThread
@@ -16,7 +16,7 @@ public struct Screw: Shape3D {
 
             thread.form.shape(for: thread)
                 .transformed(.translation(x: minorRadius))
-                .extrudedAlongHelix(pitch: thread.lead, height: length + thread.pitch)
+                .sweptAlongHelix(pitch: thread.lead, height: length + thread.pitch)
                 .translated(z: -thread.pitch / 2)
                 .repeated(around: .z, in: 0°..<360°, count: thread.starts)
                 .flipped(along: thread.leftHanded ? .x : .none)

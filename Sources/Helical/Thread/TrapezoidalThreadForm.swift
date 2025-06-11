@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 /// Trapezoidal threadforms, of which V-shaped threads and square threads are subsets
 public struct TrapezoidalThreadForm: ThreadForm, Sendable {
