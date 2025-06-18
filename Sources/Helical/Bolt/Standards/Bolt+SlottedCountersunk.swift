@@ -11,7 +11,12 @@ import Cadova
 
 public extension Bolt {
     /// Standard configuration
-    static func slottedCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, shankLength: Double = 0) -> Bolt {
+    static func slottedCountersunk(
+        _ size: ScrewThread.ISOMetricSize,
+        raised: Bool = false,
+        length: Double,
+        shankLength: Double = 0
+    ) -> Bolt {
         let headDiameter = switch size {
         case .m1:   1.9
         case .m1p2: 2.3
@@ -45,7 +50,13 @@ public extension Bolt {
     }
 
     /// Custom configuration
-    static func slottedCountersunk(_ thread: ScrewThread, headDiameter: Double, lensHeight: Double = 0, length: Double, shankLength: Double = 0) -> Bolt {
+    static func slottedCountersunk(
+        _ thread: ScrewThread,
+        headDiameter: Double,
+        lensHeight: Double = 0,
+        length: Double,
+        shankLength: Double = 0
+    ) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
             boltDiameter: thread.majorDiameter - thread.depth,

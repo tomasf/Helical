@@ -37,13 +37,18 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
         }
     }
 
-    public var recess: (any Geometry3D)? {
+    public var recess: any Geometry3D {
         Counterbore.Shape(.init(diameter: diameter, depth: height))
     }
 }
 
 public extension BoltHeadShape where Self == CylindricalBoltHeadShape {
-    static func cylindrical(diameter: Double, height: Double, topEdge: EdgeProfile? = nil, bottomEdge: EdgeProfile? = nil) -> Self {
+    static func cylindrical(
+        diameter: Double,
+        height: Double,
+        topEdge: EdgeProfile? = nil,
+        bottomEdge: EdgeProfile? = nil
+    ) -> Self {
         CylindricalBoltHeadShape(diameter: diameter, height: height, topEdge: topEdge, bottomEdge: bottomEdge)
     }
 }

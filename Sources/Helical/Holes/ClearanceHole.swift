@@ -5,11 +5,11 @@ public struct ClearanceHole: Shape3D {
     let diameter: Double
     let depth: Double
     let edgeProfile: EdgeProfile?
-    let boltHeadRecess: (any Geometry3D)?
+    let boltHeadRecess: any Geometry3D
 
     @Environment(\.tolerance) var tolerance
 
-    public init(diameter: Double, depth: Double, boltHeadRecess: (any Geometry3D)?) {
+    public init(diameter: Double, depth: Double, boltHeadRecess: any Geometry3D) {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = nil
@@ -20,7 +20,7 @@ public struct ClearanceHole: Shape3D {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = edgeProfile
-        self.boltHeadRecess = nil
+        self.boltHeadRecess = Empty()
     }
 
     public var body: any Geometry3D {
@@ -29,15 +29,14 @@ public struct ClearanceHole: Shape3D {
             Cylinder(diameter: effectiveDiameter, height: depth)
                 .overhangSafe()
 
-            if let boltHeadRecess {
-                boltHeadRecess
-            } else {
-                if let edgeProfile {
-                    edgeProfile.profile
-                        .translated(x: effectiveDiameter / 2)
-                        .revolved()
+            boltHeadRecess
+                .ifEmpty {
+                    if let edgeProfile {
+                        edgeProfile.profile
+                            .translated(x: effectiveDiameter / 2)
+                            .revolved()
+                    }
                 }
-            }
         }
     }
 }

@@ -1,6 +1,8 @@
 import Foundation
 import Cadova
 
+// A bolt head shape for bolts without a head, such as set screws
+
 public struct ChamferedBoltHeadShape: BoltHeadShape {
     let thread: ScrewThread
     let edgeProfile: EdgeProfile
@@ -19,6 +21,6 @@ public struct ChamferedBoltHeadShape: BoltHeadShape {
     }
 
     public let height = 0.0
-    public let body: any Geometry3D = Box(.zero)
-    public let recess: (any Geometry3D)? = nil
+    public var body: any Geometry3D {}
+    public var recess: any Geometry3D {}
 }

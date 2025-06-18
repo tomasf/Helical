@@ -5,7 +5,7 @@ public protocol BoltHeadShape: Shape3D {
     var height: Double { get }
     var boltLength: Double { get }
     var clearanceLength: Double { get }
-    var recess: (any Geometry3D)? { get }
+    @GeometryBuilder3D var recess: any Geometry3D { get }
     @GeometryBuilder3D var negativeBody: any Geometry3D { get }
 }
 

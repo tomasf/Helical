@@ -50,7 +50,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
             }
     }
 
-    public var recess: (any Geometry3D)? {
+    public var recess: any Geometry3D {
         Countersink.Shape(countersink)
     }
 }
