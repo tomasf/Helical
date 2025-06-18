@@ -22,32 +22,32 @@ public struct Nut: Shape3D {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            shape
-                .subtracting {
-                    Screw(thread: thread, length: shape.threadedDepth + 0.002)
-                        .translated(z: -0.001)
+        @Environment(\.tolerance) var tolerance
+        
+        shape
+            .subtracting {
+                Screw(thread: thread, length: shape.threadedDepth + 0.002)
+                    .translated(z: -0.001)
 
-                    if let innerChamferAngleBottom {
-                        Cylinder(
-                            bottomDiameter: thread.majorDiameter + tolerance,
-                            topDiameter: thread.minorDiameter + tolerance,
-                            height: thread.depth * tan(90° - innerChamferAngleBottom / 2)
-                        )
-                        .translated(z: -0.01)
-                    }
-
-                    if let innerChamferAngleTop {
-                        Cylinder(
-                            bottomDiameter: thread.majorDiameter + tolerance,
-                            topDiameter: thread.minorDiameter + tolerance,
-                            height: thread.depth * tan(90° - innerChamferAngleTop / 2)
-                        )
-                        .flipped(along: .z)
-                        .translated(z: shape.threadedDepth + 0.01)
-                    }
+                if let innerChamferAngleBottom {
+                    Cylinder(
+                        bottomDiameter: thread.majorDiameter + tolerance,
+                        topDiameter: thread.minorDiameter + tolerance,
+                        height: thread.depth * tan(90° - innerChamferAngleBottom / 2)
+                    )
+                    .translated(z: -0.01)
                 }
-        }
+
+                if let innerChamferAngleTop {
+                    Cylinder(
+                        bottomDiameter: thread.majorDiameter + tolerance,
+                        topDiameter: thread.minorDiameter + tolerance,
+                        height: thread.depth * tan(90° - innerChamferAngleTop / 2)
+                    )
+                    .flipped(along: .z)
+                    .translated(z: shape.threadedDepth + 0.01)
+                }
+            }
     }
 
     public func nutTrap(depthClearance: Double = 0) -> any Geometry3D {

@@ -11,7 +11,8 @@ public struct TrapezoidalThreadform: Threadform {
         self.crestWidth = crestWidth
     }
 
-    public func shape(for thread: ScrewThread) -> any Geometry2D {
+    public var body: any Geometry2D {
+        @Environment(\.bolt!.thread) var thread
         let slopeLength = thread.depth / tan(90° - angle / 2)
 
         Polygon([

@@ -21,20 +21,20 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            let toleranceScale = (widthAcrossFlats - tolerance) / widthAcrossFlats
-            let apothem = (widthAcrossFlats - tolerance) / 2
-            let polygon = RegularPolygon(sideCount: sideCount, apothem: apothem)
-            let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
-            polygon
-                .extruded(height: height)
-                .subtracting {
-                    Rectangle(polygon.circumradius)
-                        .rotated(-90° + chamferAngle)
-                        .translated(x: polygon.circumradius - chamferWidth)
-                        .revolved()
-                }
-        }
+        @Environment(\.tolerance) var tolerance
+
+        let toleranceScale = (widthAcrossFlats - tolerance) / widthAcrossFlats
+        let apothem = (widthAcrossFlats - tolerance) / 2
+        let polygon = RegularPolygon(sideCount: sideCount, apothem: apothem)
+        let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
+        polygon
+            .extruded(height: height)
+            .subtracting {
+                Rectangle(polygon.circumradius)
+                    .rotated(-90° + chamferAngle)
+                    .translated(x: polygon.circumradius - chamferWidth)
+                    .revolved()
+            }
     }
 
     public var recess: any Geometry3D {

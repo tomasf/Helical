@@ -37,12 +37,12 @@ public extension Counterbore {
         }
         
         public var body: any Geometry3D {
-            readTolerance { tolerance in
-                let diameter = counterbore.diameter + tolerance
-                Cylinder(diameter: diameter, height: counterbore.depth + headClearance)
-                    .overhangSafe()
-                    .translated(z: -headClearance)
-            }
+            @Environment(\.tolerance) var tolerance
+
+            let diameter = counterbore.diameter + tolerance
+            Cylinder(diameter: diameter, height: counterbore.depth + headClearance)
+                .overhangSafe()
+                .translated(z: -headClearance)
         }
     }
 }
@@ -61,12 +61,12 @@ struct PolygonalHeadRecess: Shape3D {
     }
 
     var body: any Geometry3D {
-        readTolerance { tolerance in
-            let apothem = (widthAcrossFlats + tolerance) / 2
-            RegularPolygon(sideCount: sideCount, apothem: apothem)
-                .extruded(height: height + headClearance)
-                .translated(z: -headClearance)
-        }
+        @Environment(\.tolerance) var tolerance
+
+        let apothem = (widthAcrossFlats + tolerance) / 2
+        RegularPolygon(sideCount: sideCount, apothem: apothem)
+            .extruded(height: height + headClearance)
+            .translated(z: -headClearance)
     }
 }
 

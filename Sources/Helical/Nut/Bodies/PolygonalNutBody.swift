@@ -23,24 +23,24 @@ public struct PolygonalNutBody: NutBody {
     }
 
     public var body: any Geometry3D {
-        readEnvironment { environment in
-            let polygon = RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + environment.relativeTolerance) / 2)
-            polygon
-                .rotated(180° / Double(sideCount))
-                .extruded(height: thickness)
-                .intersecting {
-                    Circle(diameter: polygon.circumradius * 2)
-                        .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners)
-                }
-        }
+        @Environment(\.relativeTolerance) var relativeTolerance
+
+        let polygon = RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + relativeTolerance) / 2)
+        polygon
+            .rotated(180° / Double(sideCount))
+            .extruded(height: thickness)
+            .intersecting {
+                Circle(diameter: polygon.circumradius * 2)
+                    .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners)
+            }
     }
 
     public func nutTrap(depthClearance: Double) -> any Geometry3D {
-        readTolerance { tolerance in
-            RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + tolerance) / 2)
+        @Environment(\.tolerance) var tolerance
+
+        RegularPolygon(sideCount: sideCount, apothem: (widthAcrossFlats + tolerance) / 2)
                 .rotated(180° / Double(sideCount))
                 .extruded(height: thickness + depthClearance)
-        }
     }
 
     public var threadedDepth: Double { thickness }

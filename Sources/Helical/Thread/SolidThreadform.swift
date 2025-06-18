@@ -2,7 +2,8 @@ import Foundation
 import Cadova
 
 internal struct SolidThreadform: Threadform {
-    func shape(for thread: ScrewThread) -> any Geometry2D {
+    var body: any Geometry2D {
+        @Environment(\.bolt!.thread) var thread
         Rectangle(x: thread.depth, y: thread.pitch)
     }
 

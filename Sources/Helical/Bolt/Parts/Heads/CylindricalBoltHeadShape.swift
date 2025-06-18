@@ -25,16 +25,16 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            Circle(diameter: diameter - tolerance)
-                .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge)
-                .intersecting {
-                    if let roundedTopRadius {
-                        Sphere(radius: roundedTopRadius)
-                            .aligned(at: .minZ)
-                    }
+        @Environment(\.tolerance) var tolerance
+
+        Circle(diameter: diameter - tolerance)
+            .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge)
+            .intersecting {
+                if let roundedTopRadius {
+                    Sphere(radius: roundedTopRadius)
+                        .aligned(at: .minZ)
                 }
-        }
+            }
     }
 
     public var recess: any Geometry3D {

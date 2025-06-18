@@ -33,7 +33,6 @@ public struct ScrewThread: Sendable {
     }
 }
 
-public protocol Threadform: Sendable {
-    @GeometryBuilder2D func shape(for thread: ScrewThread) -> any Geometry2D
+public protocol Threadform: Shape2D {
     func pitchDiameter(for thread: ScrewThread) -> Double
 }

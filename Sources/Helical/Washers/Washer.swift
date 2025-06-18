@@ -15,20 +15,20 @@ public struct Washer: Shape3D {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            Circle(diameter: outerDiameter - tolerance)
-                .subtracting {
-                    Circle(diameter: innerDiameter + tolerance)
+        @Environment(\.tolerance) var tolerance
+        
+        Circle(diameter: outerDiameter - tolerance)
+            .subtracting {
+                Circle(diameter: innerDiameter + tolerance)
+            }
+            .extruded(height: thickness)
+            .subtracting {
+                if let outerTopEdge {
+                    outerTopEdge.profile
+                        .translated(x: (outerDiameter - tolerance) / 2 + 0.01, y: 0.01)
+                        .revolved()
+                        .translated(z: thickness)
                 }
-                .extruded(height: thickness)
-                .subtracting {
-                    if let outerTopEdge {
-                        outerTopEdge.profile
-                            .translated(x: (outerDiameter - tolerance) / 2 + 0.01, y: 0.01)
-                            .revolved()
-                            .translated(z: thickness)
-                    }
-                }
-        }
+            }
     }
 }
