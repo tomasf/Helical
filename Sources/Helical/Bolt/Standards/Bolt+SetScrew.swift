@@ -101,7 +101,7 @@ public extension Bolt {
             shankLength: shankLength,
             headShape: head,
             socket: PolygonalBoltHeadSocket(sides: 6, acrossWidth: socketWidth, depth: socketDepth),
-            point: ChamferedBoltPoint(chamferSize:pointChamferSize, dogPointLength: dogPointLength)
+            point: ProfiledBoltPoint(chamferSize:pointChamferSize, dogPointLength: dogPointLength)
         )
     }
 
@@ -123,7 +123,7 @@ public extension Bolt {
             shankLength: shankLength,
             headShape: head,
             socket: SlottedBoltHeadSocket(length: thread.majorDiameter, width: slotWidth, depth: slotDepth),
-            point: ChamferedBoltPoint(chamferSize: pointChamferSize, dogPointLength: dogPointLength)
+            point: ProfiledBoltPoint(chamferSize: pointChamferSize, dogPointLength: dogPointLength)
         )
     }
 }

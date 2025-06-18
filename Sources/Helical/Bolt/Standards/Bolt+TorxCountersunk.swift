@@ -50,7 +50,7 @@ public extension Bolt {
             boltDiameter: thread.majorDiameter - thread.depth
         )
         let socket = TorxBoltHeadSocket(size: size, depth: socketDepth)
-        let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
+        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,
             length: length,

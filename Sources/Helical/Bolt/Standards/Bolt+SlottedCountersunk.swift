@@ -67,7 +67,7 @@ public extension Bolt {
             width: headDiameter * 0.14,
             depth: headDiameter * 0.13 + lensHeight
         )
-        let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
+        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,
             length: length,

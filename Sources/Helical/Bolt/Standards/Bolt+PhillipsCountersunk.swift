@@ -58,7 +58,7 @@ public extension Bolt {
             lensHeight: lensHeight
         )
         let socket = PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth)
-        let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
+        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,
             length: length,

@@ -26,7 +26,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
         (countersink.topDiameter - boltDiameter) / 2 * tan(countersink.angle / 2) + lensHeight
     }
 
-    public var boltLength: Double {
+    public var consumedLength: Double {
         height - lensHeight
     }
 

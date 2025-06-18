@@ -44,7 +44,7 @@ public struct Bolt: Shape3D {
             shankDiameter: shankDiameter,
             headShape: headShape,
             socket: socket,
-            point: ChamferedBoltPoint(chamferSize: leadinChamferSize)
+            point: ProfiledBoltPoint(chamferSize: leadinChamferSize)
         )
     }
 
@@ -68,8 +68,8 @@ public struct Bolt: Shape3D {
     }
 
     public var body: any Geometry3D {
-        let baseLevel = headShape.height - headShape.boltLength
-        let threadLength = length - shankLength - (point?.boltLength ?? 0)
+        let baseLevel = headShape.height - headShape.consumedLength
+        let threadLength = length - shankLength - (point?.consumedLength ?? 0)
 
         @Environment(\.tolerance) var tolerance
 
@@ -96,7 +96,7 @@ public struct Bolt: Shape3D {
     }
 
     private func clearanceHoleDepth(recessedHead: Bool = false) -> Double {
-        recessedHead ? (length + headShape.clearanceLength) : (length - headShape.boltLength)
+        recessedHead ? (length + headShape.clearanceLength) : (length - headShape.consumedLength)
     }
 
     public func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile? = nil) -> ClearanceHole {

@@ -2,7 +2,7 @@ import Foundation
 import Cadova
 
 public protocol BoltPoint: Shape3D {
-    var boltLength: Double { get }
+    var consumedLength: Double { get }
     @GeometryBuilder3D var negativeBody: any Geometry3D { get }
 }
 
