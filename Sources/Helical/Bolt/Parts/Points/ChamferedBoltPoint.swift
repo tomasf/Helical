@@ -21,9 +21,15 @@ public struct ChamferedBoltPoint: BoltPoint {
         @Environment(\.thread!) var thread
         @Environment(\.tolerance) var tolerance
 
-        EdgeProfile.chamfer(depth: chamferSize)
-            .profile
-            .translated(x: (thread.majorDiameter - tolerance) / 2 + 0.01, y: -0.01)
+        let radius = (thread.majorDiameter - tolerance) / 2 - chamferSize
+        Rectangle(x: thread.majorDiameter, y: chamferSize)
+            .translated(x: radius)
+            .subtracting {
+                EdgeProfile.fillet(radius: chamferSize)// .chamfer(depth: chamferSize)
+                    .profile
+                    .flipped(along: .y)
+                    .translated(x: radius + chamferSize)
+            }
             .revolved()
             .flipped(along: .z)
     }

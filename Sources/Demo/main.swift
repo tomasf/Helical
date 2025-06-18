@@ -41,30 +41,34 @@ let nutsAndWashers: [(String, any Geometry3D)] = [
 
 struct Repertoire: Shape3D {
     let contents: [(label: String, part: any Geometry3D)]
-    let partWidth: Double
 
     var body: any Geometry3D {
-        Stack(.y, spacing: 5) {
-            for (label, part) in contents {
-                part
-                    .withSegmentation(minAngle: 5°, minSize: 0.3)
-                    .adding {
-                        Text(label)
-                            .aligned(at: .centerY)
-                            .translated(x: 10)
-                            .extruded(height: 0.1)
-                    }
+        Stack(.y) {
+            for (_, part) in contents { part }
+        }
+        .measuringBounds { _, bounds in
+            let partWidth = bounds.size.x
+
+            Stack(.y, spacing: 5) {
+                for (label, part) in contents {
+                    part
+                        .translated(x: partWidth / 2)
+                        .adding {
+                            Text(label)
+                                .aligned(at: .centerY)
+                                .translated(x: partWidth + 3)
+                                .extruded(height: 0.1)
+                        }
+                }
             }
         }
-        //.usingTextAlignment(vertical: .center)
-        //.usingFont(size: 8)
     }
 }
 
 await Model("bolts") {
-    Repertoire(contents: bolts, partWidth: 15)
+    Repertoire(contents: bolts)
 }
 
 await Model("nutsAndWashers") {
-    Repertoire(contents: nutsAndWashers, partWidth: 15)
+    Repertoire(contents: nutsAndWashers)
 }
