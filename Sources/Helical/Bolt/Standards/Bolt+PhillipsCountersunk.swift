@@ -55,7 +55,6 @@ public extension Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
             boltDiameter: thread.majorDiameter - thread.depth,
-            bottomFilletRadius: thread.majorDiameter / 10,
             lensHeight: lensHeight
         )
         let socket = PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth)

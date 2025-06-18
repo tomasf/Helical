@@ -32,6 +32,11 @@ public struct Bolt: Shape3D {
         )
     }
 
+    // A bolt without a screw thread, for purposes where the thread is not important
+    public init(solidDiameter: Double, length: Double, headShape: any BoltHeadShape, socket: (any BoltHeadSocket)? = nil, point: (any BoltPoint)? = nil) {
+        self.init(thread: .none(diameter: solidDiameter), length: 0, shankLength: length, shankDiameter: solidDiameter, headShape: headShape, socket: socket, point: point)
+    }
+
     public var body: any Geometry3D {
         let baseLevel = headShape.height - headShape.boltLength
         let threadLength = length - shankLength - (point?.boltLength ?? 0)
