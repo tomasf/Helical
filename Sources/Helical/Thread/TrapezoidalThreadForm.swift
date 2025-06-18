@@ -12,7 +12,7 @@ public struct TrapezoidalThreadform: Threadform {
     }
 
     public var body: any Geometry2D {
-        @Environment(\.bolt!.thread) var thread
+        @Environment(\.thread!) var thread
         let slopeLength = thread.depth / tan(90° - angle / 2)
 
         Polygon([

@@ -3,7 +3,7 @@ import Cadova
 
 internal struct SolidThreadform: Threadform {
     var body: any Geometry2D {
-        @Environment(\.bolt!.thread) var thread
+        @Environment(\.thread!) var thread
         Rectangle(x: thread.depth, y: thread.pitch)
     }
 

@@ -11,7 +11,7 @@ public struct ProfiledBoltHeadShape: BoltHeadShape {
     }
 
     public var negativeBody: any Geometry3D {
-        @Environment(\.bolt!.thread) var thread
+        @Environment(\.thread!) var thread
         @Environment(\.tolerance) var tolerance
 
         edgeProfile.profile

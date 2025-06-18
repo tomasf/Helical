@@ -26,6 +26,7 @@ public struct Screw: Shape3D {
                 .adding {
                     Cylinder(radius: minorRadius + 0.01, height: length)
                 }
+                .withThread(thread)
         }
     }
 }

@@ -92,7 +92,7 @@ public struct Bolt: Shape3D {
                 point?.negativeBody
                     .translated(z: baseLevel + shankLength + threadLength)
             }
-            .withBolt(self)
+            .withThread(thread)
     }
 
     private func clearanceHoleDepth(recessedHead: Bool = false) -> Double {

@@ -13,12 +13,12 @@ public struct ChamferedBoltPoint: BoltPoint {
     public var boltLength: Double { dogPointLength }
 
     public var body: any Geometry3D {
-        @Environment(\.bolt!.thread) var thread
+        @Environment(\.thread!) var thread
         Cylinder(diameter: thread.majorDiameter - chamferSize * 2, height: dogPointLength)
     }
 
     public var negativeBody: any Geometry3D {
-        @Environment(\.bolt!.thread) var thread
+        @Environment(\.thread!) var thread
         @Environment(\.tolerance) var tolerance
 
         EdgeProfile.chamfer(depth: chamferSize)

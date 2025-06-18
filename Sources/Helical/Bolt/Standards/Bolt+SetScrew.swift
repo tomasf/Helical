@@ -93,7 +93,7 @@ public extension Bolt {
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
-        let head = ProfiledBoltHeadShape(thread: thread, edgeProfile: .chamfer(depth: thread.depth))
+        let head = ProfiledBoltHeadShape(edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
@@ -115,7 +115,7 @@ public extension Bolt {
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
-        let head = ProfiledBoltHeadShape(thread: thread, edgeProfile: .chamfer(depth: thread.depth))
+        let head = ProfiledBoltHeadShape(edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
