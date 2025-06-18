@@ -44,7 +44,7 @@ public struct Bolt: Shape3D {
             shankDiameter: shankDiameter,
             headShape: headShape,
             socket: socket,
-            point: ChamferedBoltPoint(thread: thread, chamferSize: leadinChamferSize)
+            point: ChamferedBoltPoint(chamferSize: leadinChamferSize)
         )
     }
 
@@ -71,34 +71,28 @@ public struct Bolt: Shape3D {
         let baseLevel = headShape.height - headShape.boltLength
         let threadLength = length - shankLength - (point?.boltLength ?? 0)
 
-        readTolerance { tolerance in
-            headShape
-                .adding {
-                    // Shank
-                    Cylinder(diameter: shankDiameter - tolerance, height: shankLength)
-                        .translated(z: baseLevel)
+        @Environment(\.tolerance) var tolerance
 
-                    // Threads
-                    Screw(thread: thread, length: threadLength)
-                        .translated(z: baseLevel + shankLength)
+        headShape
+            .adding {
+                // Shank
+                Cylinder(diameter: shankDiameter - tolerance, height: shankLength)
+                    .translated(z: baseLevel)
 
-                    // Point
-                    if let point {
-                        point
-                            .translated(z: baseLevel + shankLength + threadLength)
-                    }
-                }
-                .subtracting {
-                    headShape.negativeBody
-                    if let socket {
-                        socket.translated(z: -0.01)
-                    }
-                    if let point {
-                        point.negativeBody
-                            .translated(z: baseLevel + shankLength + threadLength)
-                    }
-                }
-        }
+                // Threads
+                Screw(thread: thread, length: threadLength)
+                    .translated(z: baseLevel + shankLength)
+
+                // Point
+                point?.translated(z: baseLevel + shankLength + threadLength)
+            }
+            .subtracting {
+                headShape.negativeBody
+                socket?.translated(z: -0.01)
+                point?.negativeBody
+                    .translated(z: baseLevel + shankLength + threadLength)
+            }
+            .withBolt(self)
     }
 
     private func clearanceHoleDepth(recessedHead: Bool = false) -> Double {

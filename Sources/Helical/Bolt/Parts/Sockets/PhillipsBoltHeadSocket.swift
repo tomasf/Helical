@@ -41,7 +41,6 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                         .translated(x: crossDistanceBetweenCorners / 2, z: cornerDistanceFromBottom)
                         .rotated(z: 45°)
                         .symmetry(over: .y)
-
                         .adding {
                             Circle(diameter: fullWidth)
                                 .intersecting {
@@ -64,13 +63,6 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                         .translated(x: crossDistanceBetweenCorners / 2, z: cornerDistanceFromBottom)
                         .rotated(z: 45°)
                         .symmetry(over: .y)
-
-                    Box([metrics.cornerWidth, 0.02, 0.02])
-                        .aligned(at: .center)
-                        .rotated(z: 45°)
-                        .translated(z: 3)
-                        .background()
-                        .hidden()
                 }
                 .repeated(around: .z, count: 4)
                 .translated(z: -depth)
@@ -82,6 +74,7 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                 Cylinder(bottomDiameter: 0, topDiameter: bottomWidth, height: bottomDepth + 0.001)
                     .translated(z: -depth)
 
+                /*
                 EdgeProfile
                     .fillet(radius: metrics.filletRadius)
                     .profile //.shape(angle: 90° + metrics.topAngle)
@@ -89,7 +82,8 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
                     .translated(x: fullWidth / 2 - 0.002)
                     .revolved()
                     .translated(z: 0.001)
-                #warning("fix")
+                 */
+                #warning("Can we remove this?")
             }
             .intersecting(mask)
         }
