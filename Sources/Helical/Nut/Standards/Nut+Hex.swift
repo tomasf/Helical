@@ -49,8 +49,14 @@ public extension Nut {
 
     static func hex(thread: ScrewThread, width: Double, height: Double, flatDiameter dw: Double? = nil) -> Nut {
         let chamferWidth = RegularPolygon(sideCount: 6, apothem: width / 2).circumradius - (dw ?? width) / 2
-        let chamfer = EdgeProfile.chamfer(depth: chamferWidth, angle: 30°)
-        let shape = PolygonalNutBody(sideCount: 6, thickness: height, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: chamfer)
+        let shape = PolygonalNutBody(
+            sideCount: 6,
+            thickness: height,
+            widthAcrossFlats: width,
+            chamferAngle: 30°,
+            topChamferDepth: chamferWidth,
+            bottomChamferDepth: chamferWidth
+        )
         return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
     }
 }

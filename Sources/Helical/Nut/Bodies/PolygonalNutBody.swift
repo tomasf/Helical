@@ -5,21 +5,24 @@ public struct PolygonalNutBody: NutBody {
     let sideCount: Int
     let thickness: Double
     let widthAcrossFlats: Double
-    let topCorners: EdgeProfile?
-    let bottomCorners: EdgeProfile?
+    let chamferAngle: Angle?
+    let topChamferDepth: Double
+    let bottomChamferDepth: Double
 
     public init(
         sideCount: Int,
         thickness: Double,
         widthAcrossFlats: Double,
-        topCorners: EdgeProfile? = nil,
-        bottomCorners: EdgeProfile? = nil
+        chamferAngle: Angle? = nil,
+        topChamferDepth: Double = 0,
+        bottomChamferDepth: Double = 0
     ) {
         self.sideCount = sideCount
         self.thickness = thickness
         self.widthAcrossFlats = widthAcrossFlats
-        self.topCorners = topCorners
-        self.bottomCorners = bottomCorners
+        self.chamferAngle = chamferAngle
+        self.topChamferDepth = topChamferDepth
+        self.bottomChamferDepth = bottomChamferDepth
     }
 
     public var body: any Geometry3D {
@@ -30,8 +33,31 @@ public struct PolygonalNutBody: NutBody {
             .rotated(180° / Double(sideCount))
             .extruded(height: thickness)
             .intersecting {
-                Circle(diameter: polygon.circumradius * 2)
-                    .extruded(height: thickness, topEdge: topCorners, bottomEdge: bottomCorners)
+                if let chamferAngle {
+                    let apexAngle = 180° - chamferAngle * 2
+                    if topChamferDepth > 0 {
+                        let top = Cylinder(
+                            bottomDiameter: polygon.circumradius * 2,
+                            topDiameter: (polygon.circumradius - topChamferDepth) * 2,
+                            apexAngle: apexAngle
+                        )
+                        Stack(.z) {
+                            Cylinder(radius: polygon.circumradius, height: thickness - top.height)
+                            top
+                        }
+                    }
+                    if bottomChamferDepth > 0 {
+                        let bottom = Cylinder(
+                            bottomDiameter: (polygon.circumradius - bottomChamferDepth) * 2,
+                            topDiameter: polygon.circumradius * 2,
+                            apexAngle: apexAngle
+                        )
+                        Stack(.z) {
+                            bottom
+                            Cylinder(radius: polygon.circumradius, height: thickness - bottom.height)
+                        }
+                    }
+                }
             }
     }
 

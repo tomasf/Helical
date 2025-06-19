@@ -8,6 +8,7 @@ public extension Nut {
         return .init(thread: thread, shape: body, innerChamferAngle: 90°)
     }
 
+    /// Standard metric t-slot nut, DIN 508 / ISO 299
     static func tSlotNut(_ size: ScrewThread.ISOMetricSize) -> Nut {
         let baseXY, baseHeight, slotWidth, fullHeight, chamferDepth: Double
 
