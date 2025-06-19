@@ -57,6 +57,56 @@ public extension Nut {
             topChamferDepth: chamferWidth,
             bottomChamferDepth: chamferWidth
         )
-        return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
+        return Nut(thread: thread, shape: shape, innerChamferAngle: 120°)
+    }
+}
+
+// DIN EN 1661 / ISO 4161, extended with M3 and M4
+// Flanged hex nuts
+// https://www.fasteners.eu/standards/din/6923/
+
+public extension Nut {
+    static func flangedHex(_ size: ScrewThread.ISOMetricSize) -> Nut {
+        let (width, thickness, bottomDiameter, roundingDiameter) = switch size {
+        case .m3:  (5.5,  4.0,  6.7,   0.65)
+        case .m4:  (7.0,  4.65, 8.6,   0.8)
+        case .m5:  (8.0,  5.0,  9.8,   1.0)
+        case .m6:  (10.0, 6.0,  12.2,  1.1)
+        case .m8:  (13.0, 8.0,  15.8,  1.2)
+        case .m10: (15.0, 10.0, 19.6,  1.5)
+        case .m12: (18.0, 12.0, 23.8,  1.8)
+        case .m14: (21.0, 14.0, 27.6,  2.1)
+        case .m16: (24.0, 16.0, 31.9,  2.4)
+        case .m20: (30.0, 20.0, 39.9,  3.0)
+        default: (0, 0, 0, 0)
+        }
+
+        assert(width > 0, "\(size) isn't a valid size for flanged hex nuts")
+        return Nut.flangedHex(
+            thread: .isoMetric(size),
+            width: width,
+            height: thickness,
+            bottomDiameter: bottomDiameter,
+            roundingDiameter: roundingDiameter,
+            flangeAngle: 20°
+        )
+    }
+
+    static func flangedHex(
+        thread: ScrewThread,
+        width: Double,
+        height: Double,
+        bottomDiameter: Double,
+        roundingDiameter: Double,
+        flangeAngle: Angle
+    ) -> Nut {
+        let base = hex(thread: thread, width: width, height: height)
+        let flangedBody = FlangedNutBody(
+            base: base.shape,
+            bottomDiameter: bottomDiameter,
+            roundingDiameter: roundingDiameter,
+            angle: flangeAngle
+        )
+        return Nut(thread: thread, shape: flangedBody, innerChamferAngle: 120°)
     }
 }
