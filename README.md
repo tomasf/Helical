@@ -92,7 +92,15 @@ Box(13)
 
 ## Behavior
 
+<img align="right" width="200" src="https://github.com/user-attachments/assets/8b56d947-e295-439e-96c7-04b7bec1b7fe" />
+
 Helical uses Cadova's `tolerance` environment setting to increase the diameter of holes and decrease the diameter of bolts. Clearance holes can create overhang-safe shapes. Specify a circular overhang method (`circularOverhangMethod`) to enable this.
+
+```swift
+.withCircularOverhangMethod(.bridge)
+.withTolerance(0.5)
+```
+<br clear="both"/>
 
 ## Contributing
 
