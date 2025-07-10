@@ -90,6 +90,10 @@ Box(13)
     }
 ```
 
+## Behavior
+
+Helical uses Cadova's `tolerance` environment setting to increase the diameter of holes and decrease the diameter of bolts. Clearance holes can create overhang-safe shapes. Specify a circular overhang method (`circularOverhangMethod`) to enable this.
+
 ## Contributing
 
 We welcome contributions. Feel free to open issues for feedback or suggestions and submit pull requests for improvements to the codebase.
