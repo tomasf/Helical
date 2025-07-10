@@ -2,9 +2,10 @@
 
 Helical is a library for [Cadova](https://github.com/tomasf/Cadova) that simplifies the creation of threaded components and related parts. It supports widely-used metric threads, bolts, and nuts, as well as the ability to customize these components to fit specific requirements.
 
-[Bolts demo](Sources/Demo/bolts.stl)<br/>
-[Nuts and washers demo](Sources/Demo/nutsAndWashers.stl)
+<img src="https://github.com/user-attachments/assets/f4fef516-f493-4034-baa2-bf6026ed4f68" />
 
+
+[Bolts demo](Sources/Demo/bolts.stl) · [Nuts and washers demo](Sources/Demo/nutsAndWashers.stl)
 ## Installation
 
 Integrate Helical into your project with the Swift Package Manager by adding it as a dependency in your `Package.swift` file:
@@ -31,14 +32,19 @@ Bolt.hexHead(.m8, length: 20, shankLength: 5)
 
 This generates a standard [DIN 931](https://www.fasteners.eu/standards/DIN/931/) bolt, as expected.
 
+### Customizing Components
+
 <img align="right" width="100" src="https://github.com/user-attachments/assets/728e1d80-d713-4b2f-abdf-99b5e87e20f5" />
 
-### Customizing Components
 Beyond the standard offerings, Helical allows for modifications to fit unique requirements:
 
-
 ```swift
-Bolt.hexHead(.isoMetric(.m8, pitch: 0.75), headWidth: 15, headHeight: 6.5, length: 20)
+Bolt.hexHead(
+    .isoMetric(.m8, pitch: 0.75),
+    headWidth: 15,
+    headHeight: 6.5,
+    length: 20
+)
 ```
 
 Or fully customize parts to your specific needs:
