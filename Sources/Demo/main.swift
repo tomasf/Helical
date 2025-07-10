@@ -66,10 +66,12 @@ struct Repertoire: Shape3D {
     }
 }
 
-await Model("bolts") {
-    Repertoire(contents: bolts)
-}
+await Project(options: .format3D(.stl)) {
+    await Model("bolts") {
+        Repertoire(contents: bolts)
+    }
 
-await Model("nutsAndWashers") {
-    Repertoire(contents: nutsAndWashers)
+    await Model("nutsAndWashers") {
+        Repertoire(contents: nutsAndWashers)
+    }
 }

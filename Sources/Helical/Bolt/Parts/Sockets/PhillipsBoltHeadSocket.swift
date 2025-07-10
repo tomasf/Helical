@@ -74,17 +74,6 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
 
             Cylinder(bottomDiameter: 0, topDiameter: bottomWidth, height: bottomDepth + 0.001)
                 .translated(z: -depth)
-
-            /*
-             EdgeProfile
-             .fillet(radius: metrics.filletRadius)
-             .profile //.shape(angle: 90° + metrics.topAngle)
-             .flipped(along: .y)
-             .translated(x: fullWidth / 2 - 0.002)
-             .revolved()
-             .translated(z: 0.001)
-             */
-#warning("Can we remove this?")
         }
         .intersecting(mask)
         .flipped(along: .z)
