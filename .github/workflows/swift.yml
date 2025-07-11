@@ -20,5 +20,12 @@ jobs:
     steps:
     - uses: SwiftyLab/setup-swift@main
     - uses: actions/checkout@v4
+
+    - name: Install Linux dependencies
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libfontconfig1-dev
+    
     - name: Build
       run: swift build -v
