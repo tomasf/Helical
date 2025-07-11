@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct Screw: Shape3D {
     let thread: ScrewThread
@@ -11,12 +11,14 @@ public struct Screw: Shape3D {
     }
 
     public var body: any Geometry3D {
-        readEnvironment { environment in
-            let minorRadius = (thread.minorDiameter + environment.relativeTolerance) / 2
+        @Environment(\.relativeTolerance) var relativeTolerance
 
-            thread.form.shape(for: thread)
+        if length > 0 {
+            let minorRadius = (thread.minorDiameter + relativeTolerance) / 2
+
+            thread.form
                 .transformed(.translation(x: minorRadius))
-                .extrudedAlongHelix(pitch: thread.lead, height: length + thread.pitch)
+                .sweptAlongHelix(pitch: thread.lead, height: length + thread.pitch)
                 .translated(z: -thread.pitch / 2)
                 .repeated(around: .z, in: 0°..<360°, count: thread.starts)
                 .flipped(along: thread.leftHanded ? .x : .none)
@@ -24,11 +26,12 @@ public struct Screw: Shape3D {
                 .adding {
                     Cylinder(radius: minorRadius + 0.01, height: length)
                 }
+                .withThread(thread)
         }
     }
 }
 
-internal extension Environment {
+internal extension EnvironmentValues {
     var relativeTolerance: Double {
         if operation == .subtraction {
             return tolerance

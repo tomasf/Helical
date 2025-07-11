@@ -1,24 +1,32 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct CountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
     let boltDiameter: Double
-    let bottomFilletRadius: Double
     let lensHeight: Double
 
-    public init(countersink: Countersink, boltDiameter: Double, bottomFilletRadius: Double = 0, lensHeight: Double = 0) {
+    @Environment(\.tolerance) var tolerance
+
+    public init(countersink: Countersink, boltDiameter: Double, lensHeight: Double = 0) {
         self.countersink = countersink
         self.boltDiameter = boltDiameter
-        self.bottomFilletRadius = bottomFilletRadius
         self.lensHeight = lensHeight
+    }
+
+    public init(angle: Angle = 90°, topDiameter: Double, boltDiameter: Double, lensHeight: Double = 0) {
+        self.init(
+            countersink: Countersink(angle: angle, topDiameter: topDiameter),
+            boltDiameter: boltDiameter,
+            lensHeight: lensHeight
+        )
     }
 
     public var height: Double {
         (countersink.topDiameter - boltDiameter) / 2 * tan(countersink.angle / 2) + lensHeight
     }
 
-    public var boltLength: Double {
+    public var consumedLength: Double {
         height - lensHeight
     }
 
@@ -27,47 +35,40 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            let effectiveTopDiameter = countersink.topDiameter - tolerance
-            let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
-            Cylinder(bottomDiameter: effectiveTopDiameter, topDiameter: 0.001, height: coneHeight)
-                .adding {
-                    if bottomFilletRadius > 0 {
-                        EdgeProfile.fillet(radius: bottomFilletRadius)
-                            .shape(angle: 180° - countersink.angle / 2)
-                            .usingFacets(minAngle: 10°, minSize: bottomFilletRadius / 10)
-                            .rotated(-90°)
-                            .flipped(along: .y)
-                            .translated(x: (boltDiameter - tolerance) / 2)
-                            .extruded()
-                            .translated(z: height - lensHeight)
-                    }
-                }
-                .translated(z: lensHeight)
-                .adding {
-                    if lensHeight > 0 {
-                        let diameter = lensHeight + pow(effectiveTopDiameter, 2) / (4 * lensHeight)
-                        Sphere(diameter: diameter)
-                            .aligned(at: .minZ)
-                            .within(z: 0..<lensHeight)
-                    }
-                }
+        let effectiveTopDiameter = countersink.topDiameter - tolerance
+        let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
 
-        }
+        Cylinder(bottomDiameter: effectiveTopDiameter, topDiameter: 0.001, height: coneHeight)
+            .translated(z: lensHeight)
+            .adding {
+                if lensHeight > 0 {
+                    let diameter = lensHeight + pow(effectiveTopDiameter, 2) / (4 * lensHeight)
+                    Sphere(diameter: diameter)
+                        .aligned(at: .minZ)
+                        .within(z: 0..<lensHeight)
+                }
+            }
     }
 
-    public var recess: (any BoltHeadRecess)? {
+    public var recess: any Geometry3D {
         Countersink.Shape(countersink)
     }
 }
 
 public extension BoltHeadShape where Self == CountersunkBoltHeadShape {
-    static func countersunk(angle: Angle = 90°, topDiameter: Double, boltDiameter: Double, bottomFilletRadius: Double = 0) -> CountersunkBoltHeadShape {
-        countersunk(countersink: .init(angle: angle, topDiameter: topDiameter), boltDiameter: boltDiameter, bottomFilletRadius: bottomFilletRadius)
+    static func countersunk(
+        angle: Angle = 90°,
+        topDiameter: Double,
+        boltDiameter: Double
+    ) -> CountersunkBoltHeadShape {
+        countersunk(countersink: .init(angle: angle, topDiameter: topDiameter), boltDiameter: boltDiameter)
     }
 
-    static func countersunk(countersink: Countersink, boltDiameter: Double, bottomFilletRadius: Double = 0) -> CountersunkBoltHeadShape {
-        .init(countersink: countersink, boltDiameter: boltDiameter, bottomFilletRadius: bottomFilletRadius)
+    static func countersunk(
+        countersink: Countersink,
+        boltDiameter: Double
+    ) -> CountersunkBoltHeadShape {
+        .init(countersink: countersink, boltDiameter: boltDiameter)
     }
 
     static func standardCountersunk(topDiameter: Double, boltDiameter: Double) -> CountersunkBoltHeadShape {

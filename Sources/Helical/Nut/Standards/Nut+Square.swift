@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public extension Nut {
     enum SquaredNutSeries {
@@ -38,16 +38,21 @@ public extension Nut {
     /// Standard thin metric square nut, DIN 562
     static func square(_ size: ScrewThread.ISOMetricSize, series: SquaredNutSeries = .regular) -> Nut {
         let (width, thickness) = standardDimensionsForSquaredNut(size, series: series)
-        let chamferAngle = (series == .regular) ? 30° : 0°
+        let chamferAngle = (series == .regular) ? 30° : nil
         return square(.isoMetric(size), s: width, m: thickness, chamferAngle: chamferAngle)
     }
 
     /// Custom configuration
-    static func square(_ thread: ScrewThread, s width: Double, m thickness: Double, chamferAngle: Angle = 0°) -> Nut {
+    static func square(_ thread: ScrewThread, s width: Double, m thickness: Double, chamferAngle: Angle? = nil) -> Nut {
         let outerRadius = RegularPolygon(sideCount: 4, apothem: width / 2).circumradius
         let chamferWidth = outerRadius - width / 2
-        let chamfer = EdgeProfile.chamfer(width: chamferWidth, angle: chamferAngle)
-        let shape = PolygonalNutBody(sideCount: 4, thickness: thickness, widthAcrossFlats: width, topCorners: chamfer, bottomCorners: nil)
+        let shape = PolygonalNutBody(
+            sideCount: 4,
+            thickness: thickness,
+            widthAcrossFlats: width,
+            chamferAngle: chamferAngle,
+            topChamferDepth: chamferWidth
+        )
         return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
     }
 }

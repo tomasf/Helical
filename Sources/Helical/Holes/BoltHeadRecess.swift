@@ -1,10 +1,7 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
-public protocol BoltHeadRecess: Shape3D {
-}
-
-public struct Countersink {
+public struct Countersink: Sendable {
     public let angle: Angle
     public let topDiameter: Double
 
@@ -14,7 +11,7 @@ public struct Countersink {
     }
 }
 
-public struct Counterbore {
+public struct Counterbore: Sendable {
     public let diameter: Double
     public let depth: Double
 

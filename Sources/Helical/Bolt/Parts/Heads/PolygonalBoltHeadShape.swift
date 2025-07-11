@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct PolygonalBoltHeadShape: BoltHeadShape {
     let sideCount: Int
@@ -21,20 +21,23 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
-        readTolerance { tolerance in
-            let toleranceScale = (widthAcrossFlats - tolerance) / widthAcrossFlats
-            let apothem = (widthAcrossFlats - tolerance) / 2
-            let polygon = RegularPolygon(sideCount: sideCount, apothem: apothem)
-            let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
-            polygon
-                .extruded(height: height)
-                .applyingBottomEdgeProfile(.chamfer(width: chamferWidth, angle: chamferAngle), at: 0, method: .convexHull) {
-                    Circle(radius: polygon.circumradius)
-                }
-        }
+        @Environment(\.tolerance) var tolerance
+
+        let toleranceScale = (widthAcrossFlats - tolerance) / widthAcrossFlats
+        let apothem = (widthAcrossFlats - tolerance) / 2
+        let polygon = RegularPolygon(sideCount: sideCount, apothem: apothem)
+        let chamferWidth = polygon.circumradius - flatDiameter * toleranceScale / 2
+        polygon
+            .extruded(height: height)
+            .subtracting {
+                Rectangle(polygon.circumradius)
+                    .rotated(-90° + chamferAngle)
+                    .translated(x: polygon.circumradius - chamferWidth)
+                    .revolved()
+            }
     }
 
-    public var recess: (any BoltHeadRecess)? {
+    public var recess: any Geometry3D {
         PolygonalHeadRecess(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height)
     }
 }

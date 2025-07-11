@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 // ISO 14581
 // Hexalobular (Torx) socket countersunk flat head screws
@@ -47,11 +47,10 @@ public extension Bolt {
     ) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
-            boltDiameter: thread.majorDiameter - thread.depth,
-            bottomFilletRadius: thread.majorDiameter / 10
+            boltDiameter: thread.majorDiameter - thread.depth
         )
         let socket = TorxBoltHeadSocket(size: size, depth: socketDepth)
-        let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
+        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,
             length: length,

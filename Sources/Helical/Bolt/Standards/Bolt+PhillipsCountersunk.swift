@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 // DIN 965 / ISO 7046
 // Metric cross recessed countersunk head screws
@@ -55,11 +55,10 @@ public extension Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
             boltDiameter: thread.majorDiameter - thread.depth,
-            bottomFilletRadius: thread.majorDiameter / 10,
             lensHeight: lensHeight
         )
         let socket = PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth)
-        let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
+        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,
             length: length,

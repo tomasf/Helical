@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     let sides: Int
@@ -7,7 +7,7 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     public let depth: Double
     let bottomAngle: Angle?
 
-    @EnvironmentValue(\.tolerance) var tolerance
+    @Environment(\.tolerance) var tolerance
 
     public init(sides: Int, acrossWidth: Double, depth: Double, bottomAngle: Angle? = nil) {
         self.sides = sides
@@ -18,7 +18,6 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
 
     public var body: any Geometry3D {
         let polygon = RegularPolygon(sideCount: sides, apothem: (acrossWidth + tolerance) / 2)
-        
         let bottomDepth = bottomAngle.map { polygon.circumradius / tan($0 / 2) } ?? 0
 
         polygon

@@ -1,12 +1,12 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public struct SlottedBoltHeadSocket: BoltHeadSocket {
     let length: Double
     let width: Double
     public let depth: Double
 
-    @EnvironmentValue(\.tolerance) var tolerance
+    @Environment(\.tolerance) var tolerance
 
     public init(length: Double, width: Double, depth: Double) {
         self.length = length

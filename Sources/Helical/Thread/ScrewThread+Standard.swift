@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public extension ScrewThread {
     // Standard V-thread profile used for ISO/UTS, etc.
@@ -8,7 +8,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch * 1.082532,
-            form: TrapezoidalThreadForm(angle: 60°, crestWidth: pitch / 8.0)
+            form: TrapezoidalThreadform(angle: 60°, crestWidth: pitch / 8.0)
         )
     }
 
@@ -19,7 +19,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch,
-            form: TrapezoidalThreadForm(angle: 29°, crestWidth: pitch * 0.3707)
+            form: TrapezoidalThreadform(angle: 29°, crestWidth: pitch * 0.3707)
         )
     }
 
@@ -30,7 +30,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch,
-            form: TrapezoidalThreadForm(angle: 30°, crestWidth: pitch * 0.366)
+            form: TrapezoidalThreadform(angle: 30°, crestWidth: pitch * 0.366)
         )
     }
 
@@ -41,7 +41,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch,
-            form: TrapezoidalThreadForm(angle: 0°, crestWidth: pitch * 0.5)
+            form: TrapezoidalThreadform(angle: 0°, crestWidth: pitch * 0.5)
         )
     }
 }
