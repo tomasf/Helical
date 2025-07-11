@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 // DIN 7991 / ISO 10642
 // Metric hex socket countersunk head screw

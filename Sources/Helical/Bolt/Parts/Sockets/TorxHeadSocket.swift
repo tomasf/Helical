@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 
 internal struct TorxShape: Shape2D {
@@ -14,7 +14,7 @@ internal struct TorxShape: Shape2D {
                     .translated(x: 0.4 * outerDiameter)
                     .repeated(count: 6)
             }
-            .rounded(amount: 0.175 * outerDiameter, side: .inside)
+            .rounded(insideRadius: 0.175 * outerDiameter)
     }
 }
 
@@ -23,19 +23,19 @@ public struct TorxBoltHeadSocket: BoltHeadSocket {
     public let depth: Double
 
     public var body: any Geometry3D {
-        readEnvironment { e in
-            let outerDiameter = size.outerDiameter + e.tolerance
-            let cone = Cylinder(bottomDiameter: outerDiameter, topDiameter: 0, apexAngle: 90°)
+        @Environment(\.tolerance) var tolerance
 
-            TorxShape(size: size)
-                .offset(amount: e.tolerance / 2, style: .round)
-                .extruded(height: depth + cone.height)
-                .intersecting {
-                    Stack(.z, alignment: .center) {
-                        Cylinder(diameter: outerDiameter, height: depth)
-                        cone
-                    }
+        let outerDiameter = size.outerDiameter + tolerance
+        let cone = Cylinder(bottomDiameter: outerDiameter, topDiameter: 0, apexAngle: 90°)
+
+        TorxShape(size: size)
+            .offset(amount: tolerance / 2, style: .round)
+            .extruded(height: depth + cone.height)
+            .intersecting {
+                Stack(.z, alignment: .center) {
+                    Cylinder(diameter: outerDiameter, height: depth)
+                    cone
                 }
-        }
+            }
     }
 }

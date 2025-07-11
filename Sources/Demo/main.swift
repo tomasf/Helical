@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 import Helical
 
 let boltLength = 20.0
@@ -33,6 +33,8 @@ let nutsAndWashers: [(String, any Geometry3D)] = [
     ("Hex nut, M8", Nut.hex(.m8)),
     ("Square nut, M6", Nut.square(.m6)),
     ("Thin square nut, M10", Nut.square(.m10, series: .thin)),
+    ("Flanged hex nut, M6", Nut.flangedHex(.m6)),
+    ("T-slot nut, M8", Nut.tSlotNut(.m8)),
     ("Custom non-standard nut", Nut(thread: customThread, shape: PolygonalNutBody(sideCount: 8, thickness: 10, widthAcrossFlats: 12), innerChamferAngle: 60°)),
     ("Normal washer, M5", Washer.plain(.m5, series: .normal)),
     ("Large washer, M5", Washer.plain(.m5, series: .large))
@@ -40,31 +42,36 @@ let nutsAndWashers: [(String, any Geometry3D)] = [
 
 struct Repertoire: Shape3D {
     let contents: [(label: String, part: any Geometry3D)]
-    let partWidth: Double
 
     var body: any Geometry3D {
-        Stack(.y, spacing: 5) {
-            for (label, part) in contents {
-                Stack(.x, spacing: 2, alignment: .centerY) {
-                    part
-                        .aligned(at: .bottom)
-                        .settingBoundsSize(x: partWidth, z: 100, alignment: .centerXY)
-                        .usingFacets(minAngle: 5°, minSize: 0.3)
+        Stack(.y) {
+            for (_, part) in contents { part }
+        }
+        .measuringBounds { _, bounds in
+            let partWidth = bounds.size.x
 
-                    Text(label)
-                        .settingBounds { Rectangle(x: 100, y: 10).aligned(at: .centerY) }
-                        .extruded(height: 0.1)
+            Stack(.y, spacing: 5) {
+                for (label, part) in contents {
+                    part
+                        .translated(x: partWidth / 2)
+                        .adding {
+                            Text(label)
+                                .aligned(at: .centerY)
+                                .translated(x: partWidth + 3)
+                                .extruded(height: 0.1)
+                        }
                 }
             }
         }
-        .usingTextAlignment(vertical: .center)
-        .usingFont(size: 8)
-        .forceRendered()
     }
 }
 
-Repertoire(contents: bolts, partWidth: 15)
-    .save(to: "bolts")
+await Project(options: .format3D(.stl)) {
+    await Model("bolts") {
+        Repertoire(contents: bolts)
+    }
 
-Repertoire(contents: nutsAndWashers, partWidth: 15)
-    .save(to: "nutsAndWashers")
+    await Model("nutsAndWashers") {
+        Repertoire(contents: nutsAndWashers)
+    }
+}

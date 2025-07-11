@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 public extension Bolt {
     // Hex socket set screws
@@ -93,7 +93,7 @@ public extension Bolt {
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
-        let head = ChamferedBoltHeadShape(thread: thread, edgeProfile: .chamfer(size: thread.depth))
+        let head = ProfiledBoltHeadShape(edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
@@ -101,7 +101,7 @@ public extension Bolt {
             shankLength: shankLength,
             headShape: head,
             socket: PolygonalBoltHeadSocket(sides: 6, acrossWidth: socketWidth, depth: socketDepth),
-            point: ChamferedBoltPoint(thread: thread, chamferSize:pointChamferSize, dogPointLength: dogPointLength)
+            point: ProfiledBoltPoint(chamferSize:pointChamferSize, dogPointLength: dogPointLength)
         )
     }
 
@@ -115,7 +115,7 @@ public extension Bolt {
         length: Double,
         shankLength: Double = 0
     ) -> Bolt {
-        let head = ChamferedBoltHeadShape(thread: thread, edgeProfile: .chamfer(size: thread.depth))
+        let head = ProfiledBoltHeadShape(edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
@@ -123,7 +123,7 @@ public extension Bolt {
             shankLength: shankLength,
             headShape: head,
             socket: SlottedBoltHeadSocket(length: thread.majorDiameter, width: slotWidth, depth: slotDepth),
-            point: ChamferedBoltPoint(thread: thread, chamferSize: pointChamferSize, dogPointLength: dogPointLength)
+            point: ProfiledBoltPoint(chamferSize: pointChamferSize, dogPointLength: dogPointLength)
         )
     }
 }

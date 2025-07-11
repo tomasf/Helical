@@ -4,15 +4,24 @@ import PackageDescription
 
 let package = Package(
     name: "Helical",
+    platforms: [.macOS(.v14)],
     products: [
         .library(name: "Helical", targets: ["Helical"]),
         .executable(name: "Helical-Demo", targets: ["Demo"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tomasf/SwiftSCAD.git", .upToNextMinor(from: "0.9.0")),
+        .package(path: "../Cadova")
     ],
     targets: [
-        .target(name: "Helical", dependencies: ["SwiftSCAD"]),
-        .executableTarget(name: "Demo", dependencies: ["SwiftSCAD", "Helical"])
+        .target(
+            name: "Helical",
+            dependencies: ["Cadova"],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+        .executableTarget(
+            name: "Demo",
+            dependencies: ["Cadova", "Helical"],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        )
     ]
 )

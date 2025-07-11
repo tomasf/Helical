@@ -1,5 +1,5 @@
 import Foundation
-import SwiftSCAD
+import Cadova
 
 // DIN 963 / ISO 2009
 // Metric slotted countersunk head screws
@@ -11,7 +11,12 @@ import SwiftSCAD
 
 public extension Bolt {
     /// Standard configuration
-    static func slottedCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, shankLength: Double = 0) -> Bolt {
+    static func slottedCountersunk(
+        _ size: ScrewThread.ISOMetricSize,
+        raised: Bool = false,
+        length: Double,
+        shankLength: Double = 0
+    ) -> Bolt {
         let headDiameter = switch size {
         case .m1:   1.9
         case .m1p2: 2.3
@@ -45,11 +50,16 @@ public extension Bolt {
     }
 
     /// Custom configuration
-    static func slottedCountersunk(_ thread: ScrewThread, headDiameter: Double, lensHeight: Double = 0, length: Double, shankLength: Double = 0) -> Bolt {
+    static func slottedCountersunk(
+        _ thread: ScrewThread,
+        headDiameter: Double,
+        lensHeight: Double = 0,
+        length: Double,
+        shankLength: Double = 0
+    ) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
             boltDiameter: thread.majorDiameter - thread.depth,
-            bottomFilletRadius: thread.majorDiameter / 10,
             lensHeight: lensHeight
         )
         let socket = SlottedBoltHeadSocket(
@@ -57,7 +67,7 @@ public extension Bolt {
             width: headDiameter * 0.14,
             depth: headDiameter * 0.13 + lensHeight
         )
-        let effectiveShankLength = max(head.boltLength + thread.majorDiameter / 10, shankLength)
+        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
         return .init(
             thread: thread,
             length: length,
