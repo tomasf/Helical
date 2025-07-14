@@ -1,13 +1,13 @@
 {
-  "originHash" : "7df66cf7a5639dc7b0e513d3651bc0a388f1f4fce8eae290c159b12c7fd4a677",
+  "originHash" : "01655309a920783c9fff99f9e2021bfdd4cded7140ae00c53353669a9410c868",
   "pins" : [
     {
       "identity" : "cadova",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
-        "revision" : "b2bdb81cd9b306b3b32e8d02adfae0b37548f09a",
-        "version" : "0.1.0"
+        "revision" : "03ebcdacd17522128ef3bb767fbc5316e307de01",
+        "version" : "0.1.1"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/freetype-spm.git",
       "state" : {
-        "revision" : "b308b09b9d21215c522a73a38f670b7aca24843e",
-        "version" : "1.0.0"
+        "revision" : "93b117ac4d533090124d44180c9e648ec9e2df94",
+        "version" : "1.0.1"
       }
     },
     {
