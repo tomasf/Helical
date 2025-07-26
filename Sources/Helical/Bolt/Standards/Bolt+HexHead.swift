@@ -7,7 +7,7 @@ import Cadova
 
 public extension Bolt {
     /// Standard DIN 931 configuration
-    static func hexHead(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
+    static func hexHead(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headHeight: Double // k
         let widthAcrossFlats: Double // s
 
@@ -35,17 +35,17 @@ public extension Bolt {
         }
 
         assert(headHeight > 0, "\(size) isn't a valid size for DIN 931 bolts")
-        return hexHead(.isoMetric(size), headWidth: widthAcrossFlats, headHeight: headHeight, length: length, shankLength: shankLength)
+        return hexHead(.isoMetric(size), headWidth: widthAcrossFlats, headHeight: headHeight, length: length, unthreadedLength: unthreadedLength)
     }
 
     /// Custom configuration
-    static func hexHead(_ thread: ScrewThread, headWidth: Double, headHeight: Double, length: Double, shankLength: Double = 0) -> Bolt {
+    static func hexHead(_ thread: ScrewThread, headWidth: Double, headHeight: Double, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let head = PolygonalBoltHeadShape(
             sideCount: 6,
             widthAcrossFlats: headWidth,
             height: headHeight,
             chamferAngle: 30°
         )
-        return .init(thread: thread, length: length, shankLength: shankLength, headShape: head)
+        return .init(thread: thread, length: length, unthreadedLength: unthreadedLength, headShape: head)
     }
 }

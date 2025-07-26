@@ -7,7 +7,7 @@ import Cadova
 
 public extension Bolt {
     /// Standard ISO 10642 configuration
-    static func hexSocketCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
+    static func hexSocketCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let socketWidth: Double // s, socket width across flats
         let socketDepth: Double // t
@@ -29,15 +29,15 @@ public extension Bolt {
         }
 
         assert(headDiameter > 0, "\(size) isn't a valid size for ISO 10642 bolts")
-        return hexSocketCountersunk(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, socketDepth: socketDepth, length: length, shankLength: shankLength)
+        return hexSocketCountersunk(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, socketDepth: socketDepth, length: length, unthreadedLength: unthreadedLength)
     }
 
     /// Custom configuration
-    static func hexSocketCountersunk(_ thread: ScrewThread, headDiameter: Double, socketWidth: Double, socketDepth: Double, length: Double, shankLength: Double = 0) -> Bolt {
+    static func hexSocketCountersunk(_ thread: ScrewThread, headDiameter: Double, socketWidth: Double, socketDepth: Double, length: Double, unthreadedLength: Double = 0) -> Bolt {
         .init(
             thread: thread,
             length: length,
-            shankLength: shankLength,
+            unthreadedLength: unthreadedLength,
             headShape: .standardCountersunk(topDiameter: headDiameter, boltDiameter: thread.majorDiameter),
             socket: .standardHex(width: socketWidth, depth: socketDepth)
         )

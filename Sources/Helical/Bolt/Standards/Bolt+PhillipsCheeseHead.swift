@@ -7,7 +7,7 @@ import Cadova
 
 public extension Bolt {
     /// Standard configuration
-    static func phillipsCheeseHead(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
+    static func phillipsCheeseHead(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let headThickness: Double // k
         let headTopRadius: Double // rf
@@ -37,7 +37,7 @@ public extension Bolt {
             socketWidth: socketWidth,
             phillipsSize: phillipsSize,
             length: length,
-            shankLength: shankLength
+            unthreadedLength: unthreadedLength
         )
     }
 
@@ -50,7 +50,7 @@ public extension Bolt {
         socketWidth: Double,
         phillipsSize: PhillipsSize,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let head = CylindricalBoltHeadShape(
             diameter: headDiameter,
@@ -61,8 +61,8 @@ public extension Bolt {
         return .init(
             thread: thread,
             length: length,
-            shankLength: shankLength,
-            shankDiameter: thread.pitchDiameter,
+            unthreadedLength: unthreadedLength,
+            unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
             socket: socket
         )

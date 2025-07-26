@@ -8,7 +8,7 @@ let customThread = ScrewThread.square(majorDiameter: 8, pitch: 2, starts: 2)
 let customBolt = Bolt(
     thread: customThread,
     length: boltLength,
-    shankLength: 0,
+    unthreadedLength: 0,
     leadinChamferSize: 1.0,
     headShape: PolygonalBoltHeadShape(sideCount: 8, widthAcrossFlats: 12, height: 3, chamferAngle: 40°),
     socket: PolygonalBoltHeadSocket(sides: 4, acrossWidth: 5, depth: 2)
@@ -16,11 +16,11 @@ let customBolt = Bolt(
 
 let bolts = [
     ("Hex head, M8", Bolt.hexHead(.m8, length: boltLength)),
-    ("Hex socket head cap, M6", Bolt.hexSocketHeadCap(.m6, length: boltLength, shankLength: 10)),
+    ("Hex socket head cap, M6", Bolt.hexSocketHeadCap(.m6, length: boltLength, unthreadedLength: 10)),
     ("Phillips cheese head, M5", Bolt.phillipsCheeseHead(.m5, length: boltLength)),
     ("Hex socket countersunk, M5", Bolt.hexSocketCountersunk(.m5, length: boltLength)),
     ("Phillips countersunk, M5", Bolt.phillipsCountersunk(.m8, length: boltLength)),
-    ("Phillips raised countersunk, M4", Bolt.phillipsCountersunk(.m4, raised: true, length: boltLength, shankLength: 7)),
+    ("Phillips raised countersunk, M4", Bolt.phillipsCountersunk(.m4, raised: true, length: boltLength, unthreadedLength: 7)),
     ("Slotted countersunk, M5", Bolt.slottedCountersunk(.m5, length: boltLength)),
     ("Raised slotted countersunk, M3", Bolt.slottedCountersunk(.m3, raised: true, length: boltLength)),
     ("Hex socket set screw, dog point, M6", Bolt.setScrew(.m6, socket: .hexSocket, point: .dog, length: boltLength)),

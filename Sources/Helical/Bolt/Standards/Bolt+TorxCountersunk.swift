@@ -7,7 +7,7 @@ import Cadova
 
 public extension Bolt {
     /// Standard configuration
-    static func torxCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
+    static func torxCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let socketDepth: Double // t
         let torxSize: TorxSize
@@ -32,7 +32,7 @@ public extension Bolt {
             size: torxSize,
             socketDepth: socketDepth,
             length: length,
-            shankLength: shankLength
+            unthreadedLength: unthreadedLength
         )
     }
 
@@ -43,19 +43,19 @@ public extension Bolt {
         size: TorxSize,
         socketDepth: Double,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
             boltDiameter: thread.majorDiameter - thread.depth
         )
         let socket = TorxBoltHeadSocket(size: size, depth: socketDepth)
-        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
+        let effectiveunthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
         return .init(
             thread: thread,
             length: length,
-            shankLength: effectiveShankLength,
-            shankDiameter: thread.pitchDiameter,
+            unthreadedLength: effectiveunthreadedLength,
+            unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
             socket: socket
         )
