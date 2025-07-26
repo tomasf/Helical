@@ -11,7 +11,7 @@ import Cadova
 
 public extension Bolt {
     /// Standard configuration
-    static func phillipsCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, shankLength: Double = 0) -> Bolt {
+    static func phillipsCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let phillipsSize: PhillipsSize
         let socketWidth: Double // m
@@ -38,7 +38,7 @@ public extension Bolt {
             socketWidth: socketWidth,
             phillipsSize: phillipsSize,
             length: length,
-            shankLength: shankLength
+            unthreadedLength: unthreadedLength
         )
     }
 
@@ -50,7 +50,7 @@ public extension Bolt {
         socketWidth: Double,
         phillipsSize: PhillipsSize,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
@@ -58,12 +58,12 @@ public extension Bolt {
             lensHeight: lensHeight
         )
         let socket = PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth)
-        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
+        let effectiveunthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
         return .init(
             thread: thread,
             length: length,
-            shankLength: effectiveShankLength,
-            shankDiameter: thread.pitchDiameter,
+            unthreadedLength: effectiveunthreadedLength,
+            unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
             socket: socket
         )

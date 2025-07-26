@@ -15,7 +15,7 @@ public extension Bolt {
         _ size: ScrewThread.ISOMetricSize,
         raised: Bool = false,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let headDiameter = switch size {
         case .m1:   1.9
@@ -45,7 +45,7 @@ public extension Bolt {
             headDiameter: headDiameter,
             lensHeight: raised ? size.rawValue / 4.0 : 0,
             length: length,
-            shankLength: shankLength
+            unthreadedLength: unthreadedLength
         )
     }
 
@@ -55,7 +55,7 @@ public extension Bolt {
         headDiameter: Double,
         lensHeight: Double = 0,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 90°, topDiameter: headDiameter),
@@ -67,12 +67,12 @@ public extension Bolt {
             width: headDiameter * 0.14,
             depth: headDiameter * 0.13 + lensHeight
         )
-        let effectiveShankLength = max(head.consumedLength + thread.majorDiameter / 10, shankLength)
+        let effectiveunthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
         return .init(
             thread: thread,
             length: length,
-            shankLength: effectiveShankLength,
-            shankDiameter: thread.pitchDiameter,
+            unthreadedLength: effectiveunthreadedLength,
+            unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
             socket: socket
         )

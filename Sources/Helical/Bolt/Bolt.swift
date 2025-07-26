@@ -4,8 +4,8 @@ import Cadova
 public struct Bolt: Shape3D {
     public let thread: ScrewThread
     public let length: Double
-    public let shankLength: Double
-    public let shankDiameter: Double
+    public let unthreadedLength: Double
+    public let unthreadedDiameter: Double
     public let headShape: any BoltHeadShape
     public let socket: (any BoltHeadSocket)?
     public let point: (any BoltPoint)?
@@ -13,16 +13,16 @@ public struct Bolt: Shape3D {
     public init(
         thread: ScrewThread,
         length: Double,
-        shankLength: Double,
-        shankDiameter: Double? = nil,
+        unthreadedLength: Double,
+        unthreadedDiameter: Double? = nil,
         headShape: any BoltHeadShape,
         socket: (any BoltHeadSocket)? = nil,
         point: (any BoltPoint)? = nil
     ) {
         self.thread = thread
         self.length = length
-        self.shankLength = shankLength
-        self.shankDiameter = shankDiameter ?? thread.majorDiameter
+        self.unthreadedLength = unthreadedLength
+        self.unthreadedDiameter = unthreadedDiameter ?? thread.majorDiameter
         self.headShape = headShape
         self.socket = socket
         self.point = point
@@ -31,8 +31,8 @@ public struct Bolt: Shape3D {
     public init(
         thread: ScrewThread,
         length: Double,
-        shankLength: Double = 0,
-        shankDiameter: Double? = nil,
+        unthreadedLength: Double = 0,
+        unthreadedDiameter: Double? = nil,
         leadinChamferSize: Double,
         headShape: any BoltHeadShape,
         socket: (any BoltHeadSocket)? = nil
@@ -40,8 +40,8 @@ public struct Bolt: Shape3D {
         self.init(
             thread: thread,
             length: length,
-            shankLength: shankLength,
-            shankDiameter: shankDiameter,
+            unthreadedLength: unthreadedLength,
+            unthreadedDiameter: unthreadedDiameter,
             headShape: headShape,
             socket: socket,
             point: ProfiledBoltPoint(chamferSize: leadinChamferSize)
@@ -59,8 +59,8 @@ public struct Bolt: Shape3D {
         self.init(
             thread: .none(diameter: solidDiameter),
             length: 0,
-            shankLength: length,
-            shankDiameter: solidDiameter,
+            unthreadedLength: length,
+            unthreadedDiameter: solidDiameter,
             headShape: headShape,
             socket: socket,
             point: point
@@ -69,28 +69,28 @@ public struct Bolt: Shape3D {
 
     public var body: any Geometry3D {
         let baseLevel = headShape.height - headShape.consumedLength
-        let threadLength = length - shankLength - (point?.consumedLength ?? 0)
+        let threadLength = length - unthreadedLength - (point?.consumedLength ?? 0)
 
         @Environment(\.tolerance) var tolerance
 
         headShape
             .adding {
-                // Shank
-                Cylinder(diameter: shankDiameter - tolerance, height: shankLength)
+                // Unthreaded part
+                Cylinder(diameter: unthreadedDiameter - tolerance, height: unthreadedLength)
                     .translated(z: baseLevel)
 
                 // Threads
                 Screw(thread: thread, length: threadLength)
-                    .translated(z: baseLevel + shankLength)
+                    .translated(z: baseLevel + unthreadedLength)
 
                 // Point
-                point?.translated(z: baseLevel + shankLength + threadLength)
+                point?.translated(z: baseLevel + unthreadedLength + threadLength)
             }
             .subtracting {
                 headShape.negativeBody
                 socket?.translated(z: -0.01)
                 point?.negativeBody
-                    .translated(z: baseLevel + shankLength + threadLength)
+                    .translated(z: baseLevel + unthreadedLength + threadLength)
             }
             .withThread(thread)
     }

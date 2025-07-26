@@ -91,14 +91,14 @@ public extension Bolt {
         pointChamferSize: Double,
         dogPointLength: Double = 0,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let head = ProfiledBoltHeadShape(edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
             length: length,
-            shankLength: shankLength,
+            unthreadedLength: unthreadedLength,
             headShape: head,
             socket: PolygonalBoltHeadSocket(sides: 6, acrossWidth: socketWidth, depth: socketDepth),
             point: ProfiledBoltPoint(chamferSize:pointChamferSize, dogPointLength: dogPointLength)
@@ -113,14 +113,14 @@ public extension Bolt {
         pointChamferSize: Double,
         dogPointLength: Double = 0,
         length: Double,
-        shankLength: Double = 0
+        unthreadedLength: Double = 0
     ) -> Bolt {
         let head = ProfiledBoltHeadShape(edgeProfile: .chamfer(depth: thread.depth))
 
         return .init(
             thread: thread,
             length: length,
-            shankLength: shankLength,
+            unthreadedLength: unthreadedLength,
             headShape: head,
             socket: SlottedBoltHeadSocket(length: thread.majorDiameter, width: slotWidth, depth: slotDepth),
             point: ProfiledBoltPoint(chamferSize: pointChamferSize, dogPointLength: dogPointLength)

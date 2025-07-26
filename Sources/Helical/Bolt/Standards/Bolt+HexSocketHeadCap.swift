@@ -7,7 +7,7 @@ import Cadova
 
 public extension Bolt {
     /// Standard DIN 912 configuration
-    static func hexSocketHeadCap(_ size: ScrewThread.ISOMetricSize, length: Double, shankLength: Double = 0) -> Bolt {
+    static func hexSocketHeadCap(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let socketWidth: Double // s, socket width across flats
 
@@ -36,11 +36,11 @@ public extension Bolt {
         }
 
         assert(headDiameter > 0 && socketWidth > 0, "\(size) isn't a valid size for DIN 912 bolts")
-        return hexSocketHeadCap(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, length: length, shankLength: shankLength)
+        return hexSocketHeadCap(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, length: length, unthreadedLength: unthreadedLength)
     }
 
     /// Custom configuration
-    static func hexSocketHeadCap(_ thread: ScrewThread, headDiameter: Double, socketWidth: Double, length: Double, shankLength: Double = 0) -> Bolt {
+    static func hexSocketHeadCap(_ thread: ScrewThread, headDiameter: Double, socketWidth: Double, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let head = CylindricalBoltHeadShape(
             diameter: headDiameter,
             height: thread.majorDiameter,
@@ -55,7 +55,7 @@ public extension Bolt {
         return .init(
             thread: thread,
             length: length,
-            shankLength: shankLength,
+            unthreadedLength: unthreadedLength,
             headShape: head,
             socket: socket
         )

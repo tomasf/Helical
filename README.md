@@ -27,7 +27,7 @@ import Helical
 Helical simplifies the process of creating threaded shapes, making it easier to incorporate threaded holes into your models. It also provides a selection of standard bolts, nuts, and corresponding holes. Creating a typical M8x30 hex head bolt is simple:
 
 ```swift
-Bolt.hexHead(.m8, length: 20, shankLength: 5)
+Bolt.hexHead(.m8, length: 20, unthreadedLength: 5)
 ```
 
 This generates a standard [DIN 931](https://www.fasteners.eu/standards/DIN/931/) bolt, as expected.
@@ -63,8 +63,8 @@ let thread = ScrewThread(
 let customBolt = Bolt(
     thread: thread,
     length: 15,
-    shankLength: 3,
-    shankDiameter: 5,
+    unthreadedLength: 3,
+    unthreadedDiameter: 5,
     headShape: .countersunk(angle: 80°, topDiameter: 10, boltDiameter: 5),
     socket: .slotted(length: 10, width: 1, depth: 1.4)
 )
