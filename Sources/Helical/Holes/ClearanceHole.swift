@@ -16,7 +16,7 @@ public struct ClearanceHole: Shape3D {
         self.boltHeadRecess = boltHeadRecess
     }
 
-    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile?) {
+    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile? = nil) {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = edgeProfile
