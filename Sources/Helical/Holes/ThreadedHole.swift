@@ -40,7 +40,8 @@ public struct ThreadedHole: Shape3D {
 
                     EdgeProfile.chamfer(depth: leadinChamferSize)
                         .profile
-                        .translated(x: chamferInnerDiameter / 2)
+                        .aligned(at: .minX)
+                        .translated(x: chamferInnerDiameter / 2, y: leadinChamferSize)
                         .revolved()
                 }
             }
