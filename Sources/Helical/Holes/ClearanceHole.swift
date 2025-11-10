@@ -37,6 +37,7 @@ public struct ClearanceHole: Shape3D {
                             .revolved()
                     }
                 }
+                .within(z: ...depth)
         }
     }
 }
