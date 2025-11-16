@@ -10,8 +10,7 @@ let package = Package(
         .executable(name: "Helical-Demo", targets: ["Demo"]),
     ],
     dependencies: [
-        //.package(url: "https://github.com/tomasf/Cadova.git", .upToNextMinor(from: "0.1.2")),
-        .package(url: "https://github.com/tomasf/Cadova.git", branch: "dev")
+        .package(url: "https://github.com/tomasf/Cadova.git", .upToNextMinor(from: "0.2.0")),
     ],
     targets: [
         .target(
