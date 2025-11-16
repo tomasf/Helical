@@ -22,7 +22,7 @@ public struct TSlotNutBody: NutBody {
             Box(effectiveBaseSize)
                 .aligned(at: .centerXY)
                 .replaced(if: bottomProfile) { input, bottomProfile in
-                    input.applyingEdgeProfile(bottomProfile, to: .bottom, along: .x)
+                    input.cuttingEdgeProfile(bottomProfile, on: .bottom, along: .x)
                 }
 
             Box(x: effectiveBaseSize.x, y: slotWidth + tol, z: fullHeight - baseSize.z)
