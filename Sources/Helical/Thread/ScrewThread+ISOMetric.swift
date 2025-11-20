@@ -73,6 +73,13 @@ public extension ScrewThread {
 }
 
 public extension ScrewThread {
+    /// Creates an ISO metric thread for a given nominal size, with optional pitch override.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric nominal size.
+    ///   - pitch: Optional pitch in millimeters. Uses the standard coarse pitch when nil.
+    /// - Returns: A screw thread configured for the specified ISO metric size.
+    ///
     static func isoMetric(_ size: ISOMetricSize, pitch: Double? = nil) -> ScrewThread {
         let coarsePitch = switch size {
         case .m1:   0.25
@@ -114,7 +121,7 @@ public extension ScrewThread {
         return .vShapedStandard(majorDiameter: size.rawValue, pitch: pitch ?? coarsePitch)
     }
 
-    // Standard metric screw sizes according to ISO 262
+    /// ISO 262 nominal metric screw sizes.
     enum ISOMetricSize: Double {
         /// M1
         case m1   = 1
