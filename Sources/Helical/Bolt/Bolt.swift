@@ -111,7 +111,7 @@ public struct Bolt: Shape3D {
         return ClearanceHole(
             diameter: thread.majorDiameter,
             depth: depth ?? clearanceHoleDepth(recessedHead: true),
-            boltHeadRecess: headShape.recess
+            boltHeadRecess: recessedHead ? headShape.recess : Empty()
         )
     }
 }
