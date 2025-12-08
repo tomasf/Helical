@@ -11,7 +11,7 @@ Helical is a library for [Cadova](https://github.com/tomasf/Cadova) that simplif
 Integrate Helical into your project with the Swift Package Manager by adding it as a dependency in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/tomasf/Helical.git", from: "0.4.0")
+.package(url: "https://github.com/tomasf/Helical.git", from: "0.4.1")
 ```
 
 Then, import Helical where it's needed:
