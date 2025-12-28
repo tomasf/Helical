@@ -1,13 +1,13 @@
 {
-  "originHash" : "d5dd4a5d61b3a291d87dedaf30f916244c43c40a2182998cf008253582e3b769",
+  "originHash" : "29d76e5b45a74ae595cd0f53f6dcc27f35a4a9d8f6afc7ed0adf9550874cfd6e",
   "pins" : [
     {
       "identity" : "cadova",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
-        "revision" : "dbf8c6fb5287b35a1bdcd171a7d5199c68fc0183",
-        "version" : "0.3.0"
+        "revision" : "abad2f93b4f4e6b2dd659bd649d34008dc5226e4",
+        "version" : "0.4.0"
       }
     },
     {
@@ -44,15 +44,6 @@
       "state" : {
         "revision" : "275b8efd1d36d45154759a19e8cad709c2a36c64",
         "version" : "0.3.3"
-      }
-    },
-    {
-      "identity" : "swift-log",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log.git",
-      "state" : {
-        "revision" : "ce592ae52f982c847a4efc0dd881cc9eb32d29f2",
-        "version" : "1.6.4"
       }
     },
     {
