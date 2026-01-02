@@ -23,6 +23,13 @@ public struct ClearanceHole: Shape3D {
         self.boltHeadRecess = Empty()
     }
 
+    public init(diameter: Double, depth: Double, countersinkAngle: Angle = 90°, countersinkTopDiameter: Double) {
+        self.diameter = diameter
+        self.depth = depth
+        self.edgeProfile = nil
+        self.boltHeadRecess = Countersink.Shape(.init(angle: countersinkAngle, topDiameter: countersinkTopDiameter))
+    }
+
     public var body: any Geometry3D {
         Union {
             let effectiveDiameter = diameter + tolerance
