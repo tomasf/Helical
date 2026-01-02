@@ -1,12 +1,17 @@
 import Foundation
 import Cadova
 
-// DIN 7991 / ISO 10642
-// Metric hex socket countersunk head screw
-// https://www.fasteners.eu/standards/ISO/10642/
-
+/// Hex socket countersunk head screws (DIN 7991, ISO 10642).
+///
+/// Flat head screws with a hexagonal socket drive.
+/// Reference: <https://www.fasteners.eu/standards/ISO/10642/>
 public extension Bolt {
-    /// Standard ISO 10642 configuration
+    /// Creates a standard ISO 10642 hex socket countersunk screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexSocketCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let socketWidth: Double // s, socket width across flats
@@ -32,7 +37,15 @@ public extension Bolt {
         return hexSocketCountersunk(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, socketDepth: socketDepth, length: length, unthreadedLength: unthreadedLength)
     }
 
-    /// Custom configuration
+    /// Creates a hex socket countersunk screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headDiameter: Diameter of the countersunk head.
+    ///   - socketWidth: Width across the flats of the hex socket.
+    ///   - socketDepth: Depth of the hex socket.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexSocketCountersunk(_ thread: ScrewThread, headDiameter: Double, socketWidth: Double, socketDepth: Double, length: Double, unthreadedLength: Double = 0) -> Bolt {
         .init(
             thread: thread,

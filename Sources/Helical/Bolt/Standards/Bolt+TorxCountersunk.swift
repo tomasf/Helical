@@ -1,12 +1,17 @@
 import Foundation
 import Cadova
 
-// ISO 14581
-// Hexalobular (Torx) socket countersunk flat head screws
-// https://www.fasteners.eu/standards/ISO/14581/
-
+/// Torx countersunk head screws (ISO 14581).
+///
+/// Flat head screws with a hexalobular (Torx) drive.
+/// Reference: <https://www.fasteners.eu/standards/ISO/14581/>
 public extension Bolt {
-    /// Standard configuration
+    /// Creates a standard ISO 14581 Torx countersunk screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func torxCountersunk(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let socketDepth: Double // t
@@ -36,7 +41,15 @@ public extension Bolt {
         )
     }
 
-    /// Custom configuration
+    /// Creates a Torx countersunk screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headDiameter: Diameter of the countersunk head.
+    ///   - size: The Torx size designation.
+    ///   - socketDepth: Depth of the Torx socket.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func torxCountersunk(
         _ thread: ScrewThread,
         headDiameter: Double,

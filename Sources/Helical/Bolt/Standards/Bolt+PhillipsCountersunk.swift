@@ -1,16 +1,21 @@
 import Foundation
 import Cadova
 
-// DIN 965 / ISO 7046
-// Metric cross recessed countersunk head screws
-// https://www.fasteners.eu/standards/DIN/965/
-
-// DIN 966 / ISO 7047
-// Metric Cross recessed *raised* countersunk head screws
-// https://www.fasteners.eu/standards/DIN/966/
-
+/// Phillips countersunk head screws (DIN 965/966, ISO 7046/7047).
+///
+/// Flat head screws with a Phillips cross drive. Available in flush (DIN 965) or
+/// raised/oval (DIN 966) variants.
+/// References:
+/// - Flush: <https://www.fasteners.eu/standards/DIN/965/>
+/// - Raised: <https://www.fasteners.eu/standards/DIN/966/>
 public extension Bolt {
-    /// Standard configuration
+    /// Creates a standard DIN 965/966 Phillips countersunk screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - raised: Whether to use a raised (oval) head instead of flush.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func phillipsCountersunk(_ size: ScrewThread.ISOMetricSize, raised: Bool = false, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let phillipsSize: PhillipsSize
@@ -42,7 +47,16 @@ public extension Bolt {
         )
     }
 
-    /// Custom configuration
+    /// Creates a Phillips countersunk screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headDiameter: Diameter of the countersunk head.
+    ///   - lensHeight: Height of the raised lens for oval heads. Zero for flush heads.
+    ///   - socketWidth: Width of the Phillips recess.
+    ///   - phillipsSize: The Phillips driver size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func phillipsCountersunk(
         _ thread: ScrewThread,
         headDiameter: Double,

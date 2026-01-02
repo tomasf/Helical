@@ -1,16 +1,21 @@
 import Foundation
 import Cadova
 
-// DIN 963 / ISO 2009
-// Metric slotted countersunk head screws
-// https://www.fasteners.eu/standards/DIN/963/
-
-// DIN 964 / ISO 2010
-// Metric *raised* slotted countersunk head screws
-// https://www.fasteners.eu/standards/DIN/964/
-
+/// Slotted countersunk head screws (DIN 963/964, ISO 2009/2010).
+///
+/// Flat head screws with a slotted drive. Available in flush (DIN 963) or
+/// raised/oval (DIN 964) variants.
+/// References:
+/// - Flush: <https://www.fasteners.eu/standards/DIN/963/>
+/// - Raised: <https://www.fasteners.eu/standards/DIN/964/>
 public extension Bolt {
-    /// Standard configuration
+    /// Creates a standard DIN 963/964 slotted countersunk screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - raised: Whether to use a raised (oval) head instead of flush.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func slottedCountersunk(
         _ size: ScrewThread.ISOMetricSize,
         raised: Bool = false,
@@ -49,7 +54,14 @@ public extension Bolt {
         )
     }
 
-    /// Custom configuration
+    /// Creates a slotted countersunk screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headDiameter: Diameter of the countersunk head.
+    ///   - lensHeight: Height of the raised lens for oval heads. Zero for flush heads.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func slottedCountersunk(
         _ thread: ScrewThread,
         headDiameter: Double,

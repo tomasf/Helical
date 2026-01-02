@@ -1,6 +1,7 @@
 import Foundation
 import Cadova
 
+/// A Phillips cross drive socket.
 public struct PhillipsBoltHeadSocket: BoltHeadSocket {
     let size: PhillipsSize
     let fullWidth: Double

@@ -1,21 +1,41 @@
 import Foundation
 import Cadova
 
+/// Set screws (grub screws) with various point and drive types.
+///
+/// Headless screws used to secure components to shafts or prevent movement.
+/// Available with hex socket or slotted drive, and flat, cone, or dog point.
+///
+/// Standards:
+/// - Flat point: DIN 913/551, ISO 4026/4766
+/// - Cone point: DIN 914/553, ISO 4027/7434
+/// - Dog point: DIN 915/417, ISO 4028/7435
 public extension Bolt {
-    // Hex socket set screws
-    // Flat point, cone point or dog point
-
+    /// The point type for a set screw.
     enum SetScrewPointType {
-        case flat // DIN 913/551 / ISO 4026/4766
-        case cone // DIN 914/553 / ISO 4027/7434
-        case dog  // DIN 915/417 / ISO 4028/7435
+        /// Flat point (DIN 913/551, ISO 4026/4766).
+        case flat
+        /// Cone point (DIN 914/553, ISO 4027/7434).
+        case cone
+        /// Dog point with cylindrical extension (DIN 915/417, ISO 4028/7435).
+        case dog
     }
 
+    /// The drive type for a set screw.
     enum SetScrewSocketType {
+        /// Hexagonal socket (Allen) drive.
         case hexSocket
+        /// Slotted (flathead screwdriver) drive.
         case slotted
     }
 
+    /// Creates a standard metric set screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - socket: The drive type. Defaults to hex socket.
+    ///   - point: The point type. Defaults to flat.
+    ///   - length: Nominal length of the set screw.
     static func setScrew(_ size: ScrewThread.ISOMetricSize, socket: SetScrewSocketType = .hexSocket, point: SetScrewPointType = .flat, length: Double) -> Bolt {
         let flatDiameter: Double // flat dp
         let coneDiameter: Double // cone dt
@@ -83,7 +103,16 @@ public extension Bolt {
         }
     }
 
-    /// Custom configuration
+    /// Creates a hex socket set screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - socketWidth: Width across the flats of the hex socket.
+    ///   - socketDepth: Depth of the hex socket.
+    ///   - pointChamferSize: Size of the chamfer at the point.
+    ///   - dogPointLength: Length of the dog point extension. Zero for flat/cone points.
+    ///   - length: Nominal length of the set screw.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexSocketSetScrew(
         _ thread: ScrewThread,
         socketWidth: Double,
@@ -105,7 +134,16 @@ public extension Bolt {
         )
     }
 
-    /// Custom configuration
+    /// Creates a slotted set screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - slotWidth: Width of the slot.
+    ///   - slotDepth: Depth of the slot.
+    ///   - pointChamferSize: Size of the chamfer at the point.
+    ///   - dogPointLength: Length of the dog point extension. Zero for flat/cone points.
+    ///   - length: Nominal length of the set screw.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func slottedSetScrew(
         _ thread: ScrewThread,
         slotWidth: Double,

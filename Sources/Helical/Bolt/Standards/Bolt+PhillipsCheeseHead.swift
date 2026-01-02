@@ -1,12 +1,17 @@
 import Foundation
 import Cadova
 
-// DIN 7985 / ISO 7045
-// Metric cross recessed raised cheese head screws
-// https://www.fasteners.eu/standards/DIN/7985/
-
+/// Phillips raised cheese head screws (DIN 7985, ISO 7045).
+///
+/// Pan head screws with a Phillips cross drive and rounded top.
+/// Reference: <https://www.fasteners.eu/standards/DIN/7985/>
 public extension Bolt {
-    /// Standard configuration
+    /// Creates a standard DIN 7985 Phillips cheese head screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func phillipsCheeseHead(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let headThickness: Double // k
@@ -41,7 +46,17 @@ public extension Bolt {
         )
     }
 
-    /// Custom configuration
+    /// Creates a Phillips cheese head screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headDiameter: Diameter of the head.
+    ///   - headThickness: Height of the head.
+    ///   - headTopRadius: Radius of the spherical top.
+    ///   - socketWidth: Width of the Phillips recess.
+    ///   - phillipsSize: The Phillips driver size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func phillipsCheeseHead(
         _ thread: ScrewThread,
         headDiameter: Double,

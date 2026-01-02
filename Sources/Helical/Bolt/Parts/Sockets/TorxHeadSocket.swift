@@ -1,7 +1,6 @@
 import Foundation
 import Cadova
 
-
 internal struct TorxShape: Shape2D {
     let size: TorxSize
 
@@ -18,8 +17,11 @@ internal struct TorxShape: Shape2D {
     }
 }
 
+/// A Torx (six-pointed star) drive socket.
 public struct TorxBoltHeadSocket: BoltHeadSocket {
+    /// The Torx size designation.
     public let size: TorxSize
+    /// Depth of the socket.
     public let depth: Double
 
     public var body: any Geometry3D {

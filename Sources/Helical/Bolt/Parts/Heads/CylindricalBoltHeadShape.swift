@@ -1,6 +1,9 @@
 import Foundation
 import Cadova
 
+/// A cylindrical bolt head, such as those used for socket head cap screws or button head screws.
+///
+/// Supports optional edge profiles on top and bottom, or a spherically rounded top.
 public struct CylindricalBoltHeadShape: BoltHeadShape {
     let diameter: Double
     public let height: Double
@@ -8,6 +11,13 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
     let bottomEdge: EdgeProfile?
     let roundedTopRadius: Double?
 
+    /// Creates a cylindrical head with optional edge profiles.
+    ///
+    /// - Parameters:
+    ///   - diameter: The head diameter.
+    ///   - height: The head height.
+    ///   - topEdge: Optional edge profile for the top edge.
+    ///   - bottomEdge: Optional edge profile for the bottom edge.
     public init(diameter: Double, height: Double, topEdge: EdgeProfile? = nil, bottomEdge: EdgeProfile? = nil) {
         self.diameter = diameter
         self.height = height
@@ -16,6 +26,12 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
         self.roundedTopRadius = nil
     }
 
+    /// Creates a cylindrical head with a spherically rounded top, such as a button head.
+    ///
+    /// - Parameters:
+    ///   - diameter: The head diameter.
+    ///   - height: The head height.
+    ///   - roundedTopRadius: Radius of the sphere used to round the top.
     public init(diameter: Double, height: Double, roundedTopRadius: Double) {
         self.diameter = diameter
         self.height = height

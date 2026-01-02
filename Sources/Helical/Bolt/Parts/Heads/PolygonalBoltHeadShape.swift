@@ -1,6 +1,9 @@
 import Foundation
 import Cadova
 
+/// A polygonal bolt head, such as a hex head or square head.
+///
+/// Supports configurable side count, chamfered corners, and flat diameter for washer faces.
 public struct PolygonalBoltHeadShape: BoltHeadShape {
     let sideCount: Int
     let widthAcrossFlats: Double
@@ -8,6 +11,14 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
     let flatDiameter: Double
     let chamferAngle: Angle
 
+    /// Creates a polygonal head with full control over geometry.
+    ///
+    /// - Parameters:
+    ///   - sideCount: Number of sides (6 for hex, 4 for square, etc.).
+    ///   - widthAcrossFlats: Distance between opposite flat faces.
+    ///   - height: The head height.
+    ///   - flatDiameter: Diameter of the flat top surface after chamfering.
+    ///   - chamferAngle: Angle of the corner chamfer. Defaults to zero.
     public init(sideCount: Int, widthAcrossFlats: Double, height: Double, flatDiameter: Double, chamferAngle: Angle = 0°) {
         self.sideCount = sideCount
         self.widthAcrossFlats = widthAcrossFlats
@@ -16,6 +27,13 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
         self.chamferAngle = chamferAngle
     }
 
+    /// Creates a polygonal head with chamfered corners.
+    ///
+    /// - Parameters:
+    ///   - sideCount: Number of sides (6 for hex, 4 for square, etc.).
+    ///   - widthAcrossFlats: Distance between opposite flat faces.
+    ///   - height: The head height.
+    ///   - chamferAngle: Angle of the corner chamfer.
     public init(sideCount: Int, widthAcrossFlats: Double, height: Double, chamferAngle: Angle) {
         self.init(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height, flatDiameter: widthAcrossFlats, chamferAngle: chamferAngle)
     }
