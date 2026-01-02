@@ -1,6 +1,9 @@
 import Foundation
 import Cadova
 
+/// A threaded hole for receiving a bolt or screw.
+///
+/// Creates internal threads with optional unthreaded lead-in sections and chamfered entries.
 public struct ThreadedHole: Shape3D {
     let thread: ScrewThread
     let depth: Double
@@ -8,6 +11,14 @@ public struct ThreadedHole: Shape3D {
     let leadinChamferSize: Double
     let entryEnds: Set<LinearDirection>
 
+    /// Creates a threaded hole with the specified parameters.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - depth: Total depth of the threaded portion.
+    ///   - unthreadedDepth: Depth of the unthreaded lead-in section.
+    ///   - leadinChamferSize: Size of the entry chamfer.
+    ///   - entryEnds: Which ends have chamfered entries. Defaults to bottom only.
     public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, leadinChamferSize: Double, entryEnds: Set<LinearDirection> = [.negative]) {
         self.thread = thread
         self.depth = depth
@@ -16,6 +27,13 @@ public struct ThreadedHole: Shape3D {
         self.entryEnds = entryEnds
     }
 
+    /// Creates a threaded hole with a standard chamfer size.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - depth: Total depth of the threaded portion.
+    ///   - unthreadedDepth: Depth of the unthreaded lead-in section.
+    ///   - entryEnds: Which ends have chamfered entries. Defaults to bottom only.
     public init(thread: ScrewThread, depth: Double, unthreadedDepth: Double = 0, entryEnds: Set<LinearDirection> = [.negative]) {
         let standardChamferSize = thread.depth * 2
         self.init(
