@@ -1,6 +1,9 @@
 import Foundation
 import Cadova
 
+/// A polygonal nut body shape, such as hex or square.
+///
+/// Supports configurable chamfers on the top and bottom corners.
 public struct PolygonalNutBody: NutBody {
     let sideCount: Int
     let thickness: Double
@@ -9,6 +12,15 @@ public struct PolygonalNutBody: NutBody {
     let topChamferDepth: Double
     let bottomChamferDepth: Double
 
+    /// Creates a polygonal nut body with the specified geometry.
+    ///
+    /// - Parameters:
+    ///   - sideCount: Number of sides (6 for hex, 4 for square, etc.).
+    ///   - thickness: Height of the nut.
+    ///   - widthAcrossFlats: Distance between opposite flat faces.
+    ///   - chamferAngle: Angle of the corner chamfers.
+    ///   - topChamferDepth: Radial depth of the top chamfer.
+    ///   - bottomChamferDepth: Radial depth of the bottom chamfer.
     public init(
         sideCount: Int,
         thickness: Double,
