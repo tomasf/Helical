@@ -1,11 +1,17 @@
 import Foundation
 import Cadova
 
+/// Standard Phillips driver sizes.
 public enum PhillipsSize: Sendable {
+    /// PH0
     case ph0
+    /// PH1
     case ph1
+    /// PH2
     case ph2
+    /// PH3
     case ph3
+    /// PH4
     case ph4
 }
 

@@ -1,9 +1,40 @@
 import Foundation
 import Cadova
 
-/// Torx hexalobular socket numbers
+/// Standard Torx (hexalobular) driver sizes.
 public enum TorxSize: Sendable {
-    case t6, t8, t10, t15, t20, t25, t30, t40, t45, t50, t55, t60, t70, t80, t90, t100
+    /// T6
+    case t6
+    /// T8
+    case t8
+    /// T10
+    case t10
+    /// T15
+    case t15
+    /// T20
+    case t20
+    /// T25
+    case t25
+    /// T30
+    case t30
+    /// T40
+    case t40
+    /// T45
+    case t45
+    /// T50
+    case t50
+    /// T55
+    case t55
+    /// T60
+    case t60
+    /// T70
+    case t70
+    /// T80
+    case t80
+    /// T90
+    case t90
+    /// T100
+    case t100
 }
 
 internal extension TorxSize {
