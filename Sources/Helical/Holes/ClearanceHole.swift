@@ -10,8 +10,6 @@ public struct ClearanceHole: Shape3D {
     let edgeProfile: EdgeProfile?
     let boltHeadRecess: any Geometry3D
 
-    @Environment(\.tolerance) var tolerance
-
     /// Creates a clearance hole with a custom head recess geometry.
     ///
     /// - Parameters:
@@ -49,24 +47,24 @@ public struct ClearanceHole: Shape3D {
         self.diameter = diameter
         self.depth = depth
         self.edgeProfile = nil
-        self.boltHeadRecess = Countersink.Shape(.init(angle: countersinkAngle, topDiameter: countersinkTopDiameter))
+        self.boltHeadRecess = Countersink.Shape(Countersink(
+            angle: countersinkAngle, topDiameter: countersinkTopDiameter
+        ))
     }
 
     public var body: any Geometry3D {
-        Union {
-            let effectiveDiameter = diameter + tolerance
-            Cylinder(diameter: effectiveDiameter, height: depth)
-                .overhangSafe()
+        @Environment(\.tolerance) var tolerance
+        let effectiveDiameter = diameter + tolerance
 
-            boltHeadRecess
-                .ifEmpty {
-                    if let edgeProfile {
-                        edgeProfile.profile
-                            .translated(x: effectiveDiameter / 2)
-                            .revolved()
-                    }
+        Cylinder(diameter: effectiveDiameter, height: depth)
+            .overhangSafe()
+            .adding {
+                boltHeadRecess.ifEmpty {
+                    edgeProfile?.profile
+                        .translated(x: effectiveDiameter / 2)
+                        .revolved()
                 }
                 .within(z: ...depth)
-        }
+            }
     }
 }
