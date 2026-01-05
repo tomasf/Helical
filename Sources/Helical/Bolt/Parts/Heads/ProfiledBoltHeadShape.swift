@@ -1,11 +1,15 @@
 import Foundation
 import Cadova
 
-// A bolt head shape for bolts without a head, such as set screws
-
+/// A headless bolt shape for fasteners like set screws and threaded studs.
+///
+/// Applies an edge profile to the top of the bolt body rather than adding a head.
 public struct ProfiledBoltHeadShape: BoltHeadShape {
     let edgeProfile: EdgeProfile
 
+    /// Creates a headless bolt shape with the specified edge profile.
+    ///
+    /// - Parameter edgeProfile: The edge profile to apply to the top of the bolt body.
     public init(edgeProfile: EdgeProfile) {
         self.edgeProfile = edgeProfile
     }

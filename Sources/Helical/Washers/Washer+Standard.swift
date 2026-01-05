@@ -1,11 +1,22 @@
 import Foundation
 
+/// Plain washers (ISO 7089, ISO 7093-1).
+///
+/// Standard metric flat washers in normal and large series.
 public extension Washer {
+    /// The size series for plain washers.
     enum SizeSeries {
-        case normal // ISO 7089
-        case large  // ISO 7093-1
+        /// Normal series (ISO 7089).
+        case normal
+        /// Large series (ISO 7093-1).
+        case large
     }
 
+    /// Creates a standard plain washer.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric bolt size.
+    ///   - series: The size series. Defaults to normal.
     static func plain(_ size: ScrewThread.ISOMetricSize, series: SizeSeries = .normal) -> Washer {
         let innerDiameter: Double // d1
         let outerDiameterSmall: Double // d2, ISO 7089

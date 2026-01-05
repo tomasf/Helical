@@ -1,12 +1,17 @@
 import Foundation
 import Cadova
 
-// DIN 912 / ISO 4762
-// Metric hex socket head cap bolts
-// https://www.fasteners.eu/standards/DIN/912/
-
+/// Hex socket head cap screws (DIN 912, ISO 4762).
+///
+/// Cylindrical head screws with a hexagonal socket drive, commonly known as Allen bolts.
+/// Reference: <https://www.fasteners.eu/standards/DIN/912/>
 public extension Bolt {
-    /// Standard DIN 912 configuration
+    /// Creates a standard DIN 912 hex socket head cap screw.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexSocketHeadCap(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headDiameter: Double // dk
         let socketWidth: Double // s, socket width across flats
@@ -39,7 +44,14 @@ public extension Bolt {
         return hexSocketHeadCap(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, length: length, unthreadedLength: unthreadedLength)
     }
 
-    /// Custom configuration
+    /// Creates a hex socket head cap screw with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headDiameter: Diameter of the cylindrical head.
+    ///   - socketWidth: Width across the flats of the hex socket.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexSocketHeadCap(_ thread: ScrewThread, headDiameter: Double, socketWidth: Double, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let head = CylindricalBoltHeadShape(
             diameter: headDiameter,

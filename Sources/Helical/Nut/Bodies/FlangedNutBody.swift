@@ -1,12 +1,20 @@
 import Foundation
 import Cadova
 
+/// A nut body with an integrated washer-like flange at the base.
 public struct FlangedNutBody: NutBody {
     let base: any NutBody
     let bottomDiameter: Double
     let roundingDiameter: Double
     let angle: Angle
 
+    /// Creates a flanged nut body wrapping another nut body.
+    ///
+    /// - Parameters:
+    ///   - base: The base nut body shape (typically polygonal).
+    ///   - bottomDiameter: Diameter at the bottom of the flange.
+    ///   - roundingDiameter: Diameter of the rounding at the flange edge.
+    ///   - angle: Angle of the flange surface from horizontal.
     public init(base: any NutBody, bottomDiameter: Double, roundingDiameter: Double, angle: Angle) {
         self.base = base
         self.bottomDiameter = bottomDiameter

@@ -1,6 +1,10 @@
 import Foundation
 import Cadova
 
+/// A conical countersunk bolt head that sits flush with or below the mounting surface.
+///
+/// Optionally includes a raised lens (dome) above the cone. The head height is included
+/// in the nominal bolt length.
 public struct CountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
     let boltDiameter: Double
@@ -8,12 +12,25 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
 
     @Environment(\.tolerance) var tolerance
 
+    /// Creates a countersunk head with the specified countersink geometry.
+    ///
+    /// - Parameters:
+    ///   - countersink: The countersink geometry defining the cone angle and top diameter.
+    ///   - boltDiameter: The bolt's major diameter, used to calculate head height.
+    ///   - lensHeight: Height of the optional raised lens above the cone. Defaults to zero.
     public init(countersink: Countersink, boltDiameter: Double, lensHeight: Double = 0) {
         self.countersink = countersink
         self.boltDiameter = boltDiameter
         self.lensHeight = lensHeight
     }
 
+    /// Creates a countersunk head with the specified angle and dimensions.
+    ///
+    /// - Parameters:
+    ///   - angle: The countersink cone angle. Defaults to 90°.
+    ///   - topDiameter: The diameter at the top of the cone.
+    ///   - boltDiameter: The bolt's major diameter, used to calculate head height.
+    ///   - lensHeight: Height of the optional raised lens above the cone. Defaults to zero.
     public init(angle: Angle = 90°, topDiameter: Double, boltDiameter: Double, lensHeight: Double = 0) {
         self.init(
             countersink: Countersink(angle: angle, topDiameter: topDiameter),

@@ -1,11 +1,14 @@
 import Foundation
 import Cadova
 
-// DIN 934 / ISO 4032
-// Metric hex nuts
-// https://www.fasteners.eu/standards/DIN/934/
-
+/// Hex nuts (DIN 934, ISO 4032).
+///
+/// Standard metric hex nuts with chamfered corners.
+/// Reference: <https://www.fasteners.eu/standards/DIN/934/>
 public extension Nut {
+    /// Creates a standard DIN 934 hex nut.
+    ///
+    /// - Parameter size: The ISO metric thread size.
     static func hex(_ size: ScrewThread.ISOMetricSize) -> Nut {
         let width: Double // s, width across flats
         let height: Double // m
@@ -47,6 +50,13 @@ public extension Nut {
         return hex(thread: .isoMetric(size), width: width, height: height, flatDiameter: width * 0.95)
     }
 
+    /// Creates a hex nut with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - width: Width across the flats.
+    ///   - height: Height of the nut.
+    ///   - flatDiameter: Diameter of the flat portion after chamfering.
     static func hex(thread: ScrewThread, width: Double, height: Double, flatDiameter dw: Double? = nil) -> Nut {
         let chamferWidth = RegularPolygon(sideCount: 6, apothem: width / 2).circumradius - (dw ?? width) / 2
         let shape = PolygonalNutBody(
@@ -61,11 +71,14 @@ public extension Nut {
     }
 }
 
-// DIN EN 1661 / ISO 4161, extended with M3 and M4
-// Flanged hex nuts
-// https://www.fasteners.eu/standards/din/6923/
-
+/// Flanged hex nuts (DIN EN 1661, ISO 4161).
+///
+/// Hex nuts with an integrated washer-like flange. Extended with M3 and M4 sizes.
+/// Reference: <https://www.fasteners.eu/standards/din/6923/>
 public extension Nut {
+    /// Creates a standard flanged hex nut.
+    ///
+    /// - Parameter size: The ISO metric thread size.
     static func flangedHex(_ size: ScrewThread.ISOMetricSize) -> Nut {
         let (width, thickness, bottomDiameter, roundingDiameter) = switch size {
         case .m3:  (5.5,  4.0,  6.7,   0.65)
@@ -92,6 +105,15 @@ public extension Nut {
         )
     }
 
+    /// Creates a flanged hex nut with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - width: Width across the flats of the hex portion.
+    ///   - height: Height of the hex portion.
+    ///   - bottomDiameter: Diameter at the bottom of the flange.
+    ///   - roundingDiameter: Diameter of the rounding at the flange edge.
+    ///   - flangeAngle: Angle of the flange surface from horizontal.
     static func flangedHex(
         thread: ScrewThread,
         width: Double,

@@ -1,14 +1,26 @@
 import Foundation
 import Cadova
 
+/// T-slot nuts (DIN 508, ISO 299).
+///
+/// Nuts designed for use in T-slot channels of extruded aluminum profiles.
 public extension Nut {
-    /// Custom configuration
+    /// Creates a T-slot nut with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - baseSize: Size of the base portion that sits in the T-slot channel.
+    ///   - slotWidth: Width of the neck that passes through the slot opening.
+    ///   - fullHeight: Total height of the nut.
+    ///   - chamferDepth: Depth of the chamfer on the base edges.
     static func tSlotNut(_ thread: ScrewThread, baseSize: Vector3D, slotWidth: Double, fullHeight: Double, chamferDepth: Double) -> Nut {
         let body = TSlotNutBody(baseSize: baseSize, slotWidth: slotWidth, fullHeight: fullHeight, bottomProfile: .chamfer(depth: chamferDepth))
         return .init(thread: thread, shape: body, innerChamferAngle: 90°)
     }
 
-    /// Standard metric t-slot nut, DIN 508 / ISO 299
+    /// Creates a standard DIN 508 T-slot nut.
+    ///
+    /// - Parameter size: The ISO metric thread size.
     static func tSlotNut(_ size: ScrewThread.ISOMetricSize) -> Nut {
         let baseXY, baseHeight, slotWidth, fullHeight, chamferDepth: Double
 

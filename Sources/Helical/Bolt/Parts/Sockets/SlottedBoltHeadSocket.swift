@@ -1,6 +1,7 @@
 import Foundation
 import Cadova
 
+/// A slotted drive socket for flathead screwdrivers.
 public struct SlottedBoltHeadSocket: BoltHeadSocket {
     let length: Double
     let width: Double
@@ -8,6 +9,12 @@ public struct SlottedBoltHeadSocket: BoltHeadSocket {
 
     @Environment(\.tolerance) var tolerance
 
+    /// Creates a slotted socket with the specified dimensions.
+    ///
+    /// - Parameters:
+    ///   - length: Length of the slot.
+    ///   - width: Width of the slot.
+    ///   - depth: Depth of the slot.
     public init(length: Double, width: Double, depth: Double) {
         self.length = length
         self.width = width

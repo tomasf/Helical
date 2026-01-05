@@ -1,12 +1,17 @@
 import Foundation
 import Cadova
 
-// DIN 931/933 / ISO 4014/4017
-// Metric hex head bolt
-// https://www.fasteners.eu/standards/DIN/931/
-
+/// Hex head bolts (DIN 931/933, ISO 4014/4017).
+///
+/// Standard metric hex head bolts with chamfered corners.
+/// Reference: <https://www.fasteners.eu/standards/DIN/931/>
 public extension Bolt {
-    /// Standard DIN 931 configuration
+    /// Creates a standard DIN 931 hex head bolt.
+    ///
+    /// - Parameters:
+    ///   - size: The ISO metric thread size.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexHead(_ size: ScrewThread.ISOMetricSize, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let headHeight: Double // k
         let widthAcrossFlats: Double // s
@@ -38,7 +43,14 @@ public extension Bolt {
         return hexHead(.isoMetric(size), headWidth: widthAcrossFlats, headHeight: headHeight, length: length, unthreadedLength: unthreadedLength)
     }
 
-    /// Custom configuration
+    /// Creates a hex head bolt with custom dimensions.
+    ///
+    /// - Parameters:
+    ///   - thread: The screw thread specification.
+    ///   - headWidth: Width across the flats of the hex head.
+    ///   - headHeight: Height of the head.
+    ///   - length: Nominal length of the bolt.
+    ///   - unthreadedLength: Length of the unthreaded portion.
     static func hexHead(_ thread: ScrewThread, headWidth: Double, headHeight: Double, length: Double, unthreadedLength: Double = 0) -> Bolt {
         let head = PolygonalBoltHeadShape(
             sideCount: 6,
