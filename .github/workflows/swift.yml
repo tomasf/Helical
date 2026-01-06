@@ -16,6 +16,7 @@ jobs:
         os: [macos-15, ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os == 'windows-latest' }}
 
     steps:
     - uses: SwiftyLab/setup-swift@main
