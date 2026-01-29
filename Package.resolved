@@ -1,31 +1,22 @@
 {
-  "originHash" : "29d76e5b45a74ae595cd0f53f6dcc27f35a4a9d8f6afc7ed0adf9550874cfd6e",
+  "originHash" : "7df3d4d54c7c721c233e26156517ced8861ef3ab636ce52a7e5101756d4b2f84",
   "pins" : [
+    {
+      "identity" : "apus",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Apus.git",
+      "state" : {
+        "revision" : "7094e92897a4630375d46c9d2cc7d9408f7b7abe",
+        "version" : "0.1.2"
+      }
+    },
     {
       "identity" : "cadova",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
-        "revision" : "abad2f93b4f4e6b2dd659bd649d34008dc5226e4",
-        "version" : "0.4.0"
-      }
-    },
-    {
-      "identity" : "findfont",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/FindFont.git",
-      "state" : {
-        "revision" : "b9b687abad56844597f4e42c5da8f7d0ef9f80d5",
-        "version" : "1.0.0"
-      }
-    },
-    {
-      "identity" : "freetype-spm",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/freetype-spm.git",
-      "state" : {
-        "revision" : "93b117ac4d533090124d44180c9e648ec9e2df94",
-        "version" : "1.0.1"
+        "revision" : "b09c9140903ade4b1a2497d8143a09b2e8555b03",
+        "version" : "0.5.0"
       }
     },
     {
@@ -33,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/manifold-swift.git",
       "state" : {
-        "revision" : "8d030bc8bf11b274f7dfbc1215ad04f74098b38b",
-        "version" : "0.2.3"
+        "revision" : "872143db47a8c083dd56003dad5de653a71828db",
+        "version" : "0.4.0"
       }
     },
     {
@@ -44,6 +35,15 @@
       "state" : {
         "revision" : "275b8efd1d36d45154759a19e8cad709c2a36c64",
         "version" : "0.3.3"
+      }
+    },
+    {
+      "identity" : "pelagos",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Pelagos.git",
+      "state" : {
+        "revision" : "f57fe64f4efa0f07fb6cd91da2fdffae81f7eabc",
+        "version" : "0.1.2"
       }
     },
     {
