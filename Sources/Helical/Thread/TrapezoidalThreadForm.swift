@@ -20,10 +20,11 @@ public struct TrapezoidalThreadform: Threadform {
     public var body: any Geometry2D {
         @Environment(\.thread!) var thread
         let slopeLength = thread.depth / tan(90° - angle / 2)
+        let insetY = innerInset * slopeLength / thread.depth
 
         return Polygon([
-            [-innerInset, -crestWidth / 2 - slopeLength],
-            [-innerInset, crestWidth / 2 + slopeLength],
+            [-innerInset, -crestWidth / 2 - slopeLength - insetY],
+            [-innerInset, crestWidth / 2 + slopeLength + insetY],
             [thread.depth, crestWidth / 2],
             [thread.depth, -crestWidth / 2],
         ])
