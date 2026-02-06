@@ -112,6 +112,29 @@ public extension ScrewThread {
         )
     }
 
+    /// Creates a DIN 20400 knuckle (round) thread.
+    ///
+    /// Uses equal crest and root radii of P/4, with a depth of 0.55 × pitch.
+    ///
+    /// - Parameters:
+    ///   - majorDiameter: Nominal major diameter in millimeters.
+    ///   - pitch: Thread pitch in millimeters.
+    ///   - starts: Number of thread starts. Defaults to 1.
+    ///   - handedness: Thread handedness. Defaults to right-hand.
+    /// - Returns: A DIN 20400 knuckle thread with the specified parameters.
+    ///
+    static func knuckle(majorDiameter: Double, pitch: Double, starts: Int = 1, handedness: Handedness = .right) -> ScrewThread {
+        let radius = pitch / 4
+        return Self(
+            handedness: handedness,
+            starts: starts,
+            pitch: pitch,
+            majorDiameter: majorDiameter,
+            minorDiameter: majorDiameter - pitch * 1.1,
+            form: KnuckleThreadform(crestRadius: radius, rootRadius: radius)
+        )
+    }
+
     /// Creates a unified 60° V-thread using imperial dimensions (UNC/UNF style).
     ///
     /// Converts from inches and threads per inch (TPI) to metric pitch and diameter.
