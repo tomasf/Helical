@@ -90,6 +90,28 @@ public extension ScrewThread {
         )
     }
 
+    /// Creates a buttress thread with asymmetric flank angles (ISO 2901).
+    ///
+    /// Uses a 7° leading flank and 45° trailing flank by default.
+    ///
+    /// - Parameters:
+    ///   - majorDiameter: Nominal major diameter in millimeters.
+    ///   - pitch: Thread pitch in millimeters.
+    ///   - starts: Number of thread starts. Defaults to 1.
+    ///   - handedness: Thread handedness. Defaults to right-hand.
+    /// - Returns: A buttress thread with the specified parameters.
+    ///
+    static func buttress(majorDiameter: Double, pitch: Double, starts: Int = 1, handedness: Handedness = .right) -> ScrewThread {
+        Self(
+            handedness: handedness,
+            starts: starts,
+            pitch: pitch,
+            majorDiameter: majorDiameter,
+            minorDiameter: majorDiameter - pitch * 1.32543,
+            form: TrapezoidalThreadform(leadingFlankAngle: 7°, trailingFlankAngle: 45°, crestWidth: pitch * 0.16316)
+        )
+    }
+
     /// Creates a unified 60° V-thread using imperial dimensions (UNC/UNF style).
     ///
     /// Converts from inches and threads per inch (TPI) to metric pitch and diameter.
