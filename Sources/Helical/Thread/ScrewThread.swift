@@ -63,3 +63,7 @@ public protocol Threadform: Shape2D {
     /// Returns the pitch diameter for the given thread.
     func pitchDiameter(for thread: ScrewThread) -> Double
 }
+
+extension Threadform {
+    var innerInset: Double { 0.001 }
+}

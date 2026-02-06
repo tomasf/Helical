@@ -24,24 +24,28 @@ public struct Screw: Shape3D {
 
     public var body: any Geometry3D {
         @Environment(\.relativeTolerance) var relativeTolerance
+        @Environment(\.segmentation) var segmentation
 
         if length > 0 {
             let minorRadius = (thread.minorDiameter + relativeTolerance) / 2
+            let majorRadius = (thread.majorDiameter + relativeTolerance) / 2
             let chamferDepth = chamferFactor * thread.depth
+            let segmentCount = segmentation.segmentCount(circleRadius: majorRadius)
             thread.form
-                .transformed(.translation(x: minorRadius))
+                .translated(x: minorRadius)
                 .sweptAlongHelix(pitch: thread.lead, height: length + thread.pitch)
-                .translated(z: -thread.pitch / 2)
-                .repeated(around: .z, in: 0°..<360°, count: thread.starts)
+                .repeated(around: .z, count: thread.starts)
                 .flipped(along: thread.leftHanded ? .x : .none)
-                .within(z: 0..<length)
                 .adding {
-                    Cylinder(radius: minorRadius + 0.01, height: length)
+                    Cylinder(radius: minorRadius, height: length + thread.pitch)
                 }
+                .translated(z: -thread.pitch / 2)
+                .within(z: 0..<length)
                 .cuttingEdgeProfile(.chamfer(depth: chamferDepth), on: .maxZ) {
                     Circle(diameter: thread.majorDiameter + relativeTolerance)
                 }
                 .withThread(thread)
+                .withSegmentation(count: segmentCount)
         }
     }
 }

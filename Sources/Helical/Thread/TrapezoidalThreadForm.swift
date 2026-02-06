@@ -22,8 +22,8 @@ public struct TrapezoidalThreadform: Threadform {
         let slopeLength = thread.depth / tan(90° - angle / 2)
 
         return Polygon([
-            [0, -crestWidth / 2 - slopeLength],
-            [0, crestWidth / 2 + slopeLength],
+            [-innerInset, -crestWidth / 2 - slopeLength],
+            [-innerInset, crestWidth / 2 + slopeLength],
             [thread.depth, crestWidth / 2],
             [thread.depth, -crestWidth / 2],
         ])
