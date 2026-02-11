@@ -8,6 +8,8 @@ internal struct SolidThreadform: Threadform {
             .translated(x: -innerInset)
     }
 
+    func minimumPitch(for thread: ScrewThread) -> Double { 0 }
+
     func pitchDiameter(for thread: ScrewThread) -> Double {
         thread.majorDiameter
     }

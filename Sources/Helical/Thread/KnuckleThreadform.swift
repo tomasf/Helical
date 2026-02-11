@@ -87,6 +87,12 @@ public struct KnuckleThreadform: Threadform {
         return Polygon(path)
     }
 
+    public func minimumPitch(for thread: ScrewThread) -> Double {
+        // The crest arc is centered at y = 0 with the given radius,
+        // so it can extend up to ±crestRadius axially.
+        2 * crestRadius
+    }
+
     public func pitchDiameter(for thread: ScrewThread) -> Double {
         let pitch = thread.pitch
         let d = crestRadius - sqrt(crestRadius * crestRadius - pitch * pitch / 16)

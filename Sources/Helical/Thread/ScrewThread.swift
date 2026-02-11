@@ -39,6 +39,9 @@ public struct ScrewThread: Sendable {
         self.majorDiameter = majorDiameter
         self.minorDiameter = minorDiameter
         self.form = form
+
+        let minPitch = form.minimumPitch(for: self)
+        assert(pitch >= minPitch, "Thread pitch (\(pitch)) is smaller than the minimum (\(minPitch)) required by the threadform. Adjacent thread turns will overlap.")
     }
 
     /// Indicates the handedness of a thread.
@@ -62,6 +65,12 @@ public struct ScrewThread: Sendable {
 public protocol Threadform: Shape2D {
     /// Returns the pitch diameter for the given thread.
     func pitchDiameter(for thread: ScrewThread) -> Double
+
+    /// Returns the minimum pitch that this threadform requires for the given thread.
+    ///
+    /// When the actual pitch is smaller than this value, adjacent thread turns overlap
+    /// and produce invalid geometry.
+    func minimumPitch(for thread: ScrewThread) -> Double
 }
 
 extension Threadform {

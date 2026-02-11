@@ -54,6 +54,10 @@ public struct TrapezoidalThreadform: Threadform {
         ])
     }
 
+    public func minimumPitch(for thread: ScrewThread) -> Double {
+        crestWidth + thread.depth * (tan(leadingFlankAngle) + tan(trailingFlankAngle))
+    }
+
     /// Returns the pitch diameter for a thread using this profile.
     ///
     /// - Parameter thread: The screw thread to evaluate.
