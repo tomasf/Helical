@@ -58,19 +58,20 @@ public extension Bolt {
         length: Double,
         unthreadedLength: Double = 0
     ) -> Bolt {
-        let head = CountersunkBoltHeadShape(
-            countersink: .init(angle: 90°, topDiameter: headDiameter),
+
+        let head = CountersunkBoltHeadShape.countersunk(
+            topDiameter: headDiameter,
             boltDiameter: thread.majorDiameter - thread.depth
         )
-        let socket = TorxBoltHeadSocket(size: size, depth: socketDepth)
-        let effectiveunthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
+        let effectiveUnthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
+        
         return .init(
             thread: thread,
             length: length,
-            unthreadedLength: effectiveunthreadedLength,
+            unthreadedLength: effectiveUnthreadedLength,
             unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
-            socket: socket
+            socket: .torx(size: size, depth: socketDepth)
         )
     }
 }

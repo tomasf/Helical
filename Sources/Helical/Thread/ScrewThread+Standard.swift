@@ -17,7 +17,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch * 1.082532,
-            form: TrapezoidalThreadform(angle: 60°, crestWidth: pitch / 8.0)
+            form: .trapezoidal(angle: 60°, crestWidth: pitch / 8.0)
         )
     }
 
@@ -40,7 +40,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch,
-            form: TrapezoidalThreadform(angle: 29°, crestWidth: pitch * 0.3707)
+            form: .trapezoidal(angle: 29°, crestWidth: pitch * 0.3707)
         )
     }
 
@@ -63,7 +63,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch,
-            form: TrapezoidalThreadform(angle: 30°, crestWidth: pitch * 0.366)
+            form: .trapezoidal(angle: 30°, crestWidth: pitch * 0.366)
         )
     }
 
@@ -86,7 +86,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch,
-            form: TrapezoidalThreadform(angle: 0°, crestWidth: pitch * 0.5)
+            form: .trapezoidal(angle: 0°, crestWidth: pitch * 0.5)
         )
     }
 
@@ -108,7 +108,7 @@ public extension ScrewThread {
             pitch: pitch,
             majorDiameter: majorDiameter,
             minorDiameter: majorDiameter - pitch * 1.32543,
-            form: TrapezoidalThreadform(leadingFlankAngle: 7°, trailingFlankAngle: 45°, crestWidth: pitch * 0.16316)
+            form: .trapezoidal(leadingFlankAngle: 7°, trailingFlankAngle: 45°, crestWidth: pitch * 0.16316)
         )
     }
 

@@ -44,14 +44,6 @@ public struct ScrewThread: Sendable {
         assert(pitch >= minPitch, "Thread pitch (\(pitch)) is smaller than the minimum (\(minPitch)) required by the threadform. Adjacent thread turns will overlap.")
     }
 
-    /// Indicates the handedness of a thread.
-    public enum Handedness: Sendable {
-        /// Right-hand thread.
-        case right
-        /// Left-hand thread.
-        case left
-    }
-
     /// A degenerate thread with no profile (cylindrical shank).
     ///
     /// - Parameter diameter: Cylinder diameter.
@@ -61,18 +53,12 @@ public struct ScrewThread: Sendable {
     }
 }
 
-/// Describes a 2D thread profile capable of providing pitch diameter.
-public protocol Threadform: Shape2D {
-    /// Returns the pitch diameter for the given thread.
-    func pitchDiameter(for thread: ScrewThread) -> Double
-
-    /// Returns the minimum pitch that this threadform requires for the given thread.
-    ///
-    /// When the actual pitch is smaller than this value, adjacent thread turns overlap
-    /// and produce invalid geometry.
-    func minimumPitch(for thread: ScrewThread) -> Double
-}
-
-extension Threadform {
-    var innerInset: Double { 0.001 }
+public extension ScrewThread {
+    /// Indicates the handedness of a thread.
+    enum Handedness: Sendable {
+        /// Right-hand thread.
+        case right
+        /// Left-hand thread.
+        case left
+    }
 }

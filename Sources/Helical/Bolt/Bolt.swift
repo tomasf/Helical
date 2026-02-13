@@ -46,36 +46,6 @@ public struct Bolt: Shape3D {
         self.point = point
     }
 
-    /// Creates a bolt with a chamfered point.
-    ///
-    /// - Parameters:
-    ///   - thread: The screw thread specification.
-    ///   - length: Nominal length of the bolt.
-    ///   - unthreadedLength: Length of the unthreaded portion.
-    ///   - unthreadedDiameter: Diameter of the unthreaded portion. Defaults to the thread's major diameter.
-    ///   - leadinChamferSize: Size of the lead-in chamfer at the bolt tip.
-    ///   - headShape: The bolt head geometry.
-    ///   - socket: Optional drive socket in the head.
-    public init(
-        thread: ScrewThread,
-        length: Double,
-        unthreadedLength: Double = 0,
-        unthreadedDiameter: Double? = nil,
-        leadinChamferSize: Double,
-        headShape: any BoltHeadShape,
-        socket: (any BoltHeadSocket)? = nil
-    ) {
-        self.init(
-            thread: thread,
-            length: length,
-            unthreadedLength: unthreadedLength,
-            unthreadedDiameter: unthreadedDiameter,
-            headShape: headShape,
-            socket: socket,
-            point: ProfiledBoltPoint(chamferSize: leadinChamferSize)
-        )
-    }
-
     /// Creates a bolt without threads, for cases where thread detail is unimportant.
     ///
     /// - Parameters:

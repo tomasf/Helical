@@ -73,23 +73,20 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
 }
 
 public extension BoltHeadShape where Self == CountersunkBoltHeadShape {
+    /// A countersunk bolt head with a specified cone angle.
+    ///
+    /// - Parameters:
+    ///   - angle: The countersink cone angle. Defaults to 90°.
+    ///   - topDiameter: The diameter at the top of the cone.
+    ///   - boltDiameter: The bolt's major diameter.
     static func countersunk(
         angle: Angle = 90°,
         topDiameter: Double,
         boltDiameter: Double
     ) -> CountersunkBoltHeadShape {
-        countersunk(countersink: .init(angle: angle, topDiameter: topDiameter), boltDiameter: boltDiameter)
-    }
-
-    static func countersunk(
-        countersink: Countersink,
-        boltDiameter: Double
-    ) -> CountersunkBoltHeadShape {
-        .init(countersink: countersink, boltDiameter: boltDiameter)
-    }
-
-    static func standardCountersunk(topDiameter: Double, boltDiameter: Double) -> CountersunkBoltHeadShape {
-        .init(countersink: .init(angle: 90°, topDiameter: topDiameter), boltDiameter: boltDiameter)
+        .init(
+            countersink: Countersink(angle: angle, topDiameter: topDiameter),
+            boltDiameter: boltDiameter
+        )
     }
 }
-

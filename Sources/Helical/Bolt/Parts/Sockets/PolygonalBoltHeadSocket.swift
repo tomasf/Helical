@@ -5,8 +5,8 @@ import Cadova
 public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     let sides: Int
     let acrossWidth: Double
-    public let depth: Double
     let bottomAngle: Angle?
+    public let depth: Double
 
     @Environment(\.tolerance) var tolerance
 
@@ -40,6 +40,17 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
 }
 
 public extension BoltHeadSocket where Self == PolygonalBoltHeadSocket {
+    /// A polygonal drive socket.
+    ///
+    /// - Parameters:
+    ///   - sides: Number of sides (6 for hex, 4 for square, etc.).
+    ///   - width: Width across the flats.
+    ///   - depth: Depth of the socket.
+    ///   - bottomAngle: Optional angle for a conical bottom. Defaults to flat.
+    static func polygon(sides: Int, width: Double, depth: Double, bottomAngle: Angle? = nil) -> Self {
+        .init(sides: sides, acrossWidth: width, depth: depth, bottomAngle: bottomAngle)
+    }
+
     /// Creates a standard hex socket with a 120° conical bottom.
     ///
     /// - Parameters:

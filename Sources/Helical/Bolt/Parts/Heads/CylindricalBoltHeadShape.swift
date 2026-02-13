@@ -59,7 +59,14 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
 }
 
 public extension BoltHeadShape where Self == CylindricalBoltHeadShape {
-    static func cylindrical(
+    /// A cylindrical bolt head with optional edge profiles.
+    ///
+    /// - Parameters:
+    ///   - diameter: The head diameter.
+    ///   - height: The head height.
+    ///   - topEdge: Optional edge profile for the top edge.
+    ///   - bottomEdge: Optional edge profile for the bottom edge.
+    static func cylinder(
         diameter: Double,
         height: Double,
         topEdge: EdgeProfile? = nil,

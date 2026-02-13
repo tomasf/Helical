@@ -51,7 +51,7 @@ public extension Bolt {
             thread: thread,
             length: length,
             unthreadedLength: unthreadedLength,
-            headShape: .standardCountersunk(topDiameter: headDiameter, boltDiameter: thread.majorDiameter),
+            headShape: .countersunk(topDiameter: headDiameter, boltDiameter: thread.majorDiameter),
             socket: .standardHex(width: socketWidth, depth: socketDepth)
         )
     }

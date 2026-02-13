@@ -27,3 +27,19 @@ public struct ProfiledBoltHeadShape: BoltHeadShape {
     public var body: any Geometry3D {}
     public var recess: any Geometry3D {}
 }
+
+public extension BoltHeadShape where Self == ProfiledBoltHeadShape {
+    /// A headless bolt shape with a custom edge profile.
+    ///
+    /// - Parameter edgeProfile: The edge profile to apply to the top of the bolt body.
+    static func profile(edgeProfile: EdgeProfile) -> Self {
+        .init(edgeProfile: edgeProfile)
+    }
+
+    /// A headless bolt shape with a 45° chamfer.
+    ///
+    /// - Parameter depth: The radial depth of the chamfer.
+    static func chamfer(depth: Double) -> Self {
+        .init(edgeProfile: .chamfer(depth: depth))
+    }
+}

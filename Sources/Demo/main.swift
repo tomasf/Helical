@@ -9,9 +9,9 @@ let customBolt = Bolt(
     thread: customThread,
     length: boltLength,
     unthreadedLength: 0,
-    leadinChamferSize: 1.0,
     headShape: PolygonalBoltHeadShape(sideCount: 8, widthAcrossFlats: 12, height: 3, chamferAngle: 40°),
-    socket: PolygonalBoltHeadSocket(sides: 4, acrossWidth: 5, depth: 2)
+    socket: PolygonalBoltHeadSocket(sides: 4, acrossWidth: 5, depth: 2),
+    point: .chamfer(depth: 1)
 )
 
 let bolts = [

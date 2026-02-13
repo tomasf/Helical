@@ -101,6 +101,6 @@ public extension Threadform where Self == TrapezoidalThreadform {
     /// - Returns: A buttress threadform instance.
     ///
     static func buttress(leadingFlankAngle: Angle = 7°, trailingFlankAngle: Angle = 45°, crestWidth: Double) -> Self {
-        TrapezoidalThreadform(leadingFlankAngle: leadingFlankAngle, trailingFlankAngle: trailingFlankAngle, crestWidth: crestWidth)
+        .trapezoidal(leadingFlankAngle: leadingFlankAngle, trailingFlankAngle: trailingFlankAngle, crestWidth: crestWidth)
     }
 }
