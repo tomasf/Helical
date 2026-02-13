@@ -59,3 +59,61 @@ internal extension EnvironmentValues {
         }
     }
 }
+
+
+public struct LeadInEnds: Sendable {
+    let leading: LeadIn?
+    let trailing: LeadIn?
+
+    init(leading: LeadIn?, trailing: LeadIn?) {
+        self.leading = leading
+        self.trailing = trailing
+    }
+
+    public static func asymmetric(leading: LeadIn, trailing: LeadIn) -> Self {
+        .init(leading: leading, trailing: trailing)
+    }
+
+    public static func both(_ chamfer: LeadIn) -> Self {
+        .init(leading: chamfer, trailing: chamfer)
+    }
+
+    public static func leading(_ chamfer: LeadIn) -> Self {
+        .init(leading: chamfer, trailing: nil)
+    }
+
+    public static func trailing(_ chamfer: LeadIn) -> Self {
+        .init(leading: nil, trailing: chamfer)
+    }
+
+    public static var none: Self {
+        .init(leading: nil, trailing: nil)
+    }
+}
+
+
+public struct LeadIn: Sendable {
+    let size: Size
+
+    init(size: Size) {
+        self.size = size
+    }
+
+    // a multiple of the thread depth
+    static func threadDepth(multiple: Double) -> Self {
+        .init(size: .threadDepth(multiple: multiple))
+    }
+
+    static func constant(depth: Double, length: Double) -> Self {
+        .init(size: .constant(depth: depth, length: length))
+    }
+
+    static func constant(depth: Double) -> Self {
+        .init(size: .constant(depth: depth, length: depth))
+    }
+    
+    enum Size: Sendable {
+        case constant (depth: Double, length: Double)
+        case threadDepth (multiple: Double)
+    }
+}
