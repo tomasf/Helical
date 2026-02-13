@@ -1,7 +1,10 @@
 import Foundation
 import Cadova
 
-/// A bolt with a head, threaded section, and optional point.
+/// A complete bolt fastener with a head, threaded shank, and optional point.
+///
+/// `Bolt` composes a head shape, drive socket, threaded section (``Screw``), and point
+/// into a full fastener model. For just the bare threaded geometry, use ``Screw``.
 public struct Bolt: Shape3D {
     /// The screw thread specification.
     public let thread: ScrewThread

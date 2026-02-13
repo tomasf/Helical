@@ -1,7 +1,10 @@
 import Foundation
 import Cadova
 
-/// A 3D screw model generated from a thread profile and length.
+/// A bare threaded cylinder.
+///
+/// `Screw` represents just the threaded geometry — a helical profile swept along a cylinder.
+/// It has no head, socket, or point. Use ``Bolt`` for a complete fastener with head and drive.
 public struct Screw: Shape3D {
     let thread: ScrewThread
     let length: Double
