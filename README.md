@@ -4,14 +4,14 @@ Helical is a library for [Cadova](https://github.com/tomasf/Cadova) that simplif
 
 <img src="https://github.com/user-attachments/assets/f4fef516-f493-4034-baa2-bf6026ed4f68" />
 
-
 [Bolts demo](Sources/Demo/bolts.stl) · [Nuts and washers demo](Sources/Demo/nutsAndWashers.stl)
+
 ## Installation
 
 Integrate Helical into your project with the Swift Package Manager by adding it as a dependency in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/tomasf/Helical.git", from: "0.4.1")
+.package(url: "https://github.com/tomasf/Helical.git", from: "1.0.0")
 ```
 
 Then, import Helical where it's needed:
@@ -24,7 +24,7 @@ import Helical
 
 ### Standard Components
 
-Helical simplifies the process of creating threaded shapes, making it easier to incorporate threaded holes into your models. It also provides a selection of standard bolts, nuts, and corresponding holes. Creating a typical M8x30 hex head bolt is simple:
+Helical simplifies the process of creating threaded shapes, making it easier to incorporate threaded holes into your models. It also provides a selection of standard bolts, nuts, and corresponding holes. Creating a typical M8x20 hex head bolt is simple:
 
 ```swift
 Bolt.hexHead(.m8, length: 20, unthreadedLength: 5)
@@ -92,8 +92,18 @@ As is making a threaded hole for a particular thread:
 Box(13)
     .aligned(at: .centerXY)
     .subtracting {
-        ThreadedHole(thread: thread, depth: 13)
+        ThreadedHole(thread: thread, depth: 13, leadIns: .both)
     }
+```
+
+### Lead-In Chamfers
+
+`LeadIn` and `LeadInEnds` provide a unified way to add thread-entry chamfers to screws, threaded holes, and nuts. Size can be specified relative to thread depth, pitch, or cone angle, or as explicit dimensions:
+
+```swift
+Screw(thread: .isoMetric(.m6), length: 20, leadIns: .both(.standard))
+
+Nut(thread: .isoMetric(.m6), shape: body, leadIns: .both(.angle(120°)))
 ```
 
 ## Behavior
@@ -111,4 +121,3 @@ Helical uses Cadova's `tolerance` environment setting to increase the diameter o
 ## Contributing
 
 We welcome contributions. Feel free to open issues for feedback or suggestions and submit pull requests for improvements to the codebase.
-
