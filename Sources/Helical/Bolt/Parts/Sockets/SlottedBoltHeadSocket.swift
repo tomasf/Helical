@@ -10,7 +10,7 @@ public struct SlottedBoltHeadSocket: BoltHeadSocket {
     /// Creates a slotted socket with the specified dimensions.
     ///
     /// - Parameters:
-    ///   - length: Length of the slot.
+    ///   - length: Length of the slot. When nil, the slot extends across the full head.
     ///   - width: Width of the slot.
     ///   - depth: Depth of the slot.
     public init(length: Double? = nil, width: Double, depth: Double) {
@@ -23,7 +23,8 @@ public struct SlottedBoltHeadSocket: BoltHeadSocket {
         @Environment(\.thread!) var thread
         @Environment(\.tolerance) var tolerance
 
-        let effectiveLength = length ?? thread.majorDiameter * 100
+        // When no explicit length, extend well past the head to be clipped by the head shape
+        let effectiveLength = length ?? thread.majorDiameter * 4
         Box(x: effectiveLength + tolerance, y: width + tolerance, z: depth)
             .aligned(at: .centerXY)
     }
