@@ -103,35 +103,50 @@ public struct Bolt: Shape3D {
             .withThread(thread)
     }
 
-    private func clearanceHoleDepth(recessedHead: Bool = false) -> Double {
-        recessedHead ? (length + headShape.clearanceLength) : (length - headShape.consumedLength)
+    /// The entry geometry for a bolt clearance hole.
+    public enum ClearanceHoleEntry: Sendable {
+        /// No special geometry at the entry.
+        case plain
+        /// An edge profile applied at the hole opening.
+        case edgeProfile (EdgeProfile)
+        /// A recess matching the bolt head shape.
+        case recessedHead
     }
 
     /// Creates a clearance hole sized for this bolt.
     ///
-    /// - Parameters:
-    ///   - depth: Hole depth. Defaults to the bolt length minus head consumption.
-    ///   - edgeProfile: Optional edge profile at the hole opening.
-    /// - Returns: A clearance hole configured for this bolt.
-    public func clearanceHole(depth: Double? = nil, edgeProfile: EdgeProfile? = nil) -> ClearanceHole {
-        ClearanceHole(
-            diameter: thread.majorDiameter,
-            depth: depth ?? clearanceHoleDepth(),
-            edgeProfile: edgeProfile
-        )
-    }
-
-    /// Creates a clearance hole sized for this bolt, optionally with a recess for the head.
+    /// The default depth depends on the entry type: for ``ClearanceHoleEntry/recessedHead``,
+    /// the hole extends deep enough to fully recess the head; otherwise, it extends
+    /// the bolt length minus the head's consumed length.
     ///
     /// - Parameters:
-    ///   - depth: Hole depth. Defaults to a depth that accommodates the full bolt length.
-    ///   - recessedHead: Whether to include a recess matching the bolt head shape.
+    ///   - depth: Hole depth. Defaults to a depth appropriate for the entry type.
+    ///   - entry: The geometry at the entry of the hole. Defaults to `.plain`.
     /// - Returns: A clearance hole configured for this bolt.
-    public func clearanceHole(depth: Double? = nil, recessedHead: Bool) -> ClearanceHole {
+    public func clearanceHole(depth: Double? = nil, entry: ClearanceHoleEntry = .plain) -> ClearanceHole {
+        let recessedHead: Bool
+        let clearanceEntry: ClearanceHole.Entry
+
+        switch entry {
+        case .plain:
+            recessedHead = false
+            clearanceEntry = .plain
+        case .edgeProfile(let profile):
+            recessedHead = false
+            clearanceEntry = .edgeProfile(profile)
+        case .recessedHead:
+            recessedHead = true
+            clearanceEntry = .recess(headShape.recess)
+        }
+
+        let defaultDepth = recessedHead
+            ? (length + headShape.clearanceLength)
+            : (length - headShape.consumedLength)
+
         return ClearanceHole(
             diameter: thread.majorDiameter,
-            depth: depth ?? clearanceHoleDepth(recessedHead: true),
-            boltHeadRecess: recessedHead ? headShape.recess : Empty()
+            depth: depth ?? defaultDepth,
+            entry: clearanceEntry
         )
     }
 }

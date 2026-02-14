@@ -67,19 +67,23 @@ public struct ProfiledBoltPoint: BoltPoint {
 }
 
 public extension BoltPoint where Self == ProfiledBoltPoint {
-    /// A chamfered bolt point with a 45° bevel at the tip.
-    ///
-    /// - Parameter depth: The axial depth of the chamfer.
-    static func chamfer(depth: Double, dogPointLength: Double = 0) -> Self {
-        ProfiledBoltPoint(chamferDepth: depth, dogPointLength: dogPointLength)
-    }
-
-    /// A chamfered bolt point with independent radial depth and axial length.
+    /// A bolt point with a custom edge profile.
     ///
     /// - Parameters:
-    ///   - depth: The radial depth of the chamfer.
-    ///   - length: The axial length of the chamfer.
-    static func chamfer(depth: Double, length: Double) -> Self {
-        ProfiledBoltPoint(depth: depth, length: length)
+    ///   - profile: The edge profile defining the point shape.
+    ///   - dogPointLength: Length of the optional dog point extension. Defaults to zero.
+    static func profile(_ profile: EdgeProfile, dogPointLength: Double = 0) -> Self {
+        ProfiledBoltPoint(profile: profile, dogPointLength: dogPointLength)
+    }
+
+    /// A chamfered bolt point with a dog point extension.
+    ///
+    /// For a plain chamfer without a dog point, use ``BoltPoint/leadIn(_:)`` instead.
+    ///
+    /// - Parameters:
+    ///   - depth: Radial depth of the chamfer.
+    ///   - dogPointLength: Length of the dog point extension.
+    static func chamfer(depth: Double, dogPointLength: Double) -> Self {
+        ProfiledBoltPoint(chamferDepth: depth, dogPointLength: dogPointLength)
     }
 }

@@ -80,7 +80,7 @@ Creating a matching countersunk clearance hole for a bolt is straightforward:
 Box(13)
     .aligned(at: .centerXY)
     .subtracting {
-        customBolt.clearanceHole(recessedHead: true)
+        customBolt.clearanceHole(entry: .recessedHead)
     }
 ```
 

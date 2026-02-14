@@ -7,20 +7,28 @@ import Cadova
 public struct ClearanceHole: Shape3D {
     let diameter: Double
     let depth: Double
-    let edgeProfile: EdgeProfile?
-    let boltHeadRecess: any Geometry3D
+    let entry: Entry
 
-    /// Creates a clearance hole with a custom head recess geometry.
+    /// The geometry at the entry of the clearance hole.
+    public enum Entry: Sendable {
+        /// No special geometry at the entry.
+        case plain
+        /// An edge profile applied at the hole opening.
+        case edgeProfile (EdgeProfile)
+        /// A recess for the bolt head.
+        case recess (any Geometry3D)
+    }
+
+    /// Creates a clearance hole.
     ///
     /// - Parameters:
     ///   - diameter: The hole diameter (typically the bolt's major diameter).
     ///   - depth: The depth of the hole.
-    ///   - boltHeadRecess: Custom geometry for the head recess.
-    public init(diameter: Double, depth: Double, boltHeadRecess: any Geometry3D) {
+    ///   - entry: The geometry at the entry of the hole. Defaults to `.plain`.
+    public init(diameter: Double, depth: Double, entry: Entry = .plain) {
         self.diameter = diameter
         self.depth = depth
-        self.edgeProfile = nil
-        self.boltHeadRecess = boltHeadRecess
+        self.entry = entry
     }
 
     /// Creates a clearance hole with an optional edge profile.
@@ -29,42 +37,43 @@ public struct ClearanceHole: Shape3D {
     ///   - diameter: The hole diameter (typically the bolt's major diameter).
     ///   - depth: The depth of the hole.
     ///   - edgeProfile: Optional edge profile at the hole opening.
-    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile? = nil) {
-        self.diameter = diameter
-        self.depth = depth
-        self.edgeProfile = edgeProfile
-        self.boltHeadRecess = Empty()
+    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile) {
+        self.init(diameter: diameter, depth: depth, entry: .edgeProfile(edgeProfile))
     }
 
-    /// Creates a clearance hole with a countersink for flat head fasteners.
+    /// Creates a clearance hole with a custom head recess geometry.
     ///
     /// - Parameters:
     ///   - diameter: The hole diameter (typically the bolt's major diameter).
     ///   - depth: The depth of the hole.
-    ///   - countersinkAngle: The cone angle of the countersink. Defaults to 90°.
-    ///   - countersinkTopDiameter: The diameter at the top of the countersink.
-    public init(diameter: Double, depth: Double, countersinkAngle: Angle = 90°, countersinkTopDiameter: Double) {
-        self.diameter = diameter
-        self.depth = depth
-        self.edgeProfile = nil
-        self.boltHeadRecess = Countersink.Shape(Countersink(
-            angle: countersinkAngle, topDiameter: countersinkTopDiameter
-        ))
+    ///   - boltHeadRecess: Custom geometry for the head recess.
+    public init(diameter: Double, depth: Double, boltHeadRecess: any Geometry3D) {
+        let recess = boltHeadRecess
+        self.init(diameter: diameter, depth: depth, entry: .recess(recess))
     }
 
     public var body: any Geometry3D {
         @Environment(\.tolerance) var tolerance
+        @Environment(\.segmentation) var segmentation
         let effectiveDiameter = diameter + tolerance
 
         Cylinder(diameter: effectiveDiameter, height: depth)
             .overhangSafe()
             .adding {
-                boltHeadRecess.ifEmpty {
-                    edgeProfile?.profile
-                        .translated(x: effectiveDiameter / 2)
+                switch entry {
+                case .plain:
+                    Empty()
+                case .edgeProfile(let profile):
+                    profile.negativeShape
+                        .translated(x: -effectiveDiameter / 2 + 0.001)
+                        .flipped(along: .xy)
                         .revolved()
+                        .within(z: ...depth)
+                        .withSegmentation(count: segmentation.segmentCount(circleRadius: effectiveDiameter / 2))
+                case .recess(let recess):
+                    recess
+                        .within(z: ...depth)
                 }
-                .within(z: ...depth)
             }
     }
 }
