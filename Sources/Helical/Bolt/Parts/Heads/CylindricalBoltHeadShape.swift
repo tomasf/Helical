@@ -13,11 +13,16 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
 
     /// Creates a cylindrical head with optional edge profiles.
     ///
+    /// The "top" and "bottom" edges refer to the physical bolt orientation: the top
+    /// is the visible face of the head, and the bottom is where it meets the shank.
+    /// Internally, the head is modeled with Z=0 at the top and Z=height at the shank,
+    /// so the edge profile parameters are swapped when passed to extrusion.
+    ///
     /// - Parameters:
     ///   - diameter: The head diameter.
     ///   - height: The head height.
-    ///   - topEdge: Optional edge profile for the top edge.
-    ///   - bottomEdge: Optional edge profile for the bottom edge.
+    ///   - topEdge: Optional edge profile for the top (visible) edge of the head.
+    ///   - bottomEdge: Optional edge profile for the bottom (shank-side) edge of the head.
     public init(diameter: Double, height: Double, topEdge: EdgeProfile? = nil, bottomEdge: EdgeProfile? = nil) {
         self.diameter = diameter
         self.height = height
@@ -43,6 +48,7 @@ public struct CylindricalBoltHeadShape: BoltHeadShape {
     public var body: any Geometry3D {
         @Environment(\.tolerance) var tolerance
 
+        // topEdge/bottomEdge are swapped because Z=0 is the head top, Z=height is the shank side
         Circle(diameter: diameter - tolerance)
             .extruded(height: height, topEdge: bottomEdge, bottomEdge: topEdge)
             .intersecting {
@@ -64,8 +70,8 @@ public extension BoltHeadShape where Self == CylindricalBoltHeadShape {
     /// - Parameters:
     ///   - diameter: The head diameter.
     ///   - height: The head height.
-    ///   - topEdge: Optional edge profile for the top edge.
-    ///   - bottomEdge: Optional edge profile for the bottom edge.
+    ///   - topEdge: Optional edge profile for the top (visible) edge of the head.
+    ///   - bottomEdge: Optional edge profile for the bottom (shank-side) edge of the head.
     static func cylinder(
         diameter: Double,
         height: Double,
