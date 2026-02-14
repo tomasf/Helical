@@ -59,7 +59,7 @@ public extension Bolt {
         )
         let socket = PolygonalBoltHeadSocket(
             sides: 6,
-            acrossWidth: socketWidth,
+            width: socketWidth,
             depth: thread.majorDiameter / 2,
             bottomAngle: 120°
         )

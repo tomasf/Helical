@@ -128,7 +128,7 @@ public extension Bolt {
             length: length,
             unthreadedLength: unthreadedLength,
             headShape: head,
-            socket: PolygonalBoltHeadSocket(sides: 6, acrossWidth: socketWidth, depth: socketDepth),
+            socket: PolygonalBoltHeadSocket(sides: 6, width: socketWidth, depth: socketDepth),
             point: .chamfer(depth: pointChamferSize, dogPointLength: dogPointLength)
         )
     }

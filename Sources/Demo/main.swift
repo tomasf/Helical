@@ -10,7 +10,7 @@ let customBolt = Bolt(
     length: boltLength,
     unthreadedLength: 0,
     headShape: PolygonalBoltHeadShape(sideCount: 8, widthAcrossFlats: 12, height: 3, chamferAngle: 40°),
-    socket: PolygonalBoltHeadSocket(sides: 4, acrossWidth: 5, depth: 2),
+    socket: PolygonalBoltHeadSocket(sides: 4, width: 5, depth: 2),
     point: .leadIn(.constant(depth: 1))
 )
 
