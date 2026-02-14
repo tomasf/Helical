@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Describes a 2D thread profile capable of providing pitch diameter.

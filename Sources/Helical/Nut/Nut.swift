@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A threaded nut with configurable body shape and internal chamfers.

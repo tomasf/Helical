@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A complete bolt fastener with a head, threaded shank, and optional point.

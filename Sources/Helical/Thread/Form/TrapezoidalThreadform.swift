@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A trapezoidal thread profile. V-shaped, square, and buttress threads are specific cases.

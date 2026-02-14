@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A headless bolt shape for fasteners like set screws and threaded studs.

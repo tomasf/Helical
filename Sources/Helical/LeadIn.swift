@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Specifies lead-in chamfers for both ends of a threaded feature.

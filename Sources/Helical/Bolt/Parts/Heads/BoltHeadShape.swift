@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A protocol defining the geometry and dimensions of a bolt head.

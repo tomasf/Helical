@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A conical countersunk bolt head that sits flush with or below the mounting surface.
@@ -58,7 +57,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
             .translated(z: lensHeight)
             .adding {
                 if lensHeight > 0 {
-                    let diameter = lensHeight + pow(effectiveTopDiameter, 2) / (4 * lensHeight)
+                    let diameter = lensHeight + effectiveTopDiameter * effectiveTopDiameter / (4 * lensHeight)
                     Sphere(diameter: diameter)
                         .aligned(at: .minZ)
                         .within(z: 0..<lensHeight)

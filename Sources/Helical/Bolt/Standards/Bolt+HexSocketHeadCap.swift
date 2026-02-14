@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Hex socket head cap screws (DIN 912, ISO 4762).

@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Phillips countersunk head screws (DIN 965/966, ISO 7046/7047).

@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Slotted countersunk head screws (DIN 963/964, ISO 2009/2010).

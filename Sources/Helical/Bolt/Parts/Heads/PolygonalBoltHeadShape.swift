@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A polygonal bolt head, such as a hex head or square head.

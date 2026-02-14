@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A cylindrical bolt head, such as those used for socket head cap screws or button head screws.

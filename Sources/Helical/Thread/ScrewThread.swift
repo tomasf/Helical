@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Describes a helical screw thread with geometric parameters and profile form.

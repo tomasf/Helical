@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Set screws (grub screws) with various point and drive types.

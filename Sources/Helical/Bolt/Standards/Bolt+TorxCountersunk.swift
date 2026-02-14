@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Torx countersunk head screws (ISO 14581).

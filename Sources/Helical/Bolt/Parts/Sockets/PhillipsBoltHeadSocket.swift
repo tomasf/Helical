@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A Phillips cross drive socket.

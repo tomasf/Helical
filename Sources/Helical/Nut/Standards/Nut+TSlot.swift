@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// T-slot nuts (DIN 508, ISO 299).

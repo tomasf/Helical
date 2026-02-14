@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Phillips raised cheese head screws (DIN 7985, ISO 7045).

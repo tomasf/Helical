@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Square nuts (DIN 557/562).

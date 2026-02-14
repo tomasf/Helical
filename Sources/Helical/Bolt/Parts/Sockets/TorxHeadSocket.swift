@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 internal struct TorxShape: Shape2D {

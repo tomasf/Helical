@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A clearance hole for a bolt to pass through without threading.

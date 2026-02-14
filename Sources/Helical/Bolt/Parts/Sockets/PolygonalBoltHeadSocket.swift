@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A polygonal drive socket, such as a hex (Allen) socket.

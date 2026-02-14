@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A protocol defining the drive socket geometry in a bolt head.

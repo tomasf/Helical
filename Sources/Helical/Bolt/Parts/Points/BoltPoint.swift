@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A protocol defining the geometry at the tip of a bolt.

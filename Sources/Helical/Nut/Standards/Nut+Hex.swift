@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Hex nuts (DIN 934, ISO 4032).

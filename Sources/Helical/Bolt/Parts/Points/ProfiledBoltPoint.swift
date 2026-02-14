@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A bolt point defined by an edge profile, with an optional dog point extension.

@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A nut body with an integrated washer-like flange at the base.

@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Hex head bolts (DIN 931/933, ISO 4014/4017).

@@ -1,4 +1,3 @@
-import Foundation
 
 /// Plain washers (ISO 7089, ISO 7093-1).
 ///

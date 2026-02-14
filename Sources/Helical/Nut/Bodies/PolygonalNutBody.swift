@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A polygonal nut body shape, such as hex or square.

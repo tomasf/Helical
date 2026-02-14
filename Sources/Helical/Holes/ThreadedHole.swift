@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A threaded hole for receiving a bolt or screw.

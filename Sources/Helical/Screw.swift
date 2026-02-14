@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A bare threaded cylinder.

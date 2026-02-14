@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A bolt point defined by a ``LeadIn`` chamfer specification.

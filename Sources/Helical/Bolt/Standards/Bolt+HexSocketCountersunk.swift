@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Hex socket countersunk head screws (DIN 7991, ISO 10642).
