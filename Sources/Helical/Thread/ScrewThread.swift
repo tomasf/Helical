@@ -19,7 +19,8 @@ public struct ScrewThread: Sendable {
     /// Axial advance per revolution.
     public var lead: Double { Double(starts) * pitch }
     var leftHanded: Bool { handedness == .left }
-    var pitchDiameter: Double { form.pitchDiameter(for: self) }
+    /// Diameter at the pitch line, where tooth and groove widths are equal.
+    public var pitchDiameter: Double { form.pitchDiameter(for: self) }
 
     /// Creates a screw thread with the specified geometry and profile form.
     ///
