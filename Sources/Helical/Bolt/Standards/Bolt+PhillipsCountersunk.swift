@@ -72,11 +72,11 @@ public extension Bolt {
             lensHeight: lensHeight
         )
         let socket = PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth)
-        let effectiveunthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
+        let effectiveUnthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
         return .init(
             thread: thread,
             length: length,
-            unthreadedLength: effectiveunthreadedLength,
+            unthreadedLength: effectiveUnthreadedLength,
             unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
             socket: socket
