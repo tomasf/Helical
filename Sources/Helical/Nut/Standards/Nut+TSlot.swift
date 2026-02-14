@@ -40,7 +40,7 @@ public extension Nut {
         default: (0, 0, 0, 0, 0)
         }
 
-        assert(baseXY > 0, "\(size) isn't a valid size for this kind of nut")
+        if !(baseXY > 0) { fatalError("\(size) isn't a valid size for this kind of nut") }
         return tSlotNut(
             .isoMetric(size),
             baseSize: Vector3D(baseXY, baseXY, baseHeight),

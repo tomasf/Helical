@@ -39,7 +39,7 @@ public extension Bolt {
         default: (-1, -1)
         }
 
-        assert(headDiameter > 0 && socketWidth > 0, "\(size) isn't a valid size for DIN 912 bolts")
+        if !(headDiameter > 0 && socketWidth > 0) { fatalError("\(size) isn't a valid size for DIN 912 bolts") }
         return hexSocketHeadCap(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, length: length, unthreadedLength: unthreadedLength)
     }
 

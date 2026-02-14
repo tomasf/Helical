@@ -57,7 +57,7 @@ public extension Washer {
         }
 
         let outerDiameter = series == .large ? outerDiameterLarge : outerDiameterSmall
-        assert(outerDiameter > 0, "\(size) isn't a valid size for this washer type")
+        if !(outerDiameter > 0) { fatalError("\(size) isn't a valid size for this washer type") }
 
         return Washer(outerDiameter: outerDiameter, innerDiameter: innerDiameter, thickness: thickness)
     }

@@ -41,7 +41,7 @@ public extension Nut {
         }
 
         let thickness = (series == .regular) ? regularThickness : thinThickness
-        assert(width > 0 && thickness > 0, "\(size) isn't a valid size for this kind of nut")
+        if !(width > 0 && thickness > 0) { fatalError("\(size) isn't a valid size for this kind of nut") }
         return (width, thickness)
     }
 

@@ -43,7 +43,7 @@ public extension Bolt {
         default: -1.0
         }
 
-        assert(headDiameter > 0, "\(size) isn't a valid size for DIN 963 bolts")
+        if !(headDiameter > 0) { fatalError("\(size) isn't a valid size for DIN 963 bolts") }
         return slottedCountersunk(
             .isoMetric(size),
             headDiameter: headDiameter,

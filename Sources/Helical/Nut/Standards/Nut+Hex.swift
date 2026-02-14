@@ -45,7 +45,7 @@ public extension Nut {
         default: (-1, -1)
         }
 
-        assert(width > 0, "\(size) isn't a valid size for DIN 934 nuts")
+        if !(width > 0) { fatalError("\(size) isn't a valid size for DIN 934 nuts") }
         return hex(thread: .isoMetric(size), width: width, height: height, flatDiameter: width * 0.95)
     }
 
@@ -93,7 +93,7 @@ public extension Nut {
         default: (0, 0, 0, 0)
         }
 
-        assert(width > 0, "\(size) isn't a valid size for flanged hex nuts")
+        if !(width > 0) { fatalError("\(size) isn't a valid size for flanged hex nuts") }
         return Nut.flangedHex(
             thread: .isoMetric(size),
             width: width,

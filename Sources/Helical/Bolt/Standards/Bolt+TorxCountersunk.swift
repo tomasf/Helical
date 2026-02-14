@@ -29,7 +29,7 @@ public extension Bolt {
         default: (-1, -1, .t10)
         }
 
-        assert(headDiameter > 0, "\(size) isn't a valid size for ISO 14581 bolts")
+        if !(headDiameter > 0) { fatalError("\(size) isn't a valid size for ISO 14581 bolts") }
         return torxCountersunk(
             .isoMetric(size),
             headDiameter: headDiameter,

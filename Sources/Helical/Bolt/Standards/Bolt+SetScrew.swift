@@ -75,10 +75,10 @@ public extension Bolt {
         case .dog: dogDiameter
         }
 
-        assert(flatDiameter > 0, "\(size) isn't a valid size for this set screw type")
+        if !(flatDiameter > 0) { fatalError("\(size) isn't a valid size for this set screw type") }
 
         if socket == .hexSocket {
-            assert(socketWidth > 0, "\(size) isn't a valid size for this set screw type")
+            if !(socketWidth > 0) { fatalError("\(size) isn't a valid size for this set screw type") }
 
             return hexSocketSetScrew(
                 .isoMetric(size),
@@ -89,7 +89,7 @@ public extension Bolt {
                 length: length
             )
         } else {
-            assert(slotWidth > 0, "\(size) isn't a valid size for this set screw type")
+            if !(slotWidth > 0) { fatalError("\(size) isn't a valid size for this set screw type") }
 
             return slottedSetScrew(
                 .isoMetric(size),

@@ -38,7 +38,7 @@ public extension Bolt {
         default: (-1, -1)
         }
 
-        assert(headHeight > 0, "\(size) isn't a valid size for DIN 931 bolts")
+        if !(headHeight > 0) { fatalError("\(size) isn't a valid size for DIN 931 bolts") }
         return hexHead(.isoMetric(size), headWidth: widthAcrossFlats, headHeight: headHeight, length: length, unthreadedLength: unthreadedLength)
     }
 
