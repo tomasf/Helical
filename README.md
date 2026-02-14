@@ -86,7 +86,7 @@ Box(13)
 
 As is making a threaded hole for a particular thread:
 
-<img align="right" width="200" src="https://github.com/user-attachments/assets/bcaf3285-61f4-4ebe-b297-21aa063a2e2d" />
+<img align="right" width="200" src="https://github.com/user-attachments/assets/f5bd670a-a70b-4a02-8348-099a9c1a6330" />
 
 ```swift
 Box(13)
