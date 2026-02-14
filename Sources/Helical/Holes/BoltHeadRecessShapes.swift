@@ -7,8 +7,6 @@ public extension Countersink {
         let countersink: Countersink
         let headClearance: Double
 
-        @Environment(\.tolerance) var tolerance
-
         /// Creates a countersink shape for subtraction from a solid.
         ///
         /// - Parameters:
@@ -20,6 +18,7 @@ public extension Countersink {
         }
 
         public var body: any Geometry3D {
+            @Environment(\.tolerance) var tolerance
             let topDiameter = countersink.topDiameter + tolerance
             let coneHeight = topDiameter / 2 * tan(countersink.angle / 2)
             Cylinder(diameter: topDiameter, height: headClearance)

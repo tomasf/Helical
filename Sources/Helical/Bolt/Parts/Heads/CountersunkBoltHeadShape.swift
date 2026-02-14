@@ -10,8 +10,6 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     let boltDiameter: Double
     let lensHeight: Double
 
-    @Environment(\.tolerance) var tolerance
-
     /// Creates a countersunk head with the specified countersink geometry.
     ///
     /// - Parameters:
@@ -52,6 +50,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
+        @Environment(\.tolerance) var tolerance
         let effectiveTopDiameter = countersink.topDiameter - tolerance
         let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
 

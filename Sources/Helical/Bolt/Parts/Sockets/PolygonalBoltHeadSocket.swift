@@ -8,8 +8,6 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     let bottomAngle: Angle?
     public let depth: Double
 
-    @Environment(\.tolerance) var tolerance
-
     /// Creates a polygonal socket with the specified geometry.
     ///
     /// - Parameters:
@@ -25,6 +23,7 @@ public struct PolygonalBoltHeadSocket: BoltHeadSocket {
     }
 
     public var body: any Geometry3D {
+        @Environment(\.tolerance) var tolerance
         let polygon = RegularPolygon(sideCount: sides, apothem: (acrossWidth + tolerance) / 2)
         let bottomDepth = bottomAngle.map { polygon.circumradius / tan($0 / 2) } ?? 0
 
