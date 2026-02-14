@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A conical countersunk bolt head that sits flush with or below the mounting surface.
@@ -9,8 +8,6 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     let countersink: Countersink
     let boltDiameter: Double
     let lensHeight: Double
-
-    @Environment(\.tolerance) var tolerance
 
     /// Creates a countersunk head with the specified countersink geometry.
     ///
@@ -52,6 +49,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     }
 
     public var body: any Geometry3D {
+        @Environment(\.tolerance) var tolerance
         let effectiveTopDiameter = countersink.topDiameter - tolerance
         let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
 
@@ -59,7 +57,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
             .translated(z: lensHeight)
             .adding {
                 if lensHeight > 0 {
-                    let diameter = lensHeight + pow(effectiveTopDiameter, 2) / (4 * lensHeight)
+                    let diameter = lensHeight + effectiveTopDiameter * effectiveTopDiameter / (4 * lensHeight)
                     Sphere(diameter: diameter)
                         .aligned(at: .minZ)
                         .within(z: 0..<lensHeight)
@@ -73,23 +71,20 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
 }
 
 public extension BoltHeadShape where Self == CountersunkBoltHeadShape {
+    /// A countersunk bolt head with a specified cone angle.
+    ///
+    /// - Parameters:
+    ///   - angle: The countersink cone angle. Defaults to 90°.
+    ///   - topDiameter: The diameter at the top of the cone.
+    ///   - boltDiameter: The bolt's major diameter.
     static func countersunk(
         angle: Angle = 90°,
         topDiameter: Double,
         boltDiameter: Double
     ) -> CountersunkBoltHeadShape {
-        countersunk(countersink: .init(angle: angle, topDiameter: topDiameter), boltDiameter: boltDiameter)
-    }
-
-    static func countersunk(
-        countersink: Countersink,
-        boltDiameter: Double
-    ) -> CountersunkBoltHeadShape {
-        .init(countersink: countersink, boltDiameter: boltDiameter)
-    }
-
-    static func standardCountersunk(topDiameter: Double, boltDiameter: Double) -> CountersunkBoltHeadShape {
-        .init(countersink: .init(angle: 90°, topDiameter: topDiameter), boltDiameter: boltDiameter)
+        .init(
+            countersink: Countersink(angle: angle, topDiameter: topDiameter),
+            boltDiameter: boltDiameter
+        )
     }
 }
-

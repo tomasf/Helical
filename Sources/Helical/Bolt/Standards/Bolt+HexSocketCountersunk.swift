@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Hex socket countersunk head screws (DIN 7991, ISO 10642).
@@ -33,7 +32,7 @@ public extension Bolt {
         default: (-1, -1, -1)
         }
 
-        assert(headDiameter > 0, "\(size) isn't a valid size for ISO 10642 bolts")
+        if !(headDiameter > 0) { fatalError("\(size) isn't a valid size for ISO 10642 bolts") }
         return hexSocketCountersunk(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, socketDepth: socketDepth, length: length, unthreadedLength: unthreadedLength)
     }
 
@@ -51,7 +50,7 @@ public extension Bolt {
             thread: thread,
             length: length,
             unthreadedLength: unthreadedLength,
-            headShape: .standardCountersunk(topDiameter: headDiameter, boltDiameter: thread.majorDiameter),
+            headShape: .countersunk(topDiameter: headDiameter, boltDiameter: thread.majorDiameter),
             socket: .standardHex(width: socketWidth, depth: socketDepth)
         )
     }

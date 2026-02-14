@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A polygonal bolt head, such as a hex head or square head.
@@ -57,5 +56,28 @@ public struct PolygonalBoltHeadShape: BoltHeadShape {
 
     public var recess: any Geometry3D {
         PolygonalHeadRecess(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height)
+    }
+}
+
+public extension BoltHeadShape where Self == PolygonalBoltHeadShape {
+    /// A polygonal bolt head with chamfered corners.
+    ///
+    /// - Parameters:
+    ///   - sideCount: Number of sides (6 for hex, 4 for square, etc.).
+    ///   - widthAcrossFlats: Distance between opposite flat faces.
+    ///   - height: The head height.
+    ///   - chamferAngle: Angle of the corner chamfer.
+    static func polygon(sideCount: Int, widthAcrossFlats: Double, height: Double, chamferAngle: Angle = 0°) -> Self {
+        .init(sideCount: sideCount, widthAcrossFlats: widthAcrossFlats, height: height, chamferAngle: chamferAngle)
+    }
+
+    /// A hex bolt head with chamfered corners.
+    ///
+    /// - Parameters:
+    ///   - widthAcrossFlats: Distance between opposite flat faces.
+    ///   - height: The head height.
+    ///   - chamferAngle: Angle of the corner chamfer.
+    static func hex(widthAcrossFlats: Double, height: Double, chamferAngle: Angle = 0°) -> Self {
+        .init(sideCount: 6, widthAcrossFlats: widthAcrossFlats, height: height, chamferAngle: chamferAngle)
     }
 }

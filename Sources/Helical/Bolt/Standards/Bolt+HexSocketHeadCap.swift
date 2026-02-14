@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Hex socket head cap screws (DIN 912, ISO 4762).
@@ -40,7 +39,7 @@ public extension Bolt {
         default: (-1, -1)
         }
 
-        assert(headDiameter > 0 && socketWidth > 0, "\(size) isn't a valid size for DIN 912 bolts")
+        if !(headDiameter > 0 && socketWidth > 0) { fatalError("\(size) isn't a valid size for DIN 912 bolts") }
         return hexSocketHeadCap(.isoMetric(size), headDiameter: headDiameter, socketWidth: socketWidth, length: length, unthreadedLength: unthreadedLength)
     }
 
@@ -60,7 +59,7 @@ public extension Bolt {
         )
         let socket = PolygonalBoltHeadSocket(
             sides: 6,
-            acrossWidth: socketWidth,
+            width: socketWidth,
             depth: thread.majorDiameter / 2,
             bottomAngle: 120°
         )

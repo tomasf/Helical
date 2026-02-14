@@ -66,7 +66,7 @@ let customBolt = Bolt(
     unthreadedLength: 3,
     unthreadedDiameter: 5,
     headShape: .countersunk(angle: 80°, topDiameter: 10, boltDiameter: 5),
-    socket: .slotted(length: 10, width: 1, depth: 1.4)
+    socket: .slot(length: 10, width: 1, depth: 1.4)
 )
 ```
 
@@ -80,7 +80,7 @@ Creating a matching countersunk clearance hole for a bolt is straightforward:
 Box(13)
     .aligned(at: .centerXY)
     .subtracting {
-        customBolt.clearanceHole(recessedHead: true)
+        customBolt.clearanceHole(entry: .recessedHead)
     }
 ```
 

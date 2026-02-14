@@ -9,9 +9,9 @@ let customBolt = Bolt(
     thread: customThread,
     length: boltLength,
     unthreadedLength: 0,
-    leadinChamferSize: 1.0,
     headShape: PolygonalBoltHeadShape(sideCount: 8, widthAcrossFlats: 12, height: 3, chamferAngle: 40°),
-    socket: PolygonalBoltHeadSocket(sides: 4, acrossWidth: 5, depth: 2)
+    socket: PolygonalBoltHeadSocket(sides: 4, width: 5, depth: 2),
+    point: .leadIn(.constant(depth: 1))
 )
 
 let bolts = [
@@ -35,7 +35,7 @@ let nutsAndWashers: [(String, any Geometry3D)] = [
     ("Thin square nut, M10", Nut.square(.m10, series: .thin)),
     ("Flanged hex nut, M6", Nut.flangedHex(.m6)),
     ("T-slot nut, M8", Nut.tSlotNut(.m8)),
-    ("Custom non-standard nut", Nut(thread: customThread, shape: PolygonalNutBody(sideCount: 8, thickness: 10, widthAcrossFlats: 12), innerChamferAngle: 60°)),
+    ("Custom non-standard nut", Nut(thread: customThread, shape: PolygonalNutBody(sideCount: 8, thickness: 10, widthAcrossFlats: 12), leadIns: .both(.angle(60°)))),
     ("Normal washer, M5", Washer.plain(.m5, series: .normal)),
     ("Large washer, M5", Washer.plain(.m5, series: .large))
 ]

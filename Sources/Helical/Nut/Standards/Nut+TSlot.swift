@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// T-slot nuts (DIN 508, ISO 299).
@@ -15,7 +14,7 @@ public extension Nut {
     ///   - chamferDepth: Depth of the chamfer on the base edges.
     static func tSlotNut(_ thread: ScrewThread, baseSize: Vector3D, slotWidth: Double, fullHeight: Double, chamferDepth: Double) -> Nut {
         let body = TSlotNutBody(baseSize: baseSize, slotWidth: slotWidth, fullHeight: fullHeight, bottomProfile: .chamfer(depth: chamferDepth))
-        return .init(thread: thread, shape: body, innerChamferAngle: 90°)
+        return .init(thread: thread, shape: body, leadIns: .both(.angle(90°)))
     }
 
     /// Creates a standard DIN 508 T-slot nut.
@@ -41,7 +40,7 @@ public extension Nut {
         default: (0, 0, 0, 0, 0)
         }
 
-        assert(baseXY > 0, "\(size) isn't a valid size for this kind of nut")
+        if !(baseXY > 0) { fatalError("\(size) isn't a valid size for this kind of nut") }
         return tSlotNut(
             .isoMetric(size),
             baseSize: Vector3D(baseXY, baseXY, baseHeight),

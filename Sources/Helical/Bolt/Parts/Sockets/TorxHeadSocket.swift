@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 internal struct TorxShape: Shape2D {
@@ -39,5 +38,16 @@ public struct TorxBoltHeadSocket: BoltHeadSocket {
                     cone
                 }
             }
+    }
+}
+
+public extension BoltHeadSocket where Self == TorxBoltHeadSocket {
+    /// A Torx (six-pointed star) drive socket.
+    ///
+    /// - Parameters:
+    ///   - size: The Torx size designation.
+    ///   - depth: Depth of the socket.
+    static func torx(size: TorxSize, depth: Double) -> Self {
+        TorxBoltHeadSocket(size: size, depth: depth)
     }
 }

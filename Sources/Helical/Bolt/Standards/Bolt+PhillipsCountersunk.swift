@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Phillips countersunk head screws (DIN 965/966, ISO 7046/7047).
@@ -35,7 +34,7 @@ public extension Bolt {
         default: (-1, .ph0, -1)
         }
 
-        assert(headDiameter > 0, "\(size) isn't a valid size for DIN 963/964 bolts")
+        if !(headDiameter > 0) { fatalError("\(size) isn't a valid size for DIN 963/964 bolts") }
         return phillipsCountersunk(
             .isoMetric(size),
             headDiameter: headDiameter,
@@ -72,11 +71,11 @@ public extension Bolt {
             lensHeight: lensHeight
         )
         let socket = PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth)
-        let effectiveunthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
+        let effectiveUnthreadedLength = max(head.consumedLength + thread.majorDiameter / 10, unthreadedLength)
         return .init(
             thread: thread,
             length: length,
-            unthreadedLength: effectiveunthreadedLength,
+            unthreadedLength: effectiveUnthreadedLength,
             unthreadedDiameter: thread.pitchDiameter,
             headShape: head,
             socket: socket

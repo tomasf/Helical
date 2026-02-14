@@ -1,24 +1,32 @@
-import Foundation
 import Cadova
 
 /// A Phillips cross drive socket.
+///
+/// Models the cruciform recess geometry of a Phillips-type screw drive,
+/// including the tapered conical profile and corner wing features.
 public struct PhillipsBoltHeadSocket: BoltHeadSocket {
     let size: PhillipsSize
-    let fullWidth: Double
+    let width: Double
 
+    /// Creates a Phillips cross drive socket.
+    ///
+    /// - Parameters:
+    ///   - size: The Phillips driver size.
+    ///   - width: The full width of the socket opening at the head surface.
     init(size: PhillipsSize, width: Double) {
         self.size = size
-        self.fullWidth = width
+        self.width = width
     }
 
+    /// The depth of the socket recess, derived from the Phillips size and width.
     public var depth: Double {
-        PhillipsMetrics(size: self.size, width: fullWidth).depth
+        PhillipsMetrics(size: self.size, width: width).depth
     }
 
     public var body: any Geometry3D {
         @Environment(\.tolerance) var tolerance
 
-        let metrics = PhillipsMetrics(size: self.size, width: fullWidth)
+        let metrics = PhillipsMetrics(size: self.size, width: width)
         let crossDistanceBetweenCorners = metrics.crossDistanceBetweenCorners + tolerance
         let bottomWidth = metrics.bottomWidth + tolerance
         let slotWidth = metrics.slotWidth + tolerance
@@ -78,5 +86,16 @@ public struct PhillipsBoltHeadSocket: BoltHeadSocket {
         }
         .intersecting(mask)
         .flipped(along: .z)
+    }
+}
+
+public extension BoltHeadSocket where Self == PhillipsBoltHeadSocket {
+    /// A Phillips cross drive socket.
+    ///
+    /// - Parameters:
+    ///   - size: The Phillips driver size.
+    ///   - width: The full width of the socket opening.
+    static func phillips(size: PhillipsSize, width: Double) -> Self {
+        PhillipsBoltHeadSocket(size: size, width: width)
     }
 }

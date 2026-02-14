@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Square nuts (DIN 557/562).
@@ -6,7 +5,7 @@ import Cadova
 /// Standard metric square nuts in regular (DIN 557) and thin (DIN 562) variants.
 public extension Nut {
     /// The thickness series for square nuts.
-    enum SquaredNutSeries {
+    enum SquareNutSeries {
         /// Regular thickness (DIN 557).
         case regular
         /// Thin (DIN 562).
@@ -19,7 +18,7 @@ public extension Nut {
     ///   - size: The ISO metric thread size.
     ///   - series: The thickness series.
     /// - Returns: A tuple of width across flats and thickness.
-    static func standardDimensionsForSquaredNut(_ size: ScrewThread.ISOMetricSize, series: SquaredNutSeries = .regular) -> (width: Double, thickness: Double) {
+    static func standardDimensionsForSquareNut(_ size: ScrewThread.ISOMetricSize, series: SquareNutSeries = .regular) -> (width: Double, thickness: Double) {
         
         let width: Double // s, width across flats
         let regularThickness: Double
@@ -42,7 +41,7 @@ public extension Nut {
         }
 
         let thickness = (series == .regular) ? regularThickness : thinThickness
-        assert(width > 0 && thickness > 0, "\(size) isn't a valid size for this kind of nut")
+        if !(width > 0 && thickness > 0) { fatalError("\(size) isn't a valid size for this kind of nut") }
         return (width, thickness)
     }
 
@@ -51,8 +50,8 @@ public extension Nut {
     /// - Parameters:
     ///   - size: The ISO metric thread size.
     ///   - series: The thickness series. Defaults to regular.
-    static func square(_ size: ScrewThread.ISOMetricSize, series: SquaredNutSeries = .regular) -> Nut {
-        let (width, thickness) = standardDimensionsForSquaredNut(size, series: series)
+    static func square(_ size: ScrewThread.ISOMetricSize, series: SquareNutSeries = .regular) -> Nut {
+        let (width, thickness) = standardDimensionsForSquareNut(size, series: series)
         let chamferAngle = (series == .regular) ? 30° : nil
         return square(.isoMetric(size), s: width, m: thickness, chamferAngle: chamferAngle)
     }
@@ -74,6 +73,6 @@ public extension Nut {
             chamferAngle: chamferAngle,
             topChamferDepth: chamferWidth
         )
-        return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
+        return .init(thread: thread, shape: shape, leadIns: .both(.angle(120°)))
     }
 }

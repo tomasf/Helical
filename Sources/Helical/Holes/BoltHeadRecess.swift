@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Parameters defining a conical countersink recess for flat head fasteners.

@@ -1,5 +1,8 @@
-import Foundation
 import Cadova
+
+/// Default clearance height for bolt head recesses, ensuring the recess
+/// extends well above the head to cut through any reasonable part thickness.
+public let defaultHeadClearance: Double = 100.0
 
 public extension Countersink {
     /// A 3D shape representing a countersink recess with clearance above.
@@ -7,19 +10,18 @@ public extension Countersink {
         let countersink: Countersink
         let headClearance: Double
 
-        @Environment(\.tolerance) var tolerance
-
         /// Creates a countersink shape for subtraction from a solid.
         ///
         /// - Parameters:
         ///   - countersink: The countersink parameters.
-        ///   - headClearance: Height of the cylindrical clearance above the cone. Defaults to 100.
-        public init(_ countersink: Countersink, headClearance: Double = 100.0) {
+        ///   - headClearance: Height of the cylindrical clearance above the cone.
+        public init(_ countersink: Countersink, headClearance: Double = defaultHeadClearance) {
             self.countersink = countersink
             self.headClearance = headClearance
         }
 
         public var body: any Geometry3D {
+            @Environment(\.tolerance) var tolerance
             let topDiameter = countersink.topDiameter + tolerance
             let coneHeight = topDiameter / 2 * tan(countersink.angle / 2)
             Cylinder(diameter: topDiameter, height: headClearance)
@@ -42,12 +44,12 @@ public extension Counterbore {
         ///
         /// - Parameters:
         ///   - counterbore: The counterbore parameters.
-        ///   - headClearance: Height of additional clearance above the counterbore. Defaults to 100.
-        public init(_ counterbore: Counterbore, headClearance: Double = 100.0) {
+        ///   - headClearance: Height of additional clearance above the counterbore.
+        public init(_ counterbore: Counterbore, headClearance: Double = defaultHeadClearance) {
             self.counterbore = counterbore
             self.headClearance = headClearance
         }
-        
+
         public var body: any Geometry3D {
             @Environment(\.tolerance) var tolerance
 
@@ -65,7 +67,7 @@ struct PolygonalHeadRecess: Shape3D {
     let height: Double
     let headClearance: Double
 
-    init(sideCount: Int, widthAcrossFlats: Double, height: Double, headClearance: Double = 100.0) {
+    init(sideCount: Int, widthAcrossFlats: Double, height: Double, headClearance: Double = defaultHeadClearance) {
         self.sideCount = sideCount
         self.widthAcrossFlats = widthAcrossFlats
         self.height = height
@@ -81,4 +83,3 @@ struct PolygonalHeadRecess: Shape3D {
             .translated(z: -headClearance)
     }
 }
-

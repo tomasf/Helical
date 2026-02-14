@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// A T-slot nut body for use in extruded aluminum profiles.

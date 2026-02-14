@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Phillips raised cheese head screws (DIN 7985, ISO 7045).
@@ -33,7 +32,7 @@ public extension Bolt {
         default: (-1, -1, -1, .ph0, -1)
         }
 
-        assert(headDiameter > 0, "\(size) isn't a valid size for DIN 7985 bolts")
+        if !(headDiameter > 0) { fatalError("\(size) isn't a valid size for DIN 7985 bolts") }
         return phillipsCheeseHead(
             .isoMetric(size),
             headDiameter: headDiameter,

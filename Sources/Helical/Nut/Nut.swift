@@ -1,67 +1,41 @@
-import Foundation
 import Cadova
 
-/// A threaded nut with configurable body shape and internal chamfers.
+/// A threaded nut with configurable body shape and internal lead-in chamfers.
 public struct Nut: Shape3D {
     /// The internal screw thread specification.
     public let thread: ScrewThread
     /// The external body shape of the nut.
     public let shape: any NutBody
-    let innerChamferAngleBottom: Angle?
-    let innerChamferAngleTop: Angle?
+    /// Lead-in chamfers at the thread entries.
+    public let leadIns: LeadInEnds
 
-    /// Creates a nut with different chamfer angles on each end.
+    /// Creates a nut with the specified thread, body shape, and lead-in chamfers.
     ///
     /// - Parameters:
     ///   - thread: The internal screw thread specification.
     ///   - shape: The external body shape.
-    ///   - innerChamferAngleBottom: Chamfer angle at the bottom thread entry.
-    ///   - innerChamferAngleTop: Chamfer angle at the top thread entry.
-    public init(thread: ScrewThread, shape: any NutBody, innerChamferAngleBottom: Angle?, innerChamferAngleTop: Angle?) {
+    ///   - leadIns: Lead-in chamfers for the thread entries. Defaults to none.
+    public init(thread: ScrewThread, shape: any NutBody, leadIns: LeadInEnds = .none) {
         self.shape = shape
         self.thread = thread
-        self.innerChamferAngleBottom = innerChamferAngleBottom
-        self.innerChamferAngleTop = innerChamferAngleTop
-    }
-
-    /// Creates a nut with the same chamfer angle on both ends.
-    ///
-    /// - Parameters:
-    ///   - thread: The internal screw thread specification.
-    ///   - shape: The external body shape.
-    ///   - innerChamferAngle: Chamfer angle at both thread entries.
-    public init(thread: ScrewThread, shape: any NutBody, innerChamferAngle: Angle? = nil) {
-        self.shape = shape
-        self.thread = thread
-        self.innerChamferAngleBottom = innerChamferAngle
-        self.innerChamferAngleTop = innerChamferAngle
+        self.leadIns = leadIns
     }
 
     public var body: any Geometry3D {
         @Environment(\.tolerance) var tolerance
-        
+
+        let minorDiameter = thread.minorDiameter + tolerance
         shape
             .subtracting {
-                Screw(thread: thread, length: shape.threadedDepth + 0.002)
-                    .translated(z: -0.001)
+                Screw(thread: thread, length: shape.threadedDepth)
 
-                if let innerChamferAngleBottom {
-                    Cylinder(
-                        bottomDiameter: thread.majorDiameter + tolerance,
-                        topDiameter: thread.minorDiameter + tolerance,
-                        height: thread.depth * tan(90° - innerChamferAngleBottom / 2)
-                    )
-                    .translated(z: -0.01)
+                if let (depth, length) = leadIns.leading?.resolved(for: thread) {
+                    Cylinder(bottomDiameter: minorDiameter + 2 * depth, topDiameter: minorDiameter, height: length)
                 }
 
-                if let innerChamferAngleTop {
-                    Cylinder(
-                        bottomDiameter: thread.majorDiameter + tolerance,
-                        topDiameter: thread.minorDiameter + tolerance,
-                        height: thread.depth * tan(90° - innerChamferAngleTop / 2)
-                    )
-                    .flipped(along: .z)
-                    .translated(z: shape.threadedDepth + 0.01)
+                if let (depth, length) = leadIns.trailing?.resolved(for: thread) {
+                    Cylinder(bottomDiameter: minorDiameter, topDiameter: minorDiameter + 2 * depth, height: length)
+                        .translated(z: shape.threadedDepth - length)
                 }
             }
     }

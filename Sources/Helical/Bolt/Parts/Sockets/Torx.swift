@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Standard Torx (hexalobular) driver sizes.

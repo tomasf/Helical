@@ -1,4 +1,3 @@
-import Foundation
 import Cadova
 
 /// Set screws (grub screws) with various point and drive types.
@@ -76,10 +75,10 @@ public extension Bolt {
         case .dog: dogDiameter
         }
 
-        assert(flatDiameter > 0, "\(size) isn't a valid size for this set screw type")
+        if !(flatDiameter > 0) { fatalError("\(size) isn't a valid size for this set screw type") }
 
         if socket == .hexSocket {
-            assert(socketWidth > 0, "\(size) isn't a valid size for this set screw type")
+            if !(socketWidth > 0) { fatalError("\(size) isn't a valid size for this set screw type") }
 
             return hexSocketSetScrew(
                 .isoMetric(size),
@@ -90,7 +89,7 @@ public extension Bolt {
                 length: length
             )
         } else {
-            assert(slotWidth > 0, "\(size) isn't a valid size for this set screw type")
+            if !(slotWidth > 0) { fatalError("\(size) isn't a valid size for this set screw type") }
 
             return slottedSetScrew(
                 .isoMetric(size),
@@ -129,8 +128,8 @@ public extension Bolt {
             length: length,
             unthreadedLength: unthreadedLength,
             headShape: head,
-            socket: PolygonalBoltHeadSocket(sides: 6, acrossWidth: socketWidth, depth: socketDepth),
-            point: ProfiledBoltPoint(chamferSize:pointChamferSize, dogPointLength: dogPointLength)
+            socket: PolygonalBoltHeadSocket(sides: 6, width: socketWidth, depth: socketDepth),
+            point: .chamfer(depth: pointChamferSize, dogPointLength: dogPointLength)
         )
     }
 
@@ -160,8 +159,8 @@ public extension Bolt {
             length: length,
             unthreadedLength: unthreadedLength,
             headShape: head,
-            socket: SlottedBoltHeadSocket(length: thread.majorDiameter, width: slotWidth, depth: slotDepth),
-            point: ProfiledBoltPoint(chamferSize: pointChamferSize, dogPointLength: dogPointLength)
+            socket: .slot(length: thread.majorDiameter, width: slotWidth, depth: slotDepth),
+            point: .chamfer(depth: pointChamferSize, dogPointLength: dogPointLength)
         )
     }
 }
