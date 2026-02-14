@@ -30,27 +30,6 @@ public struct ClearanceHole: Shape3D {
         self.entry = entry
     }
 
-    /// Creates a clearance hole with an optional edge profile.
-    ///
-    /// - Parameters:
-    ///   - diameter: The hole diameter (typically the bolt's major diameter).
-    ///   - depth: The depth of the hole.
-    ///   - edgeProfile: Optional edge profile at the hole opening.
-    public init(diameter: Double, depth: Double, edgeProfile: EdgeProfile) {
-        self.init(diameter: diameter, depth: depth, entry: .edgeProfile(edgeProfile))
-    }
-
-    /// Creates a clearance hole with a custom head recess geometry.
-    ///
-    /// - Parameters:
-    ///   - diameter: The hole diameter (typically the bolt's major diameter).
-    ///   - depth: The depth of the hole.
-    ///   - boltHeadRecess: Custom geometry for the head recess.
-    public init(diameter: Double, depth: Double, boltHeadRecess: any Geometry3D) {
-        let recess = boltHeadRecess
-        self.init(diameter: diameter, depth: depth, entry: .recess(recess))
-    }
-
     public var body: any Geometry3D {
         @Environment(\.tolerance) var tolerance
         @Environment(\.segmentation) var segmentation
