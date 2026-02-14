@@ -66,7 +66,7 @@ public extension Nut {
             topChamferDepth: chamferWidth,
             bottomChamferDepth: chamferWidth
         )
-        return Nut(thread: thread, shape: shape, innerChamferAngle: 120°)
+        return Nut(thread: thread, shape: shape, leadIns: .both(.angle(120°)))
     }
 }
 
@@ -128,6 +128,6 @@ public extension Nut {
             roundingDiameter: roundingDiameter,
             angle: flangeAngle
         )
-        return Nut(thread: thread, shape: flangedBody, innerChamferAngle: 120°)
+        return Nut(thread: thread, shape: flangedBody, leadIns: .both(.angle(120°)))
     }
 }

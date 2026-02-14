@@ -2,8 +2,8 @@ import Cadova
 
 /// Specifies lead-in chamfers for both ends of a threaded feature.
 ///
-/// Use this to configure which ends of a ``Screw`` or ``ThreadedHole`` receive
-/// lead-in chamfers to ease thread engagement.
+/// Use this to configure which ends of a ``Screw``, ``ThreadedHole``, or ``Nut``
+/// receive lead-in chamfers to ease thread engagement.
 public struct LeadInEnds: Sendable {
     let leading: LeadIn?
     let trailing: LeadIn?
@@ -59,8 +59,9 @@ public struct LeadInEnds: Sendable {
 
 /// A lead-in chamfer specification for easing thread engagement.
 ///
-/// Defines the size of a 45° chamfer at the end of a threaded feature.
-/// The size can be specified as an absolute value or relative to the thread geometry.
+/// Defines the size of a chamfer at the end of a threaded feature.
+/// The size can be specified as an absolute value, relative to the thread geometry,
+/// or as a cone angle spanning the full thread depth.
 public struct LeadIn: Sendable {
     let size: Size
 
@@ -103,6 +104,17 @@ public struct LeadIn: Sendable {
         .init(size: .pitch(multiple: multiple))
     }
 
+    /// A lead-in spanning the full thread depth at the specified cone angle.
+    ///
+    /// The radial depth equals the thread depth. The axial length is determined
+    /// by the cone angle (e.g. 120° produces a steeper chamfer than 90°).
+    /// A 90° cone angle is equivalent to a 45° chamfer, same as ``standard``.
+    ///
+    /// - Parameter angle: The included cone angle.
+    public static func angle(_ angle: Angle) -> Self {
+        .init(size: .angle(angle))
+    }
+
     func resolved(for thread: ScrewThread) -> (depth: Double, length: Double) {
         switch size {
         case .constant(let depth, let length):
@@ -113,6 +125,10 @@ public struct LeadIn: Sendable {
         case .pitch(let multiple):
             let d = thread.pitch * multiple
             return (d, d)
+        case .angle(let angle):
+            let depth = thread.depth
+            let length = depth * tan(90° - angle / 2)
+            return (depth, length)
         }
     }
 
@@ -125,6 +141,7 @@ public struct LeadIn: Sendable {
         case constant (depth: Double, length: Double)
         case depth (multiple: Double)
         case pitch (multiple: Double)
+        case angle (Angle)
     }
 }
 

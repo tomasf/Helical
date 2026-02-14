@@ -73,6 +73,6 @@ public extension Nut {
             chamferAngle: chamferAngle,
             topChamferDepth: chamferWidth
         )
-        return .init(thread: thread, shape: shape, innerChamferAngle: 120°)
+        return .init(thread: thread, shape: shape, leadIns: .both(.angle(120°)))
     }
 }

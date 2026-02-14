@@ -14,7 +14,7 @@ public extension Nut {
     ///   - chamferDepth: Depth of the chamfer on the base edges.
     static func tSlotNut(_ thread: ScrewThread, baseSize: Vector3D, slotWidth: Double, fullHeight: Double, chamferDepth: Double) -> Nut {
         let body = TSlotNutBody(baseSize: baseSize, slotWidth: slotWidth, fullHeight: fullHeight, bottomProfile: .chamfer(depth: chamferDepth))
-        return .init(thread: thread, shape: body, innerChamferAngle: 90°)
+        return .init(thread: thread, shape: body, leadIns: .both(.angle(90°)))
     }
 
     /// Creates a standard DIN 508 T-slot nut.
