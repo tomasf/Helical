@@ -22,6 +22,11 @@ let package = Package(
             name: "Demo",
             dependencies: ["Cadova", "Helical"],
             swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+        .testTarget(
+            name: "HelicalTests",
+            dependencies: ["Helical", "Cadova"],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
         )
     ]
 )
