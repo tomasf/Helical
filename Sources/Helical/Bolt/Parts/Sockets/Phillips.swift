@@ -33,16 +33,16 @@ internal struct PhillipsMetrics: Sendable {
         switch size {
         case .ph0:
             crossDistanceBetweenCorners = 0.61
-            cornerWidth = 0.3
+            cornerWidth = 0.310
             bottomWidth = 0.81
             slotWidth = 0.35
             filletRadius = 0.3
-            cornerAcrossAngle = 135° //???
+            cornerAcrossAngle = 136°
             cornerSlant = 7°
 
         case .ph1:
             crossDistanceBetweenCorners = 0.97
-            cornerWidth = 0.45
+            cornerWidth = 0.435
             bottomWidth = 1.27
             slotWidth = 0.55
             filletRadius = 0.5
@@ -51,7 +51,7 @@ internal struct PhillipsMetrics: Sendable {
 
         case .ph2:
             crossDistanceBetweenCorners = 1.47
-            cornerWidth = 0.82
+            cornerWidth = 0.815
             bottomWidth = 2.29
             slotWidth = 0.7
             filletRadius = 0.6
@@ -60,7 +60,7 @@ internal struct PhillipsMetrics: Sendable {
 
         case .ph3:
             crossDistanceBetweenCorners = 2.41
-            cornerWidth = 2.0
+            cornerWidth = 2.005
             bottomWidth = 3.81
             slotWidth = 0.85
             filletRadius = 0.8
@@ -69,7 +69,7 @@ internal struct PhillipsMetrics: Sendable {
 
         case .ph4:
             crossDistanceBetweenCorners = 3.48
-            cornerWidth = 2.4
+            cornerWidth = 2.415
             bottomWidth = 5.08
             slotWidth = 1.25
             filletRadius = 1

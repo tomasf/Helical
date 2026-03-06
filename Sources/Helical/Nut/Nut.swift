@@ -27,7 +27,9 @@ public struct Nut: Shape3D {
         let minorDiameter = thread.minorDiameter + tolerance
         shape
             .subtracting {
-                Screw(thread: thread, length: shape.threadedDepth)
+                let offset = 1e-3
+                Screw(thread: thread, length: shape.threadedDepth + 2 * offset)
+                    .translated(z: -offset)
 
                 if let (depth, length) = leadIns.leading?.resolved(for: thread) {
                     Cylinder(bottomDiameter: minorDiameter + 2 * depth, topDiameter: minorDiameter, height: length)
