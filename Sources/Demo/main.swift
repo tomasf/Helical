@@ -66,7 +66,11 @@ struct Repertoire: Shape3D {
     }
 }
 
-await Project(options: .format3D(.stl)) {
+await Project(packageRelative: "Models") {
+    Environment {
+        $0.segmentation = .adaptive(minAngle: 5°, minSize: 0.5)
+    }
+
     await Model("bolts") {
         Repertoire(contents: bolts)
     }
