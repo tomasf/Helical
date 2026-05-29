@@ -1,13 +1,13 @@
 {
-  "originHash" : "c177bfb6c8651af7040cc0e2d7006df4fe569d941dfcf0768e51a45423f77ec2",
+  "originHash" : "59d533b2b5adfaeeff9bce4344d9f2e423fb26240b7caff5d5c4f7cfcd2734bc",
   "pins" : [
     {
       "identity" : "apus",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Apus.git",
       "state" : {
-        "revision" : "7094e92897a4630375d46c9d2cc7d9408f7b7abe",
-        "version" : "0.1.2"
+        "revision" : "3ccc37d65daada2a675ddcc3d8a534e5db94726d",
+        "version" : "0.1.4"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
-        "revision" : "78763100b555e9662186a6c4d318c2265c3e432b",
-        "version" : "0.6.0"
+        "revision" : "af14d380502d227ba65d033e945844f4c438c040",
+        "version" : "0.7.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/manifold-swift.git",
       "state" : {
-        "revision" : "c401f108c0e5424b4bb0781ce7e51e5e364f0b14",
-        "version" : "1.0.0"
+        "revision" : "94a4f7bbfef3a7f23207f9d8a1d8ca2172fe0b61",
+        "version" : "1.1.0"
       }
     },
     {
