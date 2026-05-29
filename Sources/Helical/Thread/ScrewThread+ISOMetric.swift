@@ -121,7 +121,7 @@ public extension ScrewThread {
     }
 
     /// ISO 262 nominal metric screw sizes.
-    enum ISOMetricSize: Double {
+    enum ISOMetricSize: Double, Sendable {
         /// M1
         case m1   = 1
         /// M1.2
