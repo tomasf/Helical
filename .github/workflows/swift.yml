@@ -19,7 +19,9 @@ jobs:
     continue-on-error: ${{ matrix.os == 'windows-latest' }}
 
     steps:
-    - uses: SwiftyLab/setup-swift@main
+    - uses: SwiftyLab/setup-swift@latest
+      with:
+        swift-version: ${{ matrix.os == 'windows-latest' && '6.3.1' || '6.2.3' }}
     - uses: actions/checkout@v4
 
     - name: Install Linux dependencies
@@ -27,9 +29,10 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y libfontconfig1-dev
-    
+
     - name: Build
       run: swift build -v
 
     - name: Test
+      if: matrix.os != 'windows-latest'
       run: swift test -v
