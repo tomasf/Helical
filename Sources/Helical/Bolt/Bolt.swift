@@ -4,7 +4,7 @@ import Cadova
 ///
 /// `Bolt` composes a head shape, drive socket, threaded section (``Screw``), and point
 /// into a full fastener model. For just the bare threaded geometry, use ``Screw``.
-public struct Bolt: Shape3D {
+public struct Bolt: Geometry3D {
     /// The screw thread specification.
     public let thread: ScrewThread
     /// Nominal length of the bolt, measured according to convention for the head type.

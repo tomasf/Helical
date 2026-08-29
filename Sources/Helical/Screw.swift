@@ -4,7 +4,7 @@ import Cadova
 ///
 /// `Screw` represents just the threaded geometry — a helical profile swept along a cylinder.
 /// It has no head, socket, or point. Use ``Bolt`` for a complete fastener with head and drive.
-public struct Screw: Shape3D {
+public struct Screw: Geometry3D {
     let thread: ScrewThread
     let length: Double
     let leadIns: LeadInEnds

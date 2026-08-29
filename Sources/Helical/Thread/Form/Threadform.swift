@@ -1,7 +1,7 @@
 import Cadova
 
 /// Describes a 2D thread profile capable of providing pitch diameter.
-public protocol Threadform: Shape2D {
+public protocol Threadform: Geometry2D {
     /// Returns the pitch diameter for the given thread.
     func pitchDiameter(for thread: ScrewThread) -> Double
 

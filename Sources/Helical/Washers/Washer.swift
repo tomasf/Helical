@@ -1,7 +1,7 @@
 import Cadova
 
 /// A flat washer with configurable dimensions.
-public struct Washer: Shape3D {
+public struct Washer: Geometry3D {
     let outerDiameter: Double
     let innerDiameter: Double
     let thickness: Double

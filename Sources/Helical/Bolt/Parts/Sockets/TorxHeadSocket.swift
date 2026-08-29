@@ -1,6 +1,6 @@
 import Cadova
 
-internal struct TorxShape: Shape2D {
+internal struct TorxShape: Geometry2D {
     let size: TorxSize
 
     var body: any Geometry2D {

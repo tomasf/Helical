@@ -1,7 +1,7 @@
 import Cadova
 
 /// A threaded nut with configurable body shape and internal lead-in chamfers.
-public struct Nut: Shape3D {
+public struct Nut: Geometry3D {
     /// The internal screw thread specification.
     public let thread: ScrewThread
     /// The external body shape of the nut.
@@ -52,7 +52,7 @@ public struct Nut: Shape3D {
 }
 
 /// A protocol defining the external body shape of a nut.
-public protocol NutBody: Shape3D {
+public protocol NutBody: Geometry3D {
     /// The depth of the threaded portion of the nut.
     var threadedDepth: Double { get }
     /// Creates geometry for a nut trap cavity.
