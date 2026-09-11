@@ -3,7 +3,7 @@ import Cadova
 /// A threaded hole for receiving a bolt or screw.
 ///
 /// Creates internal threads with optional lead-in chamfers at the entries.
-public struct ThreadedHole: Shape3D {
+public struct ThreadedHole: Geometry3D {
     let thread: ScrewThread
     let depth: Double
     let leadIns: LeadInEnds

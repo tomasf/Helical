@@ -6,7 +6,7 @@ public let defaultHeadClearance: Double = 100.0
 
 public extension Countersink {
     /// A 3D shape representing a countersink recess with clearance above.
-    struct Shape: Shape3D {
+    struct Shape: Geometry3D {
         let countersink: Countersink
         let headClearance: Double
 
@@ -36,7 +36,7 @@ public extension Countersink {
 
 public extension Counterbore {
     /// A 3D shape representing a counterbore recess with clearance above.
-    struct Shape: Shape3D {
+    struct Shape: Geometry3D {
         let counterbore: Counterbore
         let headClearance: Double
 
@@ -61,7 +61,7 @@ public extension Counterbore {
     }
 }
 
-struct PolygonalHeadRecess: Shape3D {
+struct PolygonalHeadRecess: Geometry3D {
     let sideCount: Int
     let widthAcrossFlats: Double
     let height: Double

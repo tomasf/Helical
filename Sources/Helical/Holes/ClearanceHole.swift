@@ -3,7 +3,7 @@ import Cadova
 /// A clearance hole for a bolt to pass through without threading.
 ///
 /// Supports optional edge profiles, countersinks, or custom head recesses.
-public struct ClearanceHole: Shape3D {
+public struct ClearanceHole: Geometry3D {
     let diameter: Double
     let depth: Double
     let entry: Entry

@@ -1,7 +1,7 @@
 import Cadova
 
 /// A protocol defining the geometry and dimensions of a bolt head.
-public protocol BoltHeadShape: Shape3D {
+public protocol BoltHeadShape: Geometry3D {
     /// Total height of the head.
     var height: Double { get }
     /// Portion of the nominal bolt length consumed by the head, such as the countersunk portion.

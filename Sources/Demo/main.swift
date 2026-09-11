@@ -40,7 +40,7 @@ let nutsAndWashers: [(String, any Geometry3D)] = [
     ("Large washer, M5", Washer.plain(.m5, series: .large))
 ]
 
-struct Repertoire: Shape3D {
+struct Repertoire: Geometry3D {
     let contents: [(label: String, part: any Geometry3D)]
 
     var body: any Geometry3D {
