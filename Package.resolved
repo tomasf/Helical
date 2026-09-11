@@ -1,5 +1,5 @@
 {
-  "originHash" : "870fcd83066ba91397366b9bff8d68d2d01c5bac4ff688a55680f0c8320dc4f5",
+  "originHash" : "448c400c28b335a6edff0084e35bfec54f5469402b0cfea7f2532fabd98b4670",
   "pins" : [
     {
       "identity" : "apus",
@@ -15,8 +15,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
-        "revision" : "e8a51061234599e6edfe050c28b6cf1404d2f279",
-        "version" : "0.9.0"
+        "revision" : "a44b88cbf4425812662300767e6847dc2a1f2fe0",
+        "version" : "0.10.0"
+      }
+    },
+    {
+      "identity" : "cadovalivelink",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/CadovaLiveLink.git",
+      "state" : {
+        "revision" : "4e6cdee60cecf1cde2204578485445533ad0324b",
+        "version" : "0.2.1"
       }
     },
     {
@@ -24,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/manifold-swift.git",
       "state" : {
-        "revision" : "94a4f7bbfef3a7f23207f9d8a1d8ca2172fe0b61",
-        "version" : "1.1.0"
+        "revision" : "59fa5c3e567df75fd9bb6aacb57d52fd5b3074ec",
+        "version" : "1.1.1"
       }
     },
     {
@@ -33,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Nodal.git",
       "state" : {
-        "revision" : "a4dbde9c2d0b70e10e834bd62c46b9d78a67e5f0",
-        "version" : "1.0.1"
+        "revision" : "0ec74822bcf604f2e20d445e1e62e5e87abf8a3f",
+        "version" : "1.0.2"
       }
     },
     {
@@ -51,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/ThreeMF.git",
       "state" : {
-        "revision" : "dc0156a495932b05928fdacb9ff4e4644102f0a6",
-        "version" : "0.2.4"
+        "revision" : "05391c47c4f8579a2dbd50d060aab76178a91a90",
+        "version" : "0.3.0"
       }
     },
     {
