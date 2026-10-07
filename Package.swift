@@ -4,13 +4,13 @@ import PackageDescription
 
 let package = Package(
     name: "Helical",
-    platforms: [.macOS(.v14)],
+    platforms: [.macOS(.v15)],
     products: [
         .library(name: "Helical", targets: ["Helical"]),
         .executable(name: "Helical-Demo", targets: ["Demo"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tomasf/Cadova.git", .upToNextMinor(from: "0.10.0")),
+        .package(url: "https://github.com/tomasf/Cadova.git", from: "1.0.0"),
     ],
     targets: [
         .target(
