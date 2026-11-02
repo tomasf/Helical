@@ -34,6 +34,15 @@ public struct Countersink: Sendable {
     func depth(forTopDiameter topDiameter: Double) -> Double {
         depth(forRadialSpan: topDiameter / 2)
     }
+
+    /// The radial distance the cone wall travels over a given axial depth.
+    ///
+    /// The inverse of ``depth(forRadialSpan:)``.
+    ///
+    /// - Parameter depth: The axial depth travelled along the wall.
+    func radialSpan(forDepth depth: Double) -> Double {
+        depth * tan(angle / 2)
+    }
 }
 
 /// Parameters defining a cylindrical counterbore recess for bolt heads.

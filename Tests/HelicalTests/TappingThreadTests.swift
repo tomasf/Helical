@@ -58,9 +58,9 @@ struct TappingThreadTests {
 }
 
 struct PhillipsCountersunkTappingTests {
-    // boltDiameter = thread.minorDiameter. With the ISO 1478 core diameters and the
-    // DIN 7982 head diameters, the countersink height formula reproduces the head
-    // heights (k) tabulated by DIN 7982 — so a wrong table value on either side shows up.
+    // DIN 7982 heads are 80°, not the 90° of the metric machine screw standards, and the
+    // standard tabulates dk and k, so the head should reproduce k exactly rather than
+    // derive an approximation of it.
     @Test func `head height matches the DIN 7982 table`() {
         let expected: [(ScrewThread.TappingSize, Double)] = [
             (.st2p2, 1.3), (.st2p9, 1.7), (.st3p5, 2.1), (.st3p9, 2.3),
@@ -68,8 +68,21 @@ struct PhillipsCountersunkTappingTests {
         ]
         for (size, k) in expected {
             let bolt = Bolt.phillipsCountersunkTapping(size, length: 20)
-            #expect(isClose(bolt.headShape.height, k, tolerance: 0.09), "\(size)")
+            #expect(isClose(bolt.headShape.height, k, tolerance: 1e-9), "\(size)")
+            #expect(isClose(bolt.headShape.consumedLength, k, tolerance: 1e-9), "\(size)")
         }
+    }
+
+    // The cone that the head sits in has to match the head, or the screw won't pull flush.
+    @Test func `head cone is 80 degrees`() {
+        let bolt = Bolt.phillipsCountersunkTapping(.st3p5, length: 20)
+        // The head spans from dk down to k, so the wall sits at atan(radialSpan / k) from
+        // the axis — half of the included angle.
+        guard let head = bolt.headShape as? CountersunkBoltHeadShape else {
+            Issue.record("not a countersunk head"); return
+        }
+        let radialSpan = (6.8 - head.boltDiameter) / 2
+        #expect(isClose(atan(radialSpan / 2.1).degrees, 40, tolerance: 1e-9))
     }
 
     // The thread runs up to the head, leaving only the one pitch of run-out (a) that
@@ -77,7 +90,12 @@ struct PhillipsCountersunkTappingTests {
     @Test func `thread starts one pitch below the head`() {
         let bolt = Bolt.phillipsCountersunkTapping(.st3p5, length: 20)
         #expect(isClose(bolt.unthreadedLength, bolt.headShape.consumedLength + 1.3))
-        #expect(isClose(bolt.unthreadedDiameter, 2.64))
+
+        // The run-out takes the diameter where the 80° cone bottoms out, so the head meets
+        // the shank at k rather than running past it. That lands between core and crest.
+        #expect(isClose(bolt.unthreadedDiameter, 6.8 - 2 * 2.1 * tan(40°), tolerance: 1e-9))
+        #expect(bolt.unthreadedDiameter > 2.64)
+        #expect(bolt.unthreadedDiameter < 3.53)
     }
 
     @Test func `cone end reaches the nominal length`() {

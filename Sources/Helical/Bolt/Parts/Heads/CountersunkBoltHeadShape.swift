@@ -21,6 +21,23 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
         self.lensHeight = lensHeight
     }
 
+    /// Creates a countersunk head of a given height.
+    ///
+    /// Standards tabulate the head diameter and height directly, so this derives the diameter
+    /// at which the cone meets the shank from them rather than the other way round.
+    ///
+    /// - Parameters:
+    ///   - countersink: The countersink geometry defining the cone angle and top diameter.
+    ///   - height: The total head height, including any lens.
+    ///   - lensHeight: Height of the optional raised lens above the cone. Defaults to zero.
+    public init(countersink: Countersink, height: Double, lensHeight: Double = 0) {
+        self.init(
+            countersink: countersink,
+            boltDiameter: countersink.topDiameter - 2 * countersink.radialSpan(forDepth: height - lensHeight),
+            lensHeight: lensHeight
+        )
+    }
+
     /// Creates a countersunk head with the specified angle and dimensions.
     ///
     /// - Parameters:
