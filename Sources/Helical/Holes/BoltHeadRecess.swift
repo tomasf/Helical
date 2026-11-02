@@ -10,11 +10,29 @@ public struct Countersink: Sendable {
     /// Creates a countersink with the specified geometry.
     ///
     /// - Parameters:
-    ///   - angle: The cone angle. Defaults to 90°.
+    ///   - angle: The included cone angle. Defaults to 90°.
     ///   - topDiameter: The diameter at the top of the countersink.
     public init(angle: Angle = 90°, topDiameter: Double) {
         self.angle = angle
         self.topDiameter = topDiameter
+    }
+
+    /// The axial depth spanned by a radial distance along the cone wall.
+    ///
+    /// ``angle`` is the included angle, so the wall sits at `angle / 2` from the axis and the
+    /// depth is the radial span divided by its tangent. A wider angle gives a shallower cone.
+    ///
+    /// - Parameter span: The radial distance travelled along the wall.
+    func depth(forRadialSpan span: Double) -> Double {
+        span / tan(angle / 2)
+    }
+
+    /// The axial depth of the cone, from the rim down to the apex.
+    ///
+    /// - Parameter topDiameter: The diameter at the rim, which may differ from ``topDiameter``
+    ///   once tolerance has been applied.
+    func depth(forTopDiameter topDiameter: Double) -> Double {
+        depth(forRadialSpan: topDiameter / 2)
     }
 }
 

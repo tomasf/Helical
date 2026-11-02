@@ -23,7 +23,7 @@ public extension Countersink {
         public var body: any Geometry3D {
             @Environment(\.tolerance) var tolerance
             let topDiameter = countersink.topDiameter + tolerance
-            let coneHeight = topDiameter / 2 * tan(countersink.angle / 2)
+            let coneHeight = countersink.depth(forTopDiameter: topDiameter)
             Cylinder(diameter: topDiameter, height: headClearance)
                 .overhangSafe()
                 .translated(z: -headClearance)

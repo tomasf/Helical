@@ -37,7 +37,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     }
 
     public var height: Double {
-        (countersink.topDiameter - boltDiameter) / 2 * tan(countersink.angle / 2) + lensHeight
+        countersink.depth(forRadialSpan: (countersink.topDiameter - boltDiameter) / 2) + lensHeight
     }
 
     public var consumedLength: Double {
@@ -51,7 +51,7 @@ public struct CountersunkBoltHeadShape: BoltHeadShape {
     public var body: any Geometry3D {
         @Environment(\.tolerance) var tolerance
         let effectiveTopDiameter = countersink.topDiameter - tolerance
-        let coneHeight = effectiveTopDiameter / 2 * tan(countersink.angle / 2)
+        let coneHeight = countersink.depth(forTopDiameter: effectiveTopDiameter)
 
         Cylinder(bottomDiameter: effectiveTopDiameter, topDiameter: 0.001, height: coneHeight)
             .translated(z: lensHeight)
