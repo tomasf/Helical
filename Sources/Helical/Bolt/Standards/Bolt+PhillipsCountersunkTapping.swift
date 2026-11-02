@@ -17,27 +17,25 @@ public extension Bolt {
     ///   - length: Nominal length of the screw, measured from the top of the head.
     static func phillipsCountersunkTapping(_ size: ScrewThread.TappingSize, end: TappingScrewEnd = .cone, length: Double) -> Bolt {
         let headDiameter: Double // dk
-        let headHeight: Double // k
         let phillipsSize: PhillipsSize
         let socketWidth: Double // m
 
-        (headDiameter, headHeight, phillipsSize, socketWidth) = switch size {
-        case .st2p2: (4.3,  1.3, .ph1, 2.5)
-        case .st2p9: (5.5,  1.7, .ph1, 3.0)
-        case .st3p5: (6.8,  2.1, .ph2, 4.2)
-        case .st3p9: (7.5,  2.3, .ph2, 4.6)
-        case .st4p2: (8.1,  2.5, .ph2, 4.7)
-        case .st4p8: (9.5,  3.0, .ph2, 5.1)
-        case .st5p5: (10.8, 3.4, .ph3, 6.8)
-        case .st6p3: (12.4, 3.8, .ph3, 7.1)
-        default: (-1, -1, .ph0, -1)
+        (headDiameter, phillipsSize, socketWidth) = switch size {
+        case .st2p2: (4.3,  .ph1, 2.5)
+        case .st2p9: (5.5,  .ph1, 3.0)
+        case .st3p5: (6.8,  .ph2, 4.2)
+        case .st3p9: (7.5,  .ph2, 4.6)
+        case .st4p2: (8.1,  .ph2, 4.7)
+        case .st4p8: (9.5,  .ph2, 5.1)
+        case .st5p5: (10.8, .ph3, 6.8)
+        case .st6p3: (12.4, .ph3, 7.1)
+        default: (-1, .ph0, -1)
         }
 
         if !(headDiameter > 0) { fatalError("\(size) isn't a valid size for DIN 7982 screws") }
         return phillipsCountersunkTapping(
             size,
             headDiameter: headDiameter,
-            headHeight: headHeight,
             socketWidth: socketWidth,
             phillipsSize: phillipsSize,
             end: end,
@@ -50,7 +48,6 @@ public extension Bolt {
     /// - Parameters:
     ///   - size: The ISO 1478 tapping screw thread size.
     ///   - headDiameter: Diameter of the countersunk head.
-    ///   - headHeight: Height of the countersunk head.
     ///   - socketWidth: Width of the Phillips recess.
     ///   - phillipsSize: The Phillips driver size.
     ///   - end: The form of the screw end. Defaults to the type C cone end.
@@ -58,7 +55,6 @@ public extension Bolt {
     static func phillipsCountersunkTapping(
         _ size: ScrewThread.TappingSize,
         headDiameter: Double,
-        headHeight: Double,
         socketWidth: Double,
         phillipsSize: PhillipsSize,
         end: TappingScrewEnd = .cone,
@@ -66,10 +62,12 @@ public extension Bolt {
     ) -> Bolt {
         let thread = ScrewThread.tapping(size)
         // DIN 7982 heads are 80 degrees, unlike the 90 degrees of the metric machine screw
-        // standards. The standard tabulates dk and k, so the head is built from both.
+        // standards. The head runs from dk down to where the cone meets the thread; the
+        // standard's k is a theoretical height, measured to the sharp corner the rounded or
+        // flat edge replaces, so it is taller than the head actually is.
         let head = CountersunkBoltHeadShape(
             countersink: .init(angle: 80°, topDiameter: headDiameter),
-            height: headHeight
+            boltDiameter: thread.majorDiameter
         )
         let point: any BoltPoint = switch end {
         case .cone: .coneEnd()
@@ -77,14 +75,12 @@ public extension Bolt {
         }
 
         // Tapping screws are threaded right up to the head, apart from a run-out of
-        // one pitch (a). The run-out takes the diameter at which the head's cone bottoms out,
-        // which lies between the core and the crest, so the cone meets the shank exactly at
-        // the tabulated head height rather than running on past it.
+        // one pitch (a). The run-out takes the thread's crest diameter, matching the diameter
+        // the head's cone bottoms out at, so the head ends where its height says it does.
         return .init(
             thread: thread,
             length: length,
             unthreadedLength: head.consumedLength + thread.pitch,
-            unthreadedDiameter: head.boltDiameter,
             headShape: head,
             socket: PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth),
             point: point

@@ -80,12 +80,11 @@ public extension Bolt {
         }
 
         // Tapping screws are threaded right up to the head, apart from a run-out of
-        // one pitch (a).
+        // one pitch (a), which takes the thread's crest diameter.
         return .init(
             thread: thread,
             length: length,
             unthreadedLength: thread.pitch,
-            unthreadedDiameter: thread.minorDiameter,
             headShape: head,
             socket: PhillipsBoltHeadSocket(size: phillipsSize, width: socketWidth),
             point: point

@@ -9,14 +9,16 @@ private func isClose(_ a: Double, _ b: Double, tolerance: Double = 1e-9) -> Bool
 // so a wrong table value or a wrong boltDiameter argument produces a wrong height.
 
 struct HexSocketCountersunkTests {
-    // boltDiameter = thread.majorDiameter (not majorDiameter - depth)
+    // boltDiameter = thread.majorDiameter (not majorDiameter - depth), and dk is the
+    // nominal (maximum) head diameter. Taking the minimum instead would seat only the
+    // smallest head of the tolerance range flush.
     @Test func `head height uses major diameter as bolt diameter`() {
         let m4  = Bolt.hexSocketCountersunk(.m4,  length: 20)
         let m10 = Bolt.hexSocketCountersunk(.m10, length: 30)
-        // topDiameter=7.53, boltDiameter=4.0 → (7.53-4.0)/2 * tan(45°) ≈ 1.765
-        #expect(isClose(m4.headShape.height,  1.765, tolerance: 1e-4))
-        // topDiameter=19.22, boltDiameter=10.0 → (19.22-10.0)/2 ≈ 4.61
-        #expect(isClose(m10.headShape.height, 4.61,  tolerance: 1e-4))
+        // topDiameter=8, boltDiameter=4.0 → (8-4.0)/2 * tan(45°) = 2.0
+        #expect(isClose(m4.headShape.height,  2.0, tolerance: 1e-4))
+        // topDiameter=20, boltDiameter=10.0 → (20-10.0)/2 = 5.0
+        #expect(isClose(m10.headShape.height, 5.0, tolerance: 1e-4))
     }
 }
 
