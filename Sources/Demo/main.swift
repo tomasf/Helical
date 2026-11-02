@@ -23,6 +23,9 @@ let bolts = [
     ("Phillips raised countersunk, M4", Bolt.phillipsCountersunk(.m4, raised: true, length: boltLength, unthreadedLength: 7)),
     ("Slotted countersunk, M5", Bolt.slottedCountersunk(.m5, length: boltLength)),
     ("Raised slotted countersunk, M3", Bolt.slottedCountersunk(.m3, raised: true, length: boltLength)),
+    ("Phillips pan head tapping, ST4.2", Bolt.phillipsPanHeadTapping(.st4p2, length: boltLength)),
+    ("Phillips countersunk tapping, cone end, ST3.5", Bolt.phillipsCountersunkTapping(.st3p5, length: boltLength)),
+    ("Phillips countersunk tapping, flat end, ST4.8", Bolt.phillipsCountersunkTapping(.st4p8, end: .flat, length: boltLength)),
     ("Hex socket set screw, dog point, M6", Bolt.setScrew(.m6, socket: .hexSocket, point: .dog, length: boltLength)),
     ("Slotted set screw, flat, M5", Bolt.setScrew(.m5, socket: .slotted, point: .flat, length: boltLength)),
     ("Custom non-standard bolt with square thread", customBolt)

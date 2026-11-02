@@ -148,4 +148,14 @@ public struct Bolt: Geometry3D {
             entry: clearanceEntry
         )
     }
+
+    /// Creates a tapping hole sized for this screw to form its own thread in.
+    ///
+    /// - Parameter depth: The depth of the hole. Defaults to the nominal length, which is how
+    ///   far the screw reaches below the surface it enters for both countersunk heads, whose
+    ///   length includes the head, and heads that sit on the surface.
+    /// - Returns: A tapping hole configured for this screw.
+    public func tappingHole(depth: Double? = nil) -> TappingHole {
+        TappingHole(thread: thread, depth: depth ?? length)
+    }
 }
