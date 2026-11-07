@@ -150,3 +150,48 @@ struct TappingHoleTests {
         }
     }
 }
+
+struct SlottedTappingTests {
+    // DIN 7972 shares its head diameters with DIN 7982, and the same 80° cone: only the
+    // drive differs. If the two tables ever disagree, one of them has been mistranscribed.
+    @Test func `DIN 7972 head matches the cross recessed DIN 7982 head`() {
+        for size in [ScrewThread.TappingSize.st2p2, .st2p9, .st3p5, .st3p9,
+                     .st4p2, .st4p8, .st5p5, .st6p3] {
+            let slotted = Bolt.slottedCountersunkTapping(size, length: 16)
+            let crossRecessed = Bolt.phillipsCountersunkTapping(size, length: 16)
+            guard let a = slotted.headShape as? CountersunkBoltHeadShape,
+                  let b = crossRecessed.headShape as? CountersunkBoltHeadShape else {
+                Issue.record("\(size) has no countersunk head"); continue
+            }
+            #expect(a.countersink.angle == 80°, "\(size)")
+            #expect(isClose(a.countersink.topDiameter, b.countersink.topDiameter), "\(size)")
+            #expect(isClose(a.height, b.height), "\(size)")
+        }
+    }
+
+    // DIN 7971's head is flat topped with a rounded edge, and lower than the crowned DIN 7981
+    // head of the same thread size — 2.1 against 2.6 at ST3.5.
+    @Test func `DIN 7971 head dimensions match the table`() {
+        let expected: [(ScrewThread.TappingSize, dk: Double, k: Double)] = [
+            (.st2p9, 5.6, 1.75), (.st3p5, 6.9, 2.1), (.st4p2, 8.2, 2.45),
+            (.st4p8, 9.5, 2.8), (.st5p5, 10.8, 3.2), (.st6p3, 12.5, 3.65)
+        ]
+        for (size, dk, k) in expected {
+            guard let head = Bolt.slottedPanHeadTapping(size, length: 16).headShape as? CylindricalBoltHeadShape else {
+                Issue.record("\(size) has no cylindrical head"); continue
+            }
+            #expect(isClose(head.diameter, dk), "\(size)")
+            #expect(isClose(head.height, k), "\(size)")
+            #expect(head.roundedTopRadius == nil, "\(size)")
+        }
+        #expect(Bolt.slottedPanHeadTapping(.st3p5, length: 16).headShape.height
+                < Bolt.phillipsPanHeadTapping(.st3p5, length: 16).headShape.height)
+    }
+
+    // A pan head sits on the surface, so none of the nominal length goes into it; a
+    // countersunk head is inside that length.
+    @Test func `only the countersunk head consumes nominal length`() {
+        #expect(Bolt.slottedPanHeadTapping(.st3p5, length: 16).headShape.consumedLength == 0)
+        #expect(Bolt.slottedCountersunkTapping(.st3p5, length: 16).headShape.consumedLength > 0)
+    }
+}
